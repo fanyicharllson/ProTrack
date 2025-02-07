@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { formSchema } from "@/lib/SignUpSchema";
+import { SignInSchema } from "@/lib/SignInSchema";
 import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
@@ -24,21 +24,18 @@ import { useState } from "react";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof SignInSchema>>({
+    resolver: zodResolver(SignInSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      terms: false,
+      KeepLoggedIn: false,
     },
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof SignInSchema>) {
     console.log(values);
   }
 
@@ -59,31 +56,15 @@ export default function SignUpPage() {
 
           <div className="space-y-6">
             <div>
-              <h1 className="text-2xl font-semibold">Welcome to ProTrack!</h1>
+              <h1 className="text-2xl font-semibold">Sign in</h1>
               <p className="text-muted-foreground">
-                Sign up and start managing your projects now
+                Welcome there! Sign in to continue with Protrack
               </p>
             </div>
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="username"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Username</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your full name"
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
                   <FormField
                     control={form.control}
                     name="email"
@@ -137,77 +118,40 @@ export default function SignUpPage() {
                   />
                   <FormField
                     control={form.control}
-                    name="confirmPassword"
+                    name="KeepLoggedIn"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Confrim Password</FormLabel>
-                        <FormControl>
-                          <div className="relative">
-                            <Input
-                              id="confirmPassword"
-                              type={showConfirmPassword ? "text" : "password"}
-                              placeholder="Repeat your password"
-                              {...field}
-                            />
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="icon"
-                              className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                              aria-label="Toggle password visibility"
-                              onClick={() =>
-                                setShowConfirmPassword(!showConfirmPassword)
-                              }
-                            >
-                              {showConfirmPassword ? (
-                                <EyeOff className="h-4 w-4 text-muted-foreground" />
-                              ) : (
-                                <Eye className="h-4 w-4 text-muted-foreground" />
-                              )}
-                            </Button>
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="terms"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="terms"
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                          <label htmlFor="terms" className="text-sm">
-                            I agree to the{" "}
+                      <>
+                        <div className="flex items-center justify-between">
+                          <FormItem>
+                            <div className="flex items-center space-x-2">
+                              <Checkbox
+                                id="KeepLoggedIn"
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                              <label htmlFor="KeepLoggedIn" className="text-sm">
+                                Keep me logged in{" "}
+                              </label>
+                            </div>
+                            <FormMessage />
+                          </FormItem>
+                          <div>
                             <Link
                               href="#"
-                              className="text-primary hover:underline"
+                              className="text-purple-700 hover:underline text-sm"
                             >
-                              Terms
-                            </Link>{" "}
-                            &{" "}
-                            <Link
-                              href="#"
-                              className="text-primary hover:underline"
-                            >
-                              Privacy
+                              Forgot password?
                             </Link>
-                          </label>
+                          </div>
                         </div>
-                        <FormMessage />
-                      </FormItem>
+                      </>
                     )}
                   />
                   <Button
                     className="w-full bg-purple-500 hover:bg-purple-600"
                     size="lg"
                   >
-                    Sign up
+                    Sign in
                   </Button>
                 </div>
               </form>
@@ -220,7 +164,7 @@ export default function SignUpPage() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-white px-2 text-muted-foreground">
-                    or continue with
+                    or sign in with
                   </span>
                 </div>
               </div>
@@ -243,9 +187,9 @@ export default function SignUpPage() {
             </div>
 
             <div className="text-center text-sm">
-              Have an account?{" "}
-              <Link href="/sign-in" className="text-purple-700 hover:underline">
-                Sign in
+              Don&apos;t have an account?{" "}
+              <Link href="/sign-up" className="text-purple-700 hover:underline">
+                Sign up
               </Link>
             </div>
           </div>
