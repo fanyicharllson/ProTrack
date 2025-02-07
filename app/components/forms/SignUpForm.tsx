@@ -59,7 +59,7 @@ export default function SignUpPage() {
 
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <FormField
                     control={form.control}
                     name="username"
@@ -315,6 +315,7 @@ export default function SignUpPage() {
                 src={ProjectImage}
                 alt="Project management illustration"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
                 priority
               />
