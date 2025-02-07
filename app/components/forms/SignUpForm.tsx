@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { formSchema } from "@/lib/Schema";
 import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
-import ProjectImage from "@/public/images/project.png";
+import ProjectImage from "@/public/images/project2.jpg";
 
 export default function SignUpPage() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,10 +43,14 @@ export default function SignUpPage() {
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-semibold">Pro</span>
+            <div className="flex items-center space-x-2">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+                <span className="text-white font-bold text-lg">Pro</span>
+              </div>
+              <span className="font-semibold text-2xl bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+                Protrack
+              </span>
             </div>
-            <span className="font-semibold text-xl">Protrack</span>
           </div>
 
           <div className="space-y-6">
@@ -181,7 +185,10 @@ export default function SignUpPage() {
                       </FormItem>
                     )}
                   />
-                  <Button className="w-full bg-primary" size="lg">
+                  <Button
+                    className="w-full bg-purple-500 hover:bg-purple-600"
+                    size="lg"
+                  >
                     Sign up
                   </Button>
                 </div>
@@ -219,7 +226,7 @@ export default function SignUpPage() {
 
             <div className="text-center text-sm">
               Have an account?{" "}
-              <Link href="#" className="text-primary hover:underline">
+              <Link href="#" className="text-purple-700 hover:underline">
                 Sign in
               </Link>
             </div>
@@ -232,7 +239,7 @@ export default function SignUpPage() {
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-primary/10 p-2">
+                <div className="rounded-full bg-purple-200 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -250,7 +257,7 @@ export default function SignUpPage() {
                 <div className="text-sm">Manage your Projects</div>
               </div>
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-primary/10 p-2">
+                <div className="rounded-full bg-purple-200 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -271,7 +278,7 @@ export default function SignUpPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-primary/10 p-2">
+                <div className="rounded-full bg-purple-200 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -291,7 +298,7 @@ export default function SignUpPage() {
                 <div className="text-sm">Create Projects</div>
               </div>
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-primary/10 p-2">
+                <div className="rounded-full bg-purple-200 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
