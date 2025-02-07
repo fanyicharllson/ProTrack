@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Apple, Eye } from "lucide-react";
+import { Apple, Eye, EyeOff } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -20,8 +20,12 @@ import { formSchema } from "@/lib/Schema";
 import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
+import { useState } from "react";
 
 export default function SignUpPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -107,17 +111,23 @@ export default function SignUpPage() {
                           <div className="relative">
                             <Input
                               id="password"
-                              type="password"
+                              type={showPassword ? "text" : "password"}
                               placeholder="Enter your password"
                               {...field}
                             />
                             <Button
+                              type="button"
                               variant="ghost"
                               size="icon"
                               className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
                               aria-label="Toggle password visibility"
+                              onClick={() => setShowPassword(!showPassword)}
                             >
-                              <Eye className="h-4 w-4 text-muted-foreground" />
+                              {showPassword ? (
+                                <EyeOff className="h-4 w-4 text-muted-foreground" />
+                              ) : (
+                                <Eye className="h-4 w-4 text-muted-foreground" />
+                              )}
                             </Button>
                           </div>
                         </FormControl>
@@ -135,17 +145,25 @@ export default function SignUpPage() {
                           <div className="relative">
                             <Input
                               id="confirmPassword"
-                              type="password"
+                              type={showConfirmPassword ? "text" : "password"}
                               placeholder="Repeat your password"
                               {...field}
                             />
                             <Button
+                              type="button"
                               variant="ghost"
                               size="icon"
                               className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
                               aria-label="Toggle password visibility"
+                              onClick={() =>
+                                setShowConfirmPassword(!showConfirmPassword)
+                              }
                             >
-                              <Eye className="h-4 w-4 text-muted-foreground" />
+                              {showConfirmPassword ? (
+                                <EyeOff className="h-4 w-4 text-muted-foreground" />
+                              ) : (
+                                <Eye className="h-4 w-4 text-muted-foreground" />
+                              )}
                             </Button>
                           </div>
                         </FormControl>
