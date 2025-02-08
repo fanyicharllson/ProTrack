@@ -44,21 +44,23 @@ export default function SignUpPage() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setErrorMessage("");
+    setSuccessMessage("");
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: values.username,
         email: values.email,
+        username: values.username,
         password: values.password,
       }),
     });
 
     if (response.ok) {
       setSuccessMessage("Account created successfully! Redirecting...");
-      form.reset(); 
+      form.reset();
       setTimeout(() => {
         router.push("/sign-in");
       }, 5000);
@@ -92,10 +94,11 @@ export default function SignUpPage() {
               </p>
             </div>
 
-            {successMessage && <Message type="success" message={successMessage} />}
+            {successMessage && (
+              <Message type="success" message={successMessage} />
+            )}
             {errorMessage && <Message type="error" message={errorMessage} />}
 
-            
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="space-y-4">
