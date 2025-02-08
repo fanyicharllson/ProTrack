@@ -21,9 +21,12 @@ import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -35,8 +38,24 @@ export default function SignUpPage() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignInSchema>) {
-    console.log(values);
+  const onSubmit = async(values: z.infer<typeof SignInSchema>) => {
+    console.log('Form submitted with values:', values);
+    const signInData = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      rememberMe: values.KeepLoggedIn,
+      redirect: false
+    })
+
+    console.log('Sign-in response:', signInData);
+
+    if(signInData?.error) {
+        console.error(signInData.error)
+    } else {
+      console.log('Sign-in successful, redirecting to user dashboard...');
+      router.push('/dashboard')
+    }
+
   }
 
   return (
