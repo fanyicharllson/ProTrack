@@ -24,13 +24,13 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
 
   return (
     <div
-      className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-4 px-4 py-3 rounded ${bgColor} ${borderColor} ${textColor} transition-transform duration-500 ease-in-out ${
-        visible ? 'translate-y-0' : '-translate-y-20'
+      className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-6 px-4 py-3 rounded ${bgColor} ${borderColor} ${textColor} transition-transform duration-500 ease-in-out ${
+        visible ? 'translate-y-0' : '-translate-y-28'
       }`}
       role="alert"
     >
-      <strong className="font-bold">{title}</strong>
-      <span className="block sm:inline"> {message}</span>
+      <strong className="font-bold max-sm:text-sm">{title}</strong>
+      <span className="block sm:inline max-sm:text-sm"> {message}</span>
     </div>
   );
 };

@@ -26,11 +26,18 @@ export async function POST(req: Request) {
       db.user.findUnique({ where: { username } }),
     ]);
 
-    if (existingUserByEmail || existingUserByUsername) {
-      const message = existingUserByEmail
-        ? "User with this email already exists"
-        : "User with this username already exists";
-      return NextResponse.json({ user: null, message }, { status: 409 });
+    if (existingUserByEmail) {
+      return NextResponse.json(
+        { user: null, message: "User with this email already exists" },
+        { status: 409 }
+      );
+    }
+
+    if (existingUserByUsername) {
+      return NextResponse.json(
+        { user: null, message: "User with this username already exists" },
+        { status: 409 }
+      );
     }
 
     // Hash password
