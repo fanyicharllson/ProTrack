@@ -21,10 +21,15 @@ import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Message from "../message";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,10 +43,32 @@ export default function SignUpPage() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const response = await fetch("/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      }),
+    });
 
+    if (response.ok) {
+      setSuccessMessage("Account created successfully! Redirecting...");
+      form.reset(); 
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 5000);
+    } else if (response.status === 409) {
+      const data = await response.json();
+      setErrorMessage(data.message);
+    } else {
+      setErrorMessage("Something went wrong. Please try again.");
+    }
+  };
   return (
     <div className="min-h-screen w-full bg-white p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
@@ -65,6 +92,10 @@ export default function SignUpPage() {
               </p>
             </div>
 
+            {successMessage && <Message type="success" message={successMessage} />}
+            {errorMessage && <Message type="error" message={errorMessage} />}
+
+            
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <div className="space-y-4">
@@ -206,8 +237,37 @@ export default function SignUpPage() {
                   <Button
                     className="w-full bg-purple-500 hover:bg-purple-600"
                     size="lg"
+                    disabled={form.formState.isSubmitting}
                   >
-                    Sign up
+                    {form.formState.isSubmitting ? (
+                      <div className="flex items-center gap-4">
+                        <div>
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v8H4z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <span>Signing up...</span>
+                      </div>
+                    ) : (
+                      "Sign up"
+                    )}
                   </Button>
                 </div>
               </form>
