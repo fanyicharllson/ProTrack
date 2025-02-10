@@ -12,7 +12,7 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
     setVisible(true);
     const timer = setTimeout(() => {
       setVisible(false);
-    }, 5000); 
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, [message]);
@@ -26,11 +26,11 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
     <div
       className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-6 px-4 py-3 rounded ${bgColor} ${borderColor} ${textColor} transition-transform duration-500 ease-in-out ${
         visible ? 'translate-y-0' : '-translate-y-28'
-      }`}
+      } max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl w-full mx-auto`}
       role="alert"
     >
-      <strong className="font-bold max-sm:text-sm">{title}</strong>
-      <span className="block sm:inline max-sm:text-sm"> {message}</span>
+      <strong className="font-bold text-sm sm:text-base md:text-lg">{title}</strong>
+      <span className="block text-sm sm:text-base md:text-lg"> {message}</span>
     </div>
   );
 };

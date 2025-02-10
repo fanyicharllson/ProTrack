@@ -22,14 +22,14 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error("Missing email or password");
         }
 
         const existingUser = await db.user.findUnique({
           where: { email: credentials?.email },
         });
         if (!existingUser) {
-          return null;
+          throw new Error("Invalid email or password")
         }
 
         const passwordMatch = await compare(
@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!passwordMatch) {
-          return null;
+         throw new Error("Invalid email or password")
         }
 
         return {
@@ -51,8 +51,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log(`token1: ${token}`);
-      console.log(`user1: ${user}`);
       if (user) {
         return {
           ...token,
@@ -62,8 +60,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log(`session1: ${session}`);
-      console.log(`token2: ${token}`);
       return {
         ...session,
         user: {
