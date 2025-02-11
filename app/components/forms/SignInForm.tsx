@@ -42,7 +42,6 @@ export default function SignUpPage() {
     },
   });
 
-  // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof SignInSchema>) => {
     setIsLoading(true);
     setErrorMessage("");
@@ -179,7 +178,7 @@ export default function SignUpPage() {
                     )}
                   />
                   <Button
-                    className="w-full bg-purple-500 hover:bg-purple-600"
+                    className={`w-full bg-purple-500 hover:bg-purple-600 disabled:btn-disabled transition-colors duration-300`}
                     size="lg"
                     disabled={isLoading}
                   >

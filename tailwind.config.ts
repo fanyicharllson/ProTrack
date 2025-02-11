@@ -56,7 +56,12 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			  purple: {
+				300: '#D6BCFA', 
+				500: '#9F7AEA', 
+				600: '#805AD5',
+			  },
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

@@ -238,7 +238,7 @@ export default function SignUpPage() {
                     )}
                   />
                   <Button
-                    className="w-full bg-purple-500 hover:bg-purple-600"
+                    className={`w-full bg-purple-500 hover:bg-purple-600 disabled:btn-disabled transition-colors duration-300`}
                     size="lg"
                     disabled={form.formState.isSubmitting}
                   >
