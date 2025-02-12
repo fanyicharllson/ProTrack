@@ -22,16 +22,17 @@ import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Message from "../message";
+import {  useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  
   const router = useRouter();
+
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -57,9 +58,9 @@ export default function SignUpPage() {
       setErrorMessage(signInData.error);
     } else {
       setSuccessMessage("Sign-in successful, redirecting to dashboard...");
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 3000);
+
+      router.replace("/dashboard");
+
     }
     setIsLoading(false);
   };

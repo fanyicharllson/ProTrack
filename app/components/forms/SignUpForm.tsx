@@ -21,8 +21,8 @@ import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project2.jpg";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Message from "../message";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +42,7 @@ export default function SignUpPage() {
     },
   });
 
-  // 2. Define a submit handler.
+  
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setErrorMessage("");
     setSuccessMessage("");
@@ -60,10 +60,8 @@ export default function SignUpPage() {
 
     if (response.ok) {
       setSuccessMessage("Account created successfully! Redirecting...");
+      router.replace("/sign-in");
       form.reset();
-      setTimeout(() => {
-        router.push("/sign-in");
-      }, 5000);
     } else if (response.status === 409) {
       const data = await response.json();
       setErrorMessage(data.message);

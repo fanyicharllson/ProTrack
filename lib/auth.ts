@@ -4,18 +4,21 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "./db";
 import { compare } from "bcrypt";
 
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   secret: process.env.NEXTAUTH_SECRET,
+  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },
   pages: {
     signIn: "/sign-in",
+    signOut: "/sign-out",
   },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "joe@gmail.com" },
         password: { label: "Password", type: "password" },
@@ -40,33 +43,38 @@ export const authOptions: NextAuthOptions = {
         if (!passwordMatch) {
          throw new Error("Invalid email or password")
         }
-
-        return {
-          id: `${existingUser.id}`,
-          username: existingUser.username || '',
-          email: existingUser.email,
-        };
+       return {
+        id: `${existingUser.id}`,
+        username: existingUser.username || '',
+        email: existingUser.email,
+        image: existingUser.image || '', 
+       };
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user}) {
       if (user) {
         return {
           ...token,
+          id: user.id,
           username: user.username,
+          image: user.image,
         };
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token}) {
       return {
         ...session,
         user: {
           ...session.user,
+          id: token.id,
           username: token.username,
+          image: token.image as string | null,
         },
       };
     },
   },
 };
+

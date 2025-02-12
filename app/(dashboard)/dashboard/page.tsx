@@ -1,16 +1,33 @@
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+"use client"
+// import { getServerSession } from "next-auth";
+// import { authOptions } from "@/lib/auth";
+// import User from "@/app/components/User";
 import React from "react";
+// import { redirect } from "next/navigation";
+import UserAccountNav from "@/components/UserAccountnav";
+import { useSession} from 'next-auth/react';
 
-const UseDashboard = async () => {
-  const session = await getServerSession(authOptions);
+function Dashboard()  {
+  // const session = await getServerSession(authOptions);
 
-  if (session?.user) {
-    console.log("sign up was successful");
-    return <div>Welcome to admin dashborad {session?.user.username}</div>;
-  }
+  // if (!session) {
+  //   redirect("/sign-in");
+  // } 
 
-  return <h2 className="text-2xl">Please login</h2>;
+
+  
+  const { data: session, status } = useSession()
+  console.log(session)
+  console.log(status)
+  console.log("Session Data", session);
+
+  return (
+    <div>
+      <h1>Welcome to admin dashboard {session?.user.email}</h1>
+      {/* <User session={{ ...session, user: { ...session.user, name: session.user.name || "Default Name", image: session.user.image } }} /> */}
+      <UserAccountNav/>
+    </div>
+  );
 };
 
-export default UseDashboard;
+export default Dashboard;
