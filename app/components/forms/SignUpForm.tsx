@@ -24,6 +24,7 @@ import { useState } from "react";
 import Message from "../message";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Logo from "../Logo";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -74,17 +75,7 @@ export default function SignUpPage() {
     <div className="min-h-screen w-full bg-white p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center space-x-2">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
-                <span className="text-white font-bold text-lg">Pro</span>
-              </div>
-              <span className="font-semibold text-2xl bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
-                Protrack
-              </span>
-            </div>
-          </div>
-
+          <Logo/>
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-semibold">Welcome to ProTrack!</h1>
