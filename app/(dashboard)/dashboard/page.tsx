@@ -3,6 +3,7 @@ import React from "react";
 import UserAccountNav from "@/components/UserAccountnav";
 import { useSession } from "next-auth/react";
 import { SideBarLinks } from "@/lib/SideBarLinks";
+import { SideBarButtonLinks } from "@/lib/SideBarLinks";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,7 +15,7 @@ function Dashboard() {
   return (
     <div className="flex w-full">
       {/* Left side bar */}
-      <div className="h-screen w-[15%] bg-purple-200">
+      <div className="h-screen flex flex-col w-[15%] bg-purple-200">
         {/* Logo */}
         <div className="flex items-center gap-2 p-4">
           <div className="flex items-center space-x-2">
@@ -26,26 +27,56 @@ function Dashboard() {
             </span>
           </div>
         </div>
+
         {/* Links */}
-        <div className="mt-4">
-          {SideBarLinks.map((link, index) => (
-            <Link
-              href={link.href}
-              key={index}
-              className={`flex items-center gap-4 p-4 hover:bg-purple-300 transition-colors duration-300 cursor-pointer ${
-                pathname === link.href ? "bg-purple-600 text-white" : ""
-              }`}
-            >
-              <Image
-                src={link.icon}
-                alt={link.title}
-                className={`h-6 w-6 ${
-                  pathname === link.href ? "filter brightness-0 invert" : ""
+        <div className="flex flex-col flex-1 px-2">
+          {/* Main Links */}
+          <div className="mt-9">
+            {SideBarLinks.map((link, index) => (
+              <Link
+                href={link.href}
+                key={index}
+                className={`flex items-center gap-4 p-3 transition-colors rounded-full duration-300 cursor-pointer ${
+                  pathname === link.href
+                    ? "bg-purple-600 text-white"
+                    : "hover:bg-purple-300"
                 }`}
-              />
-              <span className="text-sm">{link.title}</span>
-            </Link>
-          ))}
+              >
+                <Image
+                  src={link.icon}
+                  alt={link.title}
+                  className={`h-6 w-6 ${
+                    pathname === link.href ? "filter brightness-0 invert" : ""
+                  }`}
+                />
+                <span className="text-sm">{link.title}</span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Bottom Links (Help and Sign Out) */}
+          <div className="mt-auto mb-4">
+            {SideBarButtonLinks.map((link, index) => (
+              <Link
+                href={link.href}
+                key={index}
+                className={`flex items-center gap-4 p-3 rounded-full ${
+                  pathname === link.href
+                    ? "bg-purple-600 text-white"
+                    : "hover:bg-purple-300"
+                } transition-colors duration-300 cursor-pointer`}
+              >
+                <Image
+                  src={link.icon}
+                  alt={link.title}
+                  className={`h-6 w-6 ${
+                    pathname === link.href ? "filter brightness-0 invert" : ""
+                  }`}
+                />
+                <span className="text-sm">{link.title}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
 
