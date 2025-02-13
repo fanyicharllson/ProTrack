@@ -1,9 +1,16 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { db } from "./db";
+import { db } from "@/lib/db";
 import { compare } from "bcrypt";
+import GoogleProvider from "next-auth/providers/google";
 
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+
+if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+  throw new Error("Missing Google OAuth environment variables");
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -32,7 +39,7 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials?.email },
         });
         if (!existingUser) {
-          throw new Error("Invalid email or password")
+          throw new Error("Invalid email or password");
         }
 
         const passwordMatch = await compare(
@@ -41,19 +48,32 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!passwordMatch) {
-         throw new Error("Invalid email or password")
+          throw new Error("Invalid email or password");
         }
-       return {
-        id: `${existingUser.id}`,
-        username: existingUser.username || '',
-        email: existingUser.email,
-        image: existingUser.image || '', 
-       };
+        return {
+          id: `${existingUser.id}`,
+          username: existingUser.username || "",
+          email: existingUser.email,
+          image: existingUser.image || "",
+        };
       },
+    }),
+    GoogleProvider({
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
     }),
   ],
   callbacks: {
-    async jwt({ token, user}) {
+    async jwt({ token, user, account, profile }) {
+      if (account?.provider === "google" && user) {
+        return {
+          ...token,
+          id: user.id,
+          username: user.username || profile?.name,
+          email: user.email || profile?.email,
+          image: user.image || profile?.image,
+        };
+      }
       if (user) {
         return {
           ...token,
@@ -64,7 +84,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async session({ session, token}) {
+    async session({ session, token }) {
       return {
         ...session,
         user: {
@@ -75,6 +95,28 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
+    // async signIn({ profile }) {
+    //   try {
+    //     const existingUser = await db.user.findUnique({
+    //       where: { email: profile?.email },
+    //     });
+
+    //     if (!existingUser) {
+    //       await db.user.create({
+    //         data: {
+    //           email: profile?.email || "",
+    //           username: profile?.name,
+    //           image: profile?.image,
+    //           password: "google-oauth",
+    //         },
+    //       });
+    //     }
+    //   } catch (error) {
+    //     console.error("Error signing in with Google", error);
+    //     return false;
+    //   }
+
+    //   return true;
+    // },
   },
 };
-

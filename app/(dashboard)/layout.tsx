@@ -1,11 +1,11 @@
 import React from "react";
 
-interface AuthLayoutProps {
+interface DashboardProps {
   children: React.ReactNode;
 }
 
-function AuthLayout({ children }: AuthLayoutProps) {
+function DashboardLayout({ children }: DashboardProps) {
   return <div>{children}</div>;
 }
 
-export default AuthLayout;
+export default DashboardLayout;

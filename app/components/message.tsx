@@ -25,7 +25,7 @@ const Message: React.FC<MessageProps> = ({ type, message }) => {
   return (
     <div
       className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-6 px-4 py-3 rounded ${bgColor} ${borderColor} ${textColor} transition-transform duration-500 ease-in-out ${
-        visible ? 'translate-y-0' : '-translate-y-28'
+        visible ? 'translate-y-0' : '-translate-y-40'
       } max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl w-full mx-auto`}
       role="alert"
     >

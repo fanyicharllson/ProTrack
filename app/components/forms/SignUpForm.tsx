@@ -23,6 +23,7 @@ import ProjectImage from "@/public/images/project2.jpg";
 import { useState } from "react";
 import Message from "../message";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);

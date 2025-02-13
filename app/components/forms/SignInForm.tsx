@@ -57,7 +57,7 @@ export default function SignUpPage() {
     if (signInData?.error) {
       setErrorMessage(signInData.error);
     } else {
-      setSuccessMessage("Sign-in successful, redirecting to dashboard...");
+      setSuccessMessage("Signed in successfully");
 
       router.replace("/dashboard");
 
@@ -179,7 +179,7 @@ export default function SignUpPage() {
                     )}
                   />
                   <Button
-                    className={`w-full bg-purple-500 hover:bg-purple-600 disabled:btn-disabled transition-colors duration-300`}
+                    className={`w-full bg-purple-500 hover:bg-purple-600 disabled:btn-disabled disabled:cursor-not-allowed transition-colors duration-300`}
                     size="lg"
                     disabled={isLoading}
                   >

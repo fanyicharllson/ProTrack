@@ -1,33 +1,28 @@
-"use client"
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/lib/auth";
-// import User from "@/app/components/User";
+"use client";
 import React from "react";
-// import { redirect } from "next/navigation";
 import UserAccountNav from "@/components/UserAccountnav";
-import { useSession} from 'next-auth/react';
+import { useSession } from "next-auth/react";
 
-function Dashboard()  {
-  // const session = await getServerSession(authOptions);
-
-  // if (!session) {
-  //   redirect("/sign-in");
-  // } 
-
-
-  
-  const { data: session, status } = useSession()
-  console.log(session)
-  console.log(status)
+function Dashboard() {
+  const { data: session } = useSession();
   console.log("Session Data", session);
 
   return (
-    <div>
-      <h1>Welcome to admin dashboard {session?.user.email}</h1>
-      {/* <User session={{ ...session, user: { ...session.user, name: session.user.name || "Default Name", image: session.user.image } }} /> */}
-      <UserAccountNav/>
+    <div className="flex w-full bg-gray-100">
+      {/* Left side bar */}
+      <div className="h-screen w-[15%] bg-purple-500"></div>
+
+      {/* Right side bar */}
+      <div className="h-screen w-[85%] bg-gray-300">
+        <div className="flex justify-between items-center">
+          <h1 className="text-lg md:text-2xl font-bold">
+            Welcome {session?.user.username}!
+          </h1>
+        </div>
+        <UserAccountNav />
+      </div>
     </div>
   );
-};
+}
 
 export default Dashboard;
