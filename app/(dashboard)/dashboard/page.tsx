@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import UserAccountNav from "@/components/UserAccountnav";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { SideBarLinks } from "@/lib/SideBarLinks";
 import { SideBarButtonLinks } from "@/lib/SideBarLinks";
 import Image from "next/image";
@@ -60,6 +60,17 @@ function Dashboard() {
               <Link
                 href={link.href}
                 key={index}
+                onClick={
+                  link.title === "Sign Out"
+                    ? (e) => {
+                        e.preventDefault();
+                        signOut({
+                          redirect: true,
+                          callbackUrl: `${window.location.origin}/sign-in`,
+                        });
+                      }
+                    : undefined
+                }
                 className={`flex items-center gap-4 p-3 rounded-full ${
                   pathname === link.href
                     ? "bg-purple-600 text-white"
