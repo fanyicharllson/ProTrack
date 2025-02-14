@@ -58,7 +58,7 @@ export default function SignUpPage() {
     if (signInData?.error) {
       setErrorMessage(signInData.error);
     } else {
-      setSuccessMessage("Signed in successfully");
+      setSuccessMessage("Signed in successfully, Redirecting...");
 
       router.replace("/dashboard");
 
