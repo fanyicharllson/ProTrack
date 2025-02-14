@@ -71,7 +71,7 @@ export default function UserProfile() {
           <>
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-black bg-opacity-30 z-40"
+              className="fixed inset-0 bg-black bg-opacity-30 z-40 max-sm-500:hidden"
               onClick={toggleDropdown}
             ></div>
 

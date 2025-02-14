@@ -127,7 +127,7 @@ function Dashboard() {
 
       {/* Right side bar */}
       <div
-        className={`h-screen bg-white transition-all duration-300 ${
+        className={`h-screen bg-white transition-all duration-300 overflow-y-auto ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
@@ -135,11 +135,21 @@ function Dashboard() {
       >
         <div className="flex justify-between items-center p-3 max-sm-500:w-full">
           <div className="">
-            <h1 className="text-sm md:text-2xl font-bold">
+            <div className="flex items-center gap-2 sm-500:hidden">
+              <div className="flex items-center space-x-2">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+                  <span className="text-white font-bold text-lg">Pro</span>
+                </div>
+                <span className="font-semibold text-2xl bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+                  Protrack
+                </span>
+              </div>
+            </div>
+            <h1 className="text-lg md:text-2xl font-bold max-sm-500:hidden">
               Welcome back, {session?.user.username.split(" ")[0]}!
             </h1>
-            <p className="text-sm text-gray-400 flex-wrap hidden md:block">
-              It is the best time to manage and track your projects
+            <p className="text-sm text-gray-400 flex-wrap max-sm-500:hidden">
+              Track and Manage Your Project Now
             </p>
           </div>
           <div className="flex items-center gap-4">
