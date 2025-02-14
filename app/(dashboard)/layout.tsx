@@ -5,7 +5,7 @@ interface DashboardProps {
 }
 
 function DashboardLayout({ children }: DashboardProps) {
-  return <div>{children}</div>;
+  return <main>{children}</main>;
 }
 
 export default DashboardLayout;
