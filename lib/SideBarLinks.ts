@@ -44,6 +44,6 @@ export const SideBarButtonLinks = [
   {
     href: "/signout",
     icon: signoutIcon,
-    title: "Sign Out",
+    title: "Log Out",
   }
 ];

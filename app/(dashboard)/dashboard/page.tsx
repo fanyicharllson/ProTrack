@@ -20,7 +20,7 @@ function Dashboard() {
     <div className="flex w-full">
       {/* Left side bar */}
       <div
-        className={`h-screen flex flex-col bg-purple-200 transition-all duration-300  ${
+        className={`h-screen sm-500:flex flex-col bg-purple-200 transition-all duration-300 hidden ${
           isSidebarOpen ? "w-[200px]" : "w-[60px] md:w-[20%]"
         }`}
       >
@@ -130,12 +130,12 @@ function Dashboard() {
         className={`h-screen bg-white transition-all duration-300 ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
-            : "w-[calc(100%-60px)] md:w-[80%]"
+            : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
         }`}
       >
-        <div className="flex justify-between items-center p-3">
+        <div className="flex justify-between items-center p-3 max-sm-500:w-full">
           <div className="">
-            <h1 className="text-lg md:text-2xl font-bold">
+            <h1 className="text-sm md:text-2xl font-bold">
               Welcome back, {session?.user.username.split(" ")[0]}!
             </h1>
             <p className="text-sm text-gray-400 flex-wrap hidden md:block">
@@ -151,6 +151,56 @@ function Dashboard() {
             </div>
             <UserProfile />
           </div>
+        </div>
+      </div>
+
+      {/* Bottom Scrollable Bar (Visible on Mobile) */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg sm-500:hidden z-40">
+        <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
+          {SideBarLinks.map((link, index) => (
+            <Link
+              href={link.href}
+              key={index}
+              className="flex flex-col items-center justify-center p-2 min-w-[60px] text-center"
+            >
+              <div
+                className={`p-2 ${
+                  pathname === link.href ? "bg-purple-600 rounded-full" : ""
+                }`}
+              >
+                <Image
+                  src={link.icon}
+                  alt={link.title}
+                  className={`h-6 w-6 ${
+                    pathname === link.href ? "filter brightness-0 invert" : ""
+                  }`}
+                />
+              </div>
+              <span className="text-xs mt-1">{link.title}</span>
+            </Link>
+          ))}
+          {SideBarButtonLinks.map((link, index) => (
+            <Link
+              href={link.href}
+              key={index}
+              className="flex flex-col items-center justify-center p-2 min-w-[60px] text-center"
+            >
+              <div
+                className={`p-2 ${
+                  pathname === link.href ? "bg-purple-600 rounded-full" : ""
+                }`}
+              >
+                <Image
+                  src={link.icon}
+                  alt={link.title}
+                  className={`h-6 w-6 ${
+                    pathname === link.href ? "filter brightness-0 invert" : ""
+                  }`}
+                />
+              </div>
+              <span className="text-xs mt-1">{link.title}</span>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
