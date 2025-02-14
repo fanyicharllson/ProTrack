@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import UserAccountNav from "@/components/UserAccountnav";
+import UserProfile from "@/components/UserProfile";
 import { useSession, signOut } from "next-auth/react";
 import { SideBarLinks } from "@/lib/SideBarLinks";
 import { SideBarButtonLinks } from "@/lib/SideBarLinks";
@@ -8,6 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import menuIcon from "@/public/images/icons/menuIcon.svg";
+import notificationIcon from "@/public/images/icons/notificationIcon.svg";
+import searchIcon from "@/public/images/icons/searchIcon.svg";
 
 function Dashboard() {
   const { data: session } = useSession();
@@ -131,7 +133,7 @@ function Dashboard() {
             : "w-[calc(100%-60px)] md:w-[80%]"
         }`}
       >
-        <div className="flex justify-between items-center p-4">
+        <div className="flex justify-between items-center p-3">
           <div className="">
             <h1 className="text-lg md:text-2xl font-bold">
               Welcome back, {session?.user.username.split(" ")[0]}!
@@ -140,7 +142,15 @@ function Dashboard() {
               It is the best time to manage and track your projects
             </p>
           </div>
-          <UserAccountNav />
+          <div className="flex items-center gap-4">
+            <div className="cursor-pointer border border-gray-400 rounded-full p-2">
+              <Image src={searchIcon} alt="search" className="w-6 h-6" />
+            </div>
+            <div className="cursor-pointer border border-gray-400 rounded-full p-2">
+              <Image src={notificationIcon} alt="search" className="w-6 h-6" />
+            </div>
+            <UserProfile />
+          </div>
         </div>
       </div>
     </div>
