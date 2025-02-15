@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ProTrack",
+  title: "ProTrack-developers",
   description: "ProTrack is a project management tool for developers",
 };
 

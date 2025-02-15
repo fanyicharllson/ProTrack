@@ -15,12 +15,12 @@ export const SideBarLinks = [
   {
     title: "Projects",
     icon: projectIcon,
-    href: "/projects",
+    href: "/project",
   },
   {
     title: "Goals",
     icon: goalsIcon,
-    href: "/projects",
+    href: "/goals",
   },
   {
     title: "Analitics",
