@@ -27,7 +27,7 @@ export const projects: Projects[] = [
     {
       date: '27 Jul 9:00',
       budget: '- $80',
-      projectName: 'Eccomence',
+      projectName: 'Smart Chart',
       prolanguage: 'PHP',
       type: 'Cafe & Restaurants',
       // projectIcon: '/icons/yaposhka.png',

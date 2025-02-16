@@ -19,21 +19,21 @@ function ProjectTable() {
         </div>
       </div>
       {/* Responsive Scrollable Table Container */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto scrollbar-hide">
         <table className="w-full min-w-max border-collapse">
-          <thead>
-            <tr className="bg-gray-100 text-sm text-gray-600">
-              <th className="py-2 px-4 text-left">DATE</th>
+          <thead className="bg-purple-100 text-sm text-purple-600">
+            <tr>
+              <th className="py-2 px-4 text-left rounded-l-2xl">DATE</th>
               <th className="py-2 px-4 text-left">BUDGET</th>
               <th className="py-2 px-4 text-left">PROJECT NAME</th>
               <th className="py-2 px-4 text-left">PROGRAMMING LANGUAGE</th>
-              <th className="py-2 px-4 text-left">TYPE</th>
+              <th className="py-2 px-4 text-left rounded-r-2xl">TYPE</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((txn, index) => (
-              <tr key={index} className="border-t text-sm">
-                <td className="py-3 px-4">{txn.date}</td>
+              <tr key={index} className="border-t text-sm hover:bg-purple-50">
+                <td className="py-3 px-4 font-medium">{txn.date}</td>
                 <td className="py-3 px-4">{txn.budget}</td>
                 <td className="py-3 px-4 flex items-center gap-2">
                   {/* <Image src={txn.projectIcon} alt={txn.projectName} width={20} height={20} /> */}
