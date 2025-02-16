@@ -11,7 +11,7 @@ export default function Home() {
     if (status === "authenticated") {
       router.replace("/dashboard");
     } else if (status === "unauthenticated") {
-      router.replace("/sign-in");
+      router.replace("/sign-up");
     }
   }, [status, router]);
 

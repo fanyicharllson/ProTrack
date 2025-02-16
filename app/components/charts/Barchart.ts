@@ -28,10 +28,10 @@ export const Barchartdata = {
 
 export const Barchartoptions = {
   responsive: true,
-  maintainAspectRatio: false, // Ensures animations work properly
+  maintainAspectRatio: false, 
   animation: {
-    duration: 2000, // Increase duration for smooth effect
-    easing: "easeInOutQuart", // Better easing effect
+    duration: 2000, 
+    easing: "easeInOutQuart", 
   },
   plugins: {
     legend: {
@@ -50,15 +50,15 @@ export const Barchartoptions = {
   scales: {
     x: {
       grid: {
-        display: false, // Hide x-axis grid lines
+        display: false, 
       },
     },
     y: {
       beginAtZero: true,
       grid: {
-        color: "rgba(0, 0, 0, 0.1)", // Subtle grid lines
-        borderDash: [5, 5], // Dashed grid
+        color: "rgba(0, 0, 0, 0.1)", 
+        borderDash: [5, 5], 
       },
     },
   },
-};
+} as const

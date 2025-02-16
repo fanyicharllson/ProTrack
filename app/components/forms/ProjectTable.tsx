@@ -12,7 +12,7 @@ function ProjectTable() {
         <div>
           <Button
             variant="outline"
-            className="text-sm flex items-center gap-1 rounded-full"
+            className="text-sm flex items-center gap-1 rounded-full bg-purple-50 hover:bg-purple-100"
           >
             See all <ChevronRight size={16} />
           </Button>

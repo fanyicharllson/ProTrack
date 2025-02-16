@@ -24,7 +24,7 @@ function DashboardLayout({ children }: DashboardProps) {
   const { data: session } = useSession();
 
   return (
-    <main className="flex w-full">
+    <main className="flex w-full h-screen overflow-hidden">
       {/* Left side bar */}
       <div
         className={`h-screen sm-500:flex flex-col bg-purple-100 transition-all duration-300 hidden ${
@@ -134,7 +134,7 @@ function DashboardLayout({ children }: DashboardProps) {
 
       {/* Right side bar */}
       <div
-        className={`h-screen bg-white transition-all duration-300 overflow-y-auto ${
+        className={`bg-white transition-all duration-300 overflow-x-auto pb-[40px] max-sm-500:pb-[370px] ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"

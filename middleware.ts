@@ -16,7 +16,7 @@ export async function middleware(req: NextRequest) {
   } else {
     // If not authenticated and trying to access protected routes
     if (!publicRoutes.includes(pathname)) {
-      return NextResponse.redirect(new URL("/sign-in", req.url));
+      return NextResponse.redirect(new URL("/sign-up", req.url));
     }
   }
 

@@ -14,8 +14,8 @@ const DonutChart = () => {
     datasets: [
       {
         data: [45, 30, 25],
-        backgroundColor: ["#A498FF", "#FFC107", "#FF6B6B"],
-        hoverBackgroundColor: ["#8C78FF", "#FFB300", "#FF5252"],
+        backgroundColor: ["#A498FF", "#00D68F", "#000000"],
+        hoverBackgroundColor: ["#8C78FF", "#00D68F", "#000000"],
         borderWidth: 2,
         cutout: "70%",
       },
@@ -25,7 +25,7 @@ const DonutChart = () => {
   return (
     <div className="relative bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-300 shadow-lg flex flex-col items-center w-full">
       <div>
-        <h2 className="text-[15px] font-semibold text-gray-500 dark:text-gray-200 mb-2">
+        <h2 className="text-sm font-semibold text-black dark:text-gray-200 mb-2">
           Project Distribution
         </h2>
         <div className="absolute right-0 top-0 border border-gray-300 dark:border-gray-600 rounded-full p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200">
