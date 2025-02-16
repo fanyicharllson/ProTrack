@@ -47,7 +47,7 @@ const DonutChart = () => {
           }}
         />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <p className="text-lg font-bold text-gray-900 dark:text-white">
+          <p className="text-sm font-bold text-gray-900 dark:text-white">
             Total Projects
           </p>
           <p className="text-2xl font-semibold text-purple-600 dark:text-purple-400">

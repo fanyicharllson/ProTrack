@@ -7,13 +7,16 @@ import {
 } from "@/app/components/charts/Barchart";
 import { Bar } from "react-chartjs-2";
 import DonutChart from "@/app/components/charts/DonutChart";
+import ProjectTable from "@/app/components/forms/ProjectTable";
 
 function Dashboard() {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <DashboardCard />
-      <div className="p-4">
-        <div className="h-60 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
+
+      {/* Barcharts and donuts graph */}
+      <div className="px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
           <div className="flex justify-center items-center border border-gray-300 p-4 rounded-2xl lg:col-span-2">
             <Bar
               key={JSON.stringify(Barchartdata)}
@@ -21,7 +24,13 @@ function Dashboard() {
               options={Barchartoptions}
             />
           </div>
-            <DonutChart />
+          <DonutChart />
+        </div>
+      </div>
+      {/* Table and progess barchart */}
+      <div className="px-4">
+        <div className="h-60 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
+          <ProjectTable />
         </div>
       </div>
     </div>
