@@ -23,13 +23,13 @@ const DonutChart = () => {
   });
 
   return (
-    <div className="relative bg-white dark:bg-gray-800 p-4 rounded-2xl border border-gray-300 shadow-lg flex flex-col items-center w-full">
+    <div className="relative bg-white dark:bg-gray-950 p-4 rounded-2xl border border-gray-300 shadow-lg flex flex-col items-center w-full">
       <div>
         <h2 className="text-sm font-semibold text-black dark:text-gray-200 mb-2">
           Project Distribution
         </h2>
         <div className="absolute right-0 top-0 border border-gray-300 dark:border-gray-600 rounded-full p-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200">
-          <Image src={rightarrow} alt="rightArrow" className="h-6 w-6" />
+          <Image src={rightarrow} alt="rightArrow" className="h-6 w-6 dark:filter dark:brightness-0 dark:invert" />
         </div>
       </div>
       <div className="relative w-60 h-60">

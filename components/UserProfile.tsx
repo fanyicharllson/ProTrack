@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import defaultProfile from "@/public/images/defaultProfile.jpeg";
@@ -20,7 +19,7 @@ export default function UserProfile() {
       {/* Desktop Dropdown */}
       <div className="relative hidden sm:block">
         <div
-          className="border rounded-full py-1 pr-4 pl-1 border-gray-400 gap-4 flex items-center justify-between transition duration-300 cursor-pointer hover:bg-gray-100 w-fit"
+          className="border rounded-full py-1 pr-4 pl-1 border-gray-400 gap-4 flex items-center justify-between transition duration-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 w-fit"
           onClick={toggleDropdown}
         >
           <Image

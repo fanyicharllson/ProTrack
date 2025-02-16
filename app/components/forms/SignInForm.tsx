@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { SignInSchema } from "@/lib/SignInSchema";
 import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
-import ProjectImage from "@/public/images/project2.jpg";
+import ProjectImage from "@/public/images/project3.png";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Message from "../message";
@@ -67,7 +67,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white p-4 md:p-6 lg:p-8">
+    <div className="min-h-screen w-full bg-white dark:bg-gray-950 p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
          <Logo />
@@ -212,7 +212,7 @@ export default function SignUpPage() {
                   <div className="w-full border-t"></div>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-muted-foreground">
+                  <span className="bg-white dark:bg-gray-900 px-2 text-muted-foreground">
                     or sign in with
                   </span>
                 </div>
@@ -250,7 +250,7 @@ export default function SignUpPage() {
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-purple-200 p-2">
+                <div className="rounded-full bg-purple-200 dark:bg-gray-900 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -268,7 +268,7 @@ export default function SignUpPage() {
                 <div className="text-sm">Manage your Projects</div>
               </div>
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-purple-200 p-2">
+                <div className="rounded-full bg-purple-200 dark:bg-gray-900 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -289,7 +289,7 @@ export default function SignUpPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-purple-200 p-2">
+                <div className="rounded-full bg-purple-200 dark:bg-gray-900 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"
@@ -309,7 +309,7 @@ export default function SignUpPage() {
                 <div className="text-sm">Create Projects</div>
               </div>
               <div className="flex items-center gap-2 rounded-lg border p-4">
-                <div className="rounded-full bg-purple-200 p-2">
+                <div className="rounded-full bg-purple-200 dark:bg-gray-900 p-2">
                   <svg
                     className=" h-6 w-6 text-primary"
                     fill="none"

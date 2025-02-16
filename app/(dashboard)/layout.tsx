@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 import UserProfile from "@/components/UserProfile";
 import notificationIcon from "@/public/images/icons/notificationIcon.svg";
 import searchIcon from "@/public/images/icons/searchIcon.svg";
+import { ModeToggle } from "../components/ModeToggleBtn";
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -24,10 +25,10 @@ function DashboardLayout({ children }: DashboardProps) {
   const { data: session } = useSession();
 
   return (
-    <main className="flex w-full h-screen overflow-hidden">
+    <main className="flex w-full h-screen overflow-hidden dark:bg-gray-950 dark:text-white transition-colors duration-300">
       {/* Left side bar */}
       <div
-        className={`h-screen sm-500:flex flex-col bg-purple-100 transition-all duration-300 hidden ${
+        className={`h-screen sm-500:flex flex-col dark:bg-gray-950 dark:border-r dark:border-r-gray-500 bg-purple-100 transition-all duration-300 hidden ${
           isSidebarOpen ? "w-[200px]" : "w-[60px] md:w-[20%]"
         }`}
       >
@@ -67,19 +68,19 @@ function DashboardLayout({ children }: DashboardProps) {
                 key={index}
                 className={`flex items-center gap-2 md:gap-3 p-3 transition-colors rounded-full duration-300 cursor-pointer ${
                   pathname === link.href
-                    ? "bg-purple-600 text-white"
-                    : "hover:bg-purple-300"
+                    ? "bg-purple-600 text-white dark:text-white"
+                    : "hover:bg-purple-300 dark:hover:bg-gray-800"
                 }`}
               >
                 <Image
                   src={link.icon}
                   alt={link.title}
-                  className={`h-6 w-6 ${
+                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
                     pathname === link.href ? "filter brightness-0 invert" : ""
                   }`}
                 />
                 <span
-                  className={`text-sm ${
+                  className={`text-sm dark:text-white ${
                     isSidebarOpen ? "block" : "hidden md:block"
                   }`}
                 >
@@ -96,7 +97,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 href={link.href}
                 key={index}
                 onClick={
-                  link.title === "Sign Out"
+                  link.title === "Log Out"
                     ? (e) => {
                         e.preventDefault();
                         signOut({
@@ -109,13 +110,13 @@ function DashboardLayout({ children }: DashboardProps) {
                 className={`flex items-center gap-2 md:gap-3 p-3 rounded-full ${
                   pathname === link.href
                     ? "bg-purple-600 text-white"
-                    : "hover:bg-purple-300"
+                    : "hover:bg-purple-300 dark:hover:bg-gray-800"
                 } transition-colors duration-300 cursor-pointer`}
               >
                 <Image
                   src={link.icon}
                   alt={link.title}
-                  className={`h-6 w-6 ${
+                  className={`h-6 w-6dark:filter dark:brightness-0 dark:invert ${
                     pathname === link.href ? "filter brightness-0 invert" : ""
                   }`}
                 />
@@ -134,12 +135,13 @@ function DashboardLayout({ children }: DashboardProps) {
 
       {/* Right side bar */}
       <div
-        className={`bg-white transition-all duration-300 overflow-x-auto pb-[40px] max-sm-500:pb-[370px] ${
+        className={`transition-all duration-300 overflow-x-auto pb-[40px] max-sm-500:pb-[370px] ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
         }`}
       >
+        <ModeToggle />
         <div className="flex justify-between items-center p-3 max-sm-500:w-full">
           <div className="">
             <div className="flex items-center gap-2 sm-500:hidden">
@@ -160,11 +162,19 @@ function DashboardLayout({ children }: DashboardProps) {
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="cursor-pointer border border-gray-400 rounded-full p-2">
-              <Image src={searchIcon} alt="search" className="w-6 h-6" />
+            <div className="cursor-pointer border border-gray-400 rounded-full p-2 dark:hover:bg-gray-800">
+              <Image
+                src={searchIcon}
+                alt="search"
+                className="w-6 h-6 dark:filter dark:brightness-0 dark:invert "
+              />
             </div>
-            <div className="cursor-pointer border border-gray-400 rounded-full p-2">
-              <Image src={notificationIcon} alt="search" className="w-6 h-6" />
+            <div className="cursor-pointer border border-gray-400 dark:hover:bg-gray-800 rounded-full p-2">
+              <Image
+                src={notificationIcon}
+                alt="search"
+                className="w-6 h-6 dark:filter dark:brightness-0 dark:invert "
+              />
             </div>
             <UserProfile />
           </div>
@@ -173,7 +183,7 @@ function DashboardLayout({ children }: DashboardProps) {
       </div>
 
       {/* Bottom Scrollable Bar (Visible on Mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg sm-500:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40">
         <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
           {SideBarLinks.map((link, index) => (
             <Link
@@ -189,7 +199,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 <Image
                   src={link.icon}
                   alt={link.title}
-                  className={`h-6 w-6 ${
+                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
                     pathname === link.href ? "filter brightness-0 invert" : ""
                   }`}
                 />
@@ -202,6 +212,17 @@ function DashboardLayout({ children }: DashboardProps) {
               href={link.href}
               key={index}
               className="flex flex-col items-center justify-center p-2 min-w-[60px] text-center"
+              onClick={
+                link.title === "Log Out"
+                  ? (e) => {
+                      e.preventDefault();
+                      signOut({
+                        redirect: true,
+                        callbackUrl: `${window.location.origin}/sign-in`,
+                      });
+                    }
+                  : undefined
+              }
             >
               <div
                 className={`p-2 ${
@@ -211,7 +232,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 <Image
                   src={link.icon}
                   alt={link.title}
-                  className={`h-6 w-6 ${
+                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
                     pathname === link.href ? "filter brightness-0 invert" : ""
                   }`}
                 />
