@@ -9,12 +9,12 @@ import { SideBarButtonLinks } from "@/lib/SideBarLinks";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import menuIcon from "@/public/images/icons/menuIcon.svg";
-import { useSession } from "next-auth/react";
 import UserProfile from "@/components/UserProfile";
 import notificationIcon from "@/public/images/icons/notificationIcon.svg";
 import searchIcon from "@/public/images/icons/searchIcon.svg";
 import { ModeToggle } from "../components/ModeToggleBtn";
 import { Plus } from "lucide-react";
+import { UpdateNavTitle } from "../components/UpdateNavTittle";
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -23,7 +23,6 @@ interface DashboardProps {
 function DashboardLayout({ children }: DashboardProps) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { data: session } = useSession();
 
   return (
     <main className="flex w-full h-screen overflow-hidden dark:bg-gray-950 dark:text-white transition-colors duration-300">
@@ -154,12 +153,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 </span>
               </div>
             </div>
-            <h1 className="text-lg md:text-2xl font-bold max-sm-500:hidden">
-              Welcome back, {session?.user.username.split(" ")[0]}!
-            </h1>
-            <p className="text-sm text-gray-400 flex-wrap max-sm-500:hidden">
-              Track and Manage Your Project Now
-            </p>
+           <UpdateNavTitle/>
           </div>
           <div className="flex items-center gap-3">
             <div>
@@ -187,7 +181,7 @@ function DashboardLayout({ children }: DashboardProps) {
           <div></div>
           <div>
             <button className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 items-center text-white text-sm  hover:bg-purple-500 transition-colors duration-300">
-              <Plus className="h-6 w-6"/>
+              <Plus className="h-6 w-6" />
               Add new Project
             </button>
           </div>
