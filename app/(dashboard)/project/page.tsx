@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function ProjectPage() {
   return (
-    <div>ProjectPage</div>
+    <div className='px-4'>ProjectPage</div>
   )
 }
