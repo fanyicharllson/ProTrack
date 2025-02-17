@@ -13,8 +13,15 @@ import UserProfile from "@/components/UserProfile";
 import notificationIcon from "@/public/images/icons/notificationIcon.svg";
 import searchIcon from "@/public/images/icons/searchIcon.svg";
 import { ModeToggle } from "../components/ModeToggleBtn";
-import { Plus } from "lucide-react";
-import { UpdateNavTitle } from "../components/UpdateNavTittle";
+import { UpdateNavTitle } from "../context/UpdateNavTittle";
+import {
+  AddProjectBtn,
+  AddProjectTypeBtnProvider,
+} from "../context/AddProjectTypeBtn";
+import {
+  BtnDateText,
+  DateBtnContextProvider,
+} from "../context/CalenderBtnContext";
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -153,7 +160,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 </span>
               </div>
             </div>
-           <UpdateNavTitle/>
+            <UpdateNavTitle />
           </div>
           <div className="flex items-center gap-3">
             <div>
@@ -178,13 +185,14 @@ function DashboardLayout({ children }: DashboardProps) {
         </div>
         <div className="flex justify-between items-center pt-4 px-4">
           {/* Calender div */}
-          <div></div>
           <div>
-            <button className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 items-center text-white text-sm  hover:bg-purple-500 transition-colors duration-300">
-              <Plus className="h-6 w-6" />
-              Add new Project
-            </button>
+            <DateBtnContextProvider>
+              <BtnDateText />
+            </DateBtnContextProvider>
           </div>
+          <AddProjectTypeBtnProvider>
+            <AddProjectBtn />
+          </AddProjectTypeBtnProvider>
         </div>
         {children}
       </div>
