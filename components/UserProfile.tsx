@@ -5,15 +5,16 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import defaultProfile from "@/public/images/defaultProfile.jpeg";
 import ProfileModal from "@/app/components/ProfileModal";
+import { memo } from "react";
 
-export default function UserProfile() {
+function UserProfile() {
   const { data: session } = useSession();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
- 
+
   return (
     <>
       {/* Desktop Dropdown */}
@@ -82,3 +83,4 @@ export default function UserProfile() {
     </>
   );
 }
+export default memo(UserProfile);

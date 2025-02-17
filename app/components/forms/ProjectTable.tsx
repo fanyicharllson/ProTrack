@@ -2,19 +2,25 @@ import React from "react";
 import { projects } from "@/lib/ProjectTableData";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-// import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function ProjectTable() {
+  const router = useRouter();
   return (
     <div className="lg:col-span-2 border border-gray-300 p-4 rounded-2xl">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-sm font-semibold">Recent Projects</h2>
         <div>
           <Button
+            onClick={() => router.push("/project")}
             variant="outline"
             className="text-sm flex items-center gap-1 rounded-full bg-purple-50 hover:bg-purple-100 dark:bg-gray-950"
           >
-            See all <ChevronRight size={16} className="dark:filter dark:brightness-0 dark:invert" />
+            See all{" "}
+            <ChevronRight
+              size={16}
+              className="dark:filter dark:brightness-0 dark:invert"
+            />
           </Button>
         </div>
       </div>
@@ -26,13 +32,16 @@ function ProjectTable() {
               <th className="py-2 px-4 text-left rounded-l-2xl">DATE</th>
               <th className="py-2 px-4 text-left">BUDGET</th>
               <th className="py-2 px-4 text-left">PROJECT NAME</th>
-              <th className="py-2 px-4 text-left">PROGRAMMING LANGUAGE</th>
+              <th className="py-2 px-4 text-left">MAIN STACK</th>
               <th className="py-2 px-4 text-left rounded-r-2xl">TYPE</th>
             </tr>
           </thead>
           <tbody>
             {projects.map((txn, index) => (
-              <tr key={index} className="border-t text-sm hover:bg-purple-50 dark:hover:bg-gray-800">
+              <tr
+                key={index}
+                className="border-t text-sm hover:bg-purple-50 dark:hover:bg-gray-800"
+              >
                 <td className="py-3 px-4 font-medium">{txn.date}</td>
                 <td className="py-3 px-4">{txn.budget}</td>
                 <td className="py-3 px-4 flex items-center gap-2">

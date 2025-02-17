@@ -32,10 +32,10 @@ function DashboardLayout({ children }: DashboardProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <main className="flex w-full h-screen overflow-hidden dark:bg-gray-950 dark:text-white transition-colors duration-300">
+    <main className="flex w-full h-screen overflow-hidden dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[105px]">
       {/* Left side bar */}
       <div
-        className={`h-screen sm-500:flex flex-col dark:bg-gray-950 dark:border-r dark:border-r-gray-500 bg-purple-100 transition-all duration-300 hidden ${
+        className={`h-screen sm-500:flex flex-col dark:bg-gray-950 dark:border-r dark:border-r-gray-500 bg-purple-50 transition-all duration-300 hidden ${
           isSidebarOpen ? "w-[200px]" : "w-[60px] md:w-[20%]"
         }`}
       >
@@ -98,7 +98,7 @@ function DashboardLayout({ children }: DashboardProps) {
           </div>
 
           {/* Bottom Links (Help and Sign Out) */}
-          <div className="mt-auto mb-4">
+          <div className="mt-auto flex flex-col mb-4">
             {SideBarButtonLinks.map((link, index) => (
               <Link
                 href={link.href}
@@ -114,7 +114,7 @@ function DashboardLayout({ children }: DashboardProps) {
                       }
                     : undefined
                 }
-                className={`flex items-center gap-2 md:gap-3 p-3 rounded-full ${
+                className={`flex items-center transition-colors py-2 rounded-full duration-300 cursor-pointer ${
                   pathname === link.href
                     ? "bg-purple-600 text-white"
                     : "hover:bg-purple-300 dark:hover:bg-gray-800"
@@ -142,7 +142,7 @@ function DashboardLayout({ children }: DashboardProps) {
 
       {/* Right side bar */}
       <div
-        className={`transition-all duration-300 overflow-x-auto pb-[40px] max-sm-500:pb-[370px] ${
+        className={`transition-all duration-300 overflow-x-auto ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
@@ -194,11 +194,12 @@ function DashboardLayout({ children }: DashboardProps) {
             <AddProjectBtn />
           </AddProjectTypeBtnProvider>
         </div>
-        {children}
+        {/* Children */}
+        <div className="pb-[80px]">{children}</div>
       </div>
 
       {/* Bottom Scrollable Bar (Visible on Mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40">
+      <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40 ">
         <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
           {SideBarLinks.map((link, index) => (
             <Link

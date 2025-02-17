@@ -219,7 +219,7 @@ export default function SignUpPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => <Message message="Signed in with google not avaliable at the moment"/>}>
                   <Image
                     src={GoogleLogo}
                     width={16}

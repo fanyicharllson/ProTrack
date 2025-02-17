@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 interface MessageProps {
-  type: 'success' | 'error';
+  type?: 'success' | 'error'| 'status';
   message: string;
 }
 
