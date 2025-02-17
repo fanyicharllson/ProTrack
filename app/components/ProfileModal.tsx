@@ -21,15 +21,15 @@ export default function ProfileModal({ toggleDropdown }: ProfileImageProps) {
     });
   };
   return (
-    <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-50">
+    <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-lg shadow-xl z-50">
       <div
-        className="absolute right-2 top-2 p-2 hover:bg-purple-100 rounded-full bg-purple-100 transition duration-300"
+        className="absolute right-2 top-2 p-2 hover:bg-purple-100 rounded-full bg-purple-100 dark:bg-gray-500 transition duration-300"
         onClick={toggleDropdown}
       >
         <Image
           src={cancelIcon}
           alt="cancel"
-          className="w-6 h-6 cursor-pointer"
+          className="w-6 h-6 cursor-pointer dark:filter dark:brightness-0 dark:invert"
         />
       </div>
       <div className="p-4 border-b mt-8 border-gray-200">

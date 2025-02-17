@@ -141,7 +141,6 @@ function DashboardLayout({ children }: DashboardProps) {
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
         }`}
       >
-        <ModeToggle />
         <div className="flex justify-between items-center p-3 max-sm-500:w-full">
           <div className="">
             <div className="flex items-center gap-2 sm-500:hidden">
@@ -149,7 +148,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
                   <span className="text-white font-bold text-lg">Pro</span>
                 </div>
-                <span className="font-semibold text-2xl bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent hover:from-purple-600 hover:to-purple-800 transition-colors duration-300">
+                <span className="font-semibold text-2xl bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent hover:from-purple-600 hover:to-purple-800 transition-colors duration-300 max-sm-500:hidden">
                   Protrack
                 </span>
               </div>
@@ -161,15 +160,18 @@ function DashboardLayout({ children }: DashboardProps) {
               Track and Manage Your Project Now
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="cursor-pointer border border-gray-400 rounded-full p-2 dark:hover:bg-gray-800">
+          <div className="flex items-center gap-3">
+            <div>
+              <ModeToggle />
+            </div>
+            <div className="cursor-pointer border border-gray-300 dark:border-gray-800 rounded-full p-2 dark:hover:bg-gray-800">
               <Image
                 src={searchIcon}
                 alt="search"
                 className="w-6 h-6 dark:filter dark:brightness-0 dark:invert "
               />
             </div>
-            <div className="cursor-pointer border border-gray-400 dark:hover:bg-gray-800 rounded-full p-2">
+            <div className="cursor-pointer border border-gray-300 dark:border-gray-800 dark:hover:bg-gray-800 rounded-full p-2">
               <Image
                 src={notificationIcon}
                 alt="search"
