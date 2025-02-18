@@ -51,7 +51,7 @@ export default function ProjectPage() {
                       />
                     </div>
                     <div className="cursor-pointer bg-red-100 rounded-full dark:bg-gray-800 p-2">
-                      <Image src={trash} alt="delete" width={20} height={20} />
+                      <Image src={trash} alt="delete" width={20} height={20} className="red-filter dark:dark-red-filter" />
                     </div>
                   </div>
                 </td>

@@ -13,6 +13,15 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+/* light mode color for image */
+.red-filter {
+  filter: invert(27%) sepia(100%) saturate(7471%) hue-rotate(0deg) brightness(95%) contrast(101%);
+}
+/* Dark mode red color for image*/
+.dark .red-filter {
+  filter: invert(50%) sepia(100%) saturate(5000%) hue-rotate(0deg) brightness(90%) contrast(100%);
+}
+
 
 
 
