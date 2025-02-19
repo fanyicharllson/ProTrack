@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { createContext, ReactNode, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import AddprojectForm from "../components/forms/AddprojectForm";
 
 interface AddProjectTypeBtnProps {
@@ -10,14 +10,19 @@ interface AddProjectTypeBtnProps {
 }
 
 const AddProjectTypeContext = createContext<
-  | (AddProjectTypeBtnProps & { showModal: boolean; setShowModal: (value: boolean) => void })
+  | (AddProjectTypeBtnProps & {
+      showModal: boolean;
+      setShowModal: (value: boolean) => void;
+    })
   | undefined
 >(undefined);
 
-const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const pathName = usePathname();
-  const router = useRouter();
-  const [showModal, setShowModal] = useState(false); // ✅ State for modal
+  // const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
 
   const getBtnTextOnClick = (): AddProjectTypeBtnProps & {
     showModal: boolean;
@@ -28,7 +33,7 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({ children
         return {
           btnText: "Add New Project",
           onClick: () => {
-            router.push("/dashboard/add-project");
+            setShowModal(true);
           },
           showModal,
           setShowModal,
@@ -38,7 +43,7 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({ children
         return {
           btnText: "Add New",
           onClick: () => {
-            setShowModal(true); // ✅ Toggle modal visibility
+            setShowModal(true);
           },
           showModal,
           setShowModal,
@@ -64,13 +69,16 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({ children
 const useAddProjectBtn = () => {
   const context = useContext(AddProjectTypeContext);
   if (!context) {
-    throw new Error("useAddProjectBtn must be used within an AddProjectTypeBtnProvider");
+    throw new Error(
+      "useAddProjectBtn must be used within an AddProjectTypeBtnProvider"
+    );
   }
   return context;
 };
 
 const AddProjectBtn = () => {
   const { btnText, onClick, showModal, setShowModal } = useAddProjectBtn();
+
   return (
     <div>
       <button
@@ -81,7 +89,6 @@ const AddProjectBtn = () => {
         {btnText}
       </button>
 
-      {/* ✅ Show modal when button is clicked */}
       {showModal && <AddprojectForm setShowModal={setShowModal} />}
     </div>
   );

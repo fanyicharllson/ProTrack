@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { SignInSchema } from "@/lib/SignInSchema";
+import { SignInSchema } from "@/app/Schema/SignInSchema";
 import { z } from "zod";
 import GoogleLogo from "@/public/formSvgs/google.svg";
 import ProjectImage from "@/public/images/project3.png";
