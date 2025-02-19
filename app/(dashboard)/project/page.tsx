@@ -1,16 +1,100 @@
+"use client";
 import React from "react";
 import { DetailProjects } from "@/lib/ProjectTableData";
 import trash from "@/public/images/icons/trash.svg";
 import pencil from "@/public/images/icons/pencil.svg";
 import Image from "next/image";
+import FilterBtn from "@/app/components/FilterBtn";
+import { useState, useEffect } from "react";
 
 // Get the total number of project
 const totalProject: number = DetailProjects.length;
 
 export default function ProjectPage() {
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
+  const [selectedStack, setSelectedStack] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
+
+  const toggleDropdown = (dropdown: string) => {
+    setOpenDropdown(openDropdown === dropdown ? null : dropdown);
+  };
+
+  // Prevent scrolling when dropdown is open
+  useEffect(() => {
+    if (openDropdown) {
+      const rightSideBar = document.querySelector("#rightSideBar");
+      if (rightSideBar instanceof HTMLElement) {
+        rightSideBar.style.overflow = "hidden";
+      }
+    } else {
+      const rightSideBar = document.querySelector("#rightSideBar");
+      if (rightSideBar instanceof HTMLElement) {
+        rightSideBar.style.overflow = "auto";
+      }
+    }
+    return () => {
+      const rightSideBar = document.querySelector("#rightSideBar");
+      if (rightSideBar instanceof HTMLElement) {
+        rightSideBar.style.overflow = "auto";
+      }
+    };
+  }, [openDropdown]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (event.target instanceof HTMLElement) {
+        if (!event.target.closest(".relative")) {
+          setOpenDropdown(null);
+        }
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="text-gray-400 mt-5 px-4 dark:text-gray-500">
+      <div className="px-4 pt-3 flex gap-2 flex-wrap items-center">
+        <FilterBtn
+          text="Type"
+          options={["Web", "Mobile", "Console", "Desktop App"]}
+          selectedOption={selectedType}
+          isOpen={openDropdown === "Type"}
+          onClick={() => toggleDropdown("Type")}
+          onSelect={(option) => {
+            setSelectedType(option);
+            setOpenDropdown(null);
+          }}
+        />
+        <FilterBtn
+          text="Status"
+          options={["Ongoing", "Completed", "Pending"]}
+          selectedOption={selectedStatus}
+          isOpen={openDropdown === "Status"}
+          onClick={() => toggleDropdown("Status")}
+          onSelect={(option) => {
+            setSelectedStatus(option);
+            setOpenDropdown(null);
+          }}
+        />
+        <FilterBtn
+          text="Stack"
+          options={["React", "Next.js", "Node.js", "Flutter"]}
+          selectedOption={selectedStack}
+          isOpen={openDropdown === "Stack"}
+          onClick={() => toggleDropdown("Stack")}
+          onSelect={(option) => {
+            setSelectedStack(option);
+            setOpenDropdown(null);
+          }}
+        />
+      </div>
+      <div className="text-gray-400 mt-4 px-4 dark:text-gray-500">
         {totalProject} items
       </div>
       <div className="px-4 mt-2 overflow-x-auto scrollbar-hide">
@@ -51,7 +135,13 @@ export default function ProjectPage() {
                       />
                     </div>
                     <div className="cursor-pointer bg-red-100 rounded-full dark:bg-gray-800 p-2">
-                      <Image src={trash} alt="delete" width={20} height={20} className="red-filter dark:dark-red-filter" />
+                      <Image
+                        src={trash}
+                        alt="delete"
+                        width={20}
+                        height={20}
+                        className="red-filter dark:dark-red-filter"
+                      />
                     </div>
                   </div>
                 </td>

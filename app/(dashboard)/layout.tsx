@@ -32,7 +32,7 @@ function DashboardLayout({ children }: DashboardProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <main className="flex w-full h-screen overflow-hidden dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[105px]">
+    <main className="flex w-full h-screen dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[105px]">
       {/* Left side bar */}
       <div
         className={`h-screen sm-500:flex flex-col dark:bg-gray-950 dark:border-r dark:border-r-gray-500 bg-purple-50 transition-all duration-300 hidden ${
@@ -142,6 +142,7 @@ function DashboardLayout({ children }: DashboardProps) {
 
       {/* Right side bar */}
       <div
+      id="rightSideBar"
         className={`transition-all duration-300 overflow-x-auto ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"

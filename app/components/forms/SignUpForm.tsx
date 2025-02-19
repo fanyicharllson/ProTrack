@@ -66,7 +66,8 @@ export default function SignUpPage() {
       form.reset();
     } else if (response.status === 409) {
       const data = await response.json();
-      setErrorMessage(data.message);
+      console.log(data.message);
+      setErrorMessage("Something went wrong. Please try again.");
     } else {
       setErrorMessage("Something went wrong. Please try again.");
     }
