@@ -41,7 +41,7 @@ function AddprojectForm({
       status: "pending",
       date: "",
       mainStack: [],
-      budget: 0,
+      budget: "",
     },
   });
 
@@ -81,8 +81,8 @@ function AddprojectForm({
         <div className="pt-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <FormField
                     control={form.control}
                     name="type"
@@ -128,8 +128,10 @@ function AddprojectForm({
                             step="0.01"
                             {...field}
                             onChange={(e) =>
-                              field.onChange(parseFloat(e.target.value) || "")
-                            } // Convert input to number
+                              field.onChange(
+                                e.target.value ? e.target.value.toString() : ""
+                              )
+                            }
                           />
                         </FormControl>
                         <FormMessage />
@@ -164,7 +166,7 @@ function AddprojectForm({
                     </FormItem>
                   )}
                 />
-                <div className="grid grid-cols-2 gap-3 w-full">
+                <div className="flex flex-col w-full md:flex-row items-center gap-4">
                   <FormField
                     control={form.control}
                     name="date"
@@ -208,10 +210,15 @@ function AddprojectForm({
                     )}
                   />
                 </div>
+                <div className="flex gap-4 items-center justify-center pt-8">
+                  <div className="cursor-pointer border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-lg">
+                    <button onClick={() => setShowModal(false)}>Cancel</button>
+                  </div>
+                  <div className="cursor-pointer bg-purple-600 px-4 py-2 rounded-lg text-white">
+                    <button type="submit">Submit</button>
+                  </div>
+                </div>
               </div>
-              {/* <button type="submit">
-                     submit 
-              </button> */}
             </form>
           </Form>
         </div>
