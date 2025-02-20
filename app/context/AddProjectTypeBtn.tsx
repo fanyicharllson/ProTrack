@@ -31,7 +31,7 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
     switch (pathName) {
       case "/dashboard":
         return {
-          btnText: "Add New Project",
+          btnText: "Add new Project",
           onClick: () => {
             setShowModal(true);
           },
@@ -41,7 +41,16 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
 
       case "/project":
         return {
-          btnText: "Add New",
+          btnText: "Add new",
+          onClick: () => {
+            setShowModal(true);
+          },
+          showModal,
+          setShowModal,
+        };
+      case "/goals":
+        return {
+          btnText: "Add new goals",
           onClick: () => {
             setShowModal(true);
           },

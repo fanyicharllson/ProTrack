@@ -57,6 +57,23 @@ export default function ProjectPage() {
     };
   }, []);
 
+  const getStatusClassNames = (status: string) => {
+    switch (status) {
+      case "Cancelled":
+        return "bg-red-100 dark:bg-gray-800 text-red-600";
+      case "Ongoing":
+        return "bg-yellow-100 dark:bg-gray-800 text-yellow-600";
+      case "Pending":
+        return "bg-blue-100 dark:bg-gray-800 text-blue-600";
+      case "Completed":
+        return "bg-green-100 dark:bg-gray-800 text-green-600";
+      case "On Hold":
+        return "bg-purple-100 dark:bg-gray-800 text-purple-600";
+      default:
+        return "bg-gray-100 dark:bg-gray-800 text-gray-600";
+    }
+  };
+
   return (
     <>
       <div className="px-4 pt-3 flex gap-2 flex-wrap items-center">
@@ -119,7 +136,11 @@ export default function ProjectPage() {
                 <td className="py-3 px-4 text-sm">{txn.prolanguage}</td>
                 <td className="py-3 px-4 text-sm">{txn.type}</td>
                 <td className="py-3 px-4 text-sm">
-                  <div className="bg-green-100 dark:bg-gray-800 text-green-600 rounded-full py-1 flex items-center justify-center">
+                  <div
+                    className={`rounded-full py-1 px-2 flex items-center justify-center ${getStatusClassNames(
+                      txn.status || ""
+                    )}`}
+                  >
                     {txn.status}
                   </div>
                 </td>

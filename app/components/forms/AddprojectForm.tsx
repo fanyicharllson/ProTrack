@@ -36,9 +36,9 @@ function AddprojectForm({
   const form = useForm<formValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
-      type: "web",
+      type: undefined,
       projectName: "",
-      status: "pending",
+      status: undefined,
       date: "",
       mainStack: [],
       budget: "",
@@ -88,7 +88,9 @@ function AddprojectForm({
                     name="type"
                     render={({ field }) => (
                       <FormItem className="w-full">
-                        <FormLabel htmlFor="projectType">Project Type</FormLabel>
+                        <FormLabel htmlFor="projectType">
+                          Project Type
+                        </FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
@@ -183,7 +185,7 @@ function AddprojectForm({
                         <div>
                           <FormLabel htmlFor="date">Select date</FormLabel>
                         </div>
-                        <DatePicker  field={field} />
+                        <DatePicker field={field} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -199,7 +201,7 @@ function AddprojectForm({
                           defaultValue={field.value}
                         >
                           <SelectTrigger id="status" className="w-full">
-                            <SelectValue placeholder="Select project status" />
+                            <SelectValue className="text-gray-400 text-sm" placeholder="Select project status" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
@@ -225,7 +227,7 @@ function AddprojectForm({
                     <button onClick={() => setShowModal(false)}>Cancel</button>
                   </div>
                   <div className="cursor-pointer bg-purple-600 px-4 py-2 rounded-lg text-white">
-                    <button type="submit">Submit</button>
+                    <button type="submit">Save</button>
                   </div>
                 </div>
               </div>

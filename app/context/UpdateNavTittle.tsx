@@ -26,6 +26,11 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           heading: `Welcome back, ${session?.user.username.split(" ")[0]}!`,
           subtitle: "Manage and Track Your Projects Now",
         };
+      case "/goals":
+        return {
+          heading: "Goals",
+          subtitle: "Create and manage your projects",
+        };
       default:
         return { heading: "Default Title", subtitle: "Default Subtitle" };
     }

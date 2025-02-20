@@ -45,7 +45,7 @@ export const DetailProjects: Projects[] = [
     projectName: "YouTube Clone",
     prolanguage: "React",
     type: "Web app",
-    status: "Completed",
+    status: "Cancelled",
     action: ThreeDots
     // projectIcon: '/icons/youtube.png',
   },
@@ -65,7 +65,7 @@ export const DetailProjects: Projects[] = [
     projectName: "YouTube Clone",
     prolanguage: "React",
     type: "Web app",
-    status: "Completed",
+    status: "Pending",
     action: ThreeDots
     // projectIcon: '/icons/youtube.png',
   },
@@ -171,7 +171,7 @@ export const DetailProjects: Projects[] = [
     projectName: "Smart Chart",
     prolanguage: "PHP",
     type: "Cafe & Restaurants",
-    status: "On Hold",
+    status: "Cancelled",
     action: ThreeDots
     // projectIcon: '/icons/reserved.png',
     // projectIcon: '/icons/yaposhka.png',
@@ -204,7 +204,7 @@ export const DetailProjects: Projects[] = [
     projectName: "Smart Chart",
     prolanguage: "PHP",
     type: "Cafe & Restaurants",
-    status: "On Hold",
+    status: "Cancelled",
     action: ThreeDots
     // projectIcon: '/icons/reserved.png',
     // projectIcon: '/icons/yaposhka.png',
@@ -236,7 +236,7 @@ export const DetailProjects: Projects[] = [
     projectName: "Smart Chart",
     prolanguage: "PHP",
     type: "Cafe & Restaurants",
-    status: "On Hold",
+    status: "Pending",
     action: ThreeDots
     // projectIcon: '/icons/reserved.png',
     // projectIcon: '/icons/yaposhka.png',
