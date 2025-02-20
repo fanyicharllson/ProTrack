@@ -26,7 +26,17 @@ type MainStackDropdownProps = {
   field: ControllerRenderProps<formValues, "mainStack">;
 };
 
-const techStacks = ["React", "Next.js", "Flutter", "Java", "Node.js", "Python"];
+const techStacks = [ "React", "Next.js", "Vue", "Angular", "Svelte", 
+  "Node.js", "Express", "NestJS", "Django", "Flask", 
+  "Spring Boot", "Laravel", "Ruby on Rails", "FastAPI", 
+  "Flutter", "React Native", "Swift", "Kotlin", "Java",
+  "Python", "JavaScript", "TypeScript", "Ruby", "PHP", 
+  "C#", "C++", "C", "Go", "Rust", "Scala", "Haskell",
+  "Dart", "Objective-C", "SQL", "NoSQL", "MongoDB",
+  "PostgreSQL", "MySQL", "Firebase", "AWS", "Azure",
+  "Google Cloud", "Docker", "Kubernetes", "Jenkins",
+  "Git", "GitHub", "GitLab", "Bitbucket", "Jira",
+  "Trello", "Slack", "Discord", "Zoom", "Google Meet"];
 
 export function MainStackDropdown({ field }: MainStackDropdownProps) {
   const [open, setOpen] = useState(false);
