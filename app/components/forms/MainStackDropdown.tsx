@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 import { ControllerRenderProps } from "react-hook-form"; // Import type
-import { projectSchema } from "../Schema/AddProjectFormSchema";
+import { projectSchema } from "../../Schema/AddProjectFormSchema";
 import { z } from "zod";
 
 type formValues = z.infer<typeof projectSchema>;

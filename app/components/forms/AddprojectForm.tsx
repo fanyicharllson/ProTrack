@@ -23,7 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MainStackDropdown } from "../MainStackDropdown";
+import { MainStackDropdown } from "./MainStackDropdown";
+import { DatePicker } from "./DateDropdown";
 
 type formValues = z.infer<typeof projectSchema>;
 
@@ -37,7 +38,7 @@ function AddprojectForm({
     defaultValues: {
       type: "web",
       projectName: "",
-      status: "",
+      status: "pending",
       date: "",
       mainStack: [],
       budget: 0,
@@ -100,8 +101,12 @@ function AddprojectForm({
                               <SelectLabel>Type</SelectLabel>
                               <SelectItem value="web">Web app</SelectItem>
                               <SelectItem value="mobile">Mobile app</SelectItem>
-                              <SelectItem value="console">Console app</SelectItem>
-                              <SelectItem value="desktop">Desktop app</SelectItem>
+                              <SelectItem value="console">
+                                Console app
+                              </SelectItem>
+                              <SelectItem value="desktop">
+                                Desktop app
+                              </SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>
@@ -159,10 +164,54 @@ function AddprojectForm({
                     </FormItem>
                   )}
                 />
-                <div className="grid grid-cols-1 md:grid-col-2 gap-2">
-
+                <div className="grid grid-cols-2 gap-3 w-full">
+                  <FormField
+                    control={form.control}
+                    name="date"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Select date</FormLabel>
+                        <DatePicker field={field} />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="status"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Status</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select project status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              <SelectLabel>Status</SelectLabel>
+                              <SelectItem value="completed">
+                                Completed
+                              </SelectItem>
+                              <SelectItem value="cancelled">
+                                Cancelled
+                              </SelectItem>
+                              <SelectItem value="ongoing">Ongoing</SelectItem>
+                              <SelectItem value="pending">Pending</SelectItem>
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
               </div>
+              {/* <button type="submit">
+                     submit 
+              </button> */}
             </form>
           </Form>
         </div>
