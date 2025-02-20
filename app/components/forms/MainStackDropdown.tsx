@@ -60,7 +60,7 @@ export function MainStackDropdown({ field }: MainStackDropdownProps) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger id="mainStack" asChild>
         <Button
           variant="outline"
           role="combobox"
@@ -84,7 +84,7 @@ export function MainStackDropdown({ field }: MainStackDropdownProps) {
 
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Search stack..." />
+          <CommandInput id="mainStack" placeholder="Search stack..." />
           <CommandList>
             <CommandEmpty>No stack found.</CommandEmpty>
             {techStacks.map((stack) => (

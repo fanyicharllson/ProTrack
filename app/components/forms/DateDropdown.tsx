@@ -27,11 +27,11 @@ export function DatePicker({ field }: DatePickerProps) {
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger id="date" asChild>
         <Button
           variant={"outline"}
           className={cn(
-            "w-[240px] justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal",
             !field.value && "text-muted-foreground"
           )}
         >
@@ -43,7 +43,7 @@ export function DatePicker({ field }: DatePickerProps) {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+      <PopoverContent id="date" className="w-auto p-0" align="start">
         <Calendar
           mode="single"
           selected={field.value ? new Date(field.value) : undefined}

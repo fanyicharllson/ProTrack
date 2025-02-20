@@ -53,12 +53,12 @@ function AddprojectForm({
     <div className="fixed inset-0 flex items-center justify-center z-50 transition-all duration-300">
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-30"
+        className="absolute inset-0 bg-black bg-opacity-30 "
         onClick={() => setShowModal(false)}
       ></div>
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-gray-900 w-[90%] max-w-sm md:max-w-md lg:max-w-lg px-5 py-4 rounded-2xl shadow-lg">
+      <div className="relative bg-white dark:bg-gray-900 w-[90%] max-w-sm md:max-w-md lg:max-w-lg px-5 py-4 md:rounded-2xl shadow-lg max-h-[90vh] overflow-y-auto rounded-md">
         <div
           className="absolute p-2 border dark:border-gray-400 rounded-full border-gray-400 right-1 top-1 cursor-pointer"
           onClick={() => setShowModal(false)}
@@ -82,18 +82,18 @@ function AddprojectForm({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="space-y-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
                   <FormField
                     control={form.control}
                     name="type"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Project Type</FormLabel>
+                      <FormItem className="w-full">
+                        <FormLabel htmlFor="projectType">Project Type</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className="w-[180px]">
+                          <SelectTrigger id="projectType" className="w-full">
                             <SelectValue placeholder="Select project type" />
                           </SelectTrigger>
                           <SelectContent>
@@ -119,9 +119,16 @@ function AddprojectForm({
                     name="budget"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Budget ($)</FormLabel>
+                        <div>
+                          <FormLabel htmlFor="budget">Budget ($) </FormLabel>
+                          <span className="text-gray-400 text-sm">
+                            Optional
+                          </span>
+                        </div>
                         <FormControl>
                           <Input
+                            id="budget"
+                            className="w-full"
                             type="number"
                             placeholder="Enter budget amount"
                             min="1"
@@ -144,9 +151,10 @@ function AddprojectForm({
                   name="projectName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Project Name</FormLabel>
+                      <FormLabel htmlFor="projectName">Project Name</FormLabel>
                       <FormControl>
                         <Input
+                          id="projectName"
                           placeholder="Enter your project name"
                           {...field}
                         />
@@ -160,20 +168,22 @@ function AddprojectForm({
                   name="mainStack"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Main Stack</FormLabel>
+                      <FormLabel htmlFor="mainStack">Main Stack</FormLabel>
                       <MainStackDropdown field={field} />
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <div className="flex flex-col w-full md:flex-row items-center gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="date"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Select date</FormLabel>
-                        <DatePicker field={field} />
+                      <FormItem className="w-full">
+                        <div>
+                          <FormLabel htmlFor="date">Select date</FormLabel>
+                        </div>
+                        <DatePicker  field={field} />
                         <FormMessage />
                       </FormItem>
                     )}
@@ -182,13 +192,13 @@ function AddprojectForm({
                     control={form.control}
                     name="status"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Status</FormLabel>
+                      <FormItem className="w-full">
+                        <FormLabel htmlFor="status">Status</FormLabel>
                         <Select
                           onValueChange={field.onChange}
                           defaultValue={field.value}
                         >
-                          <SelectTrigger className="w-[180px]">
+                          <SelectTrigger id="status" className="w-full">
                             <SelectValue placeholder="Select project status" />
                           </SelectTrigger>
                           <SelectContent>
