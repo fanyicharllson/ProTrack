@@ -18,22 +18,25 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { data: session } = useSession();
 
   const getTitle = (): NavTitleContextProps => {
-    switch (pathname) {
-      case "/project":
-        return { heading: "Projects", subtitle: "Overview of Your Projects" };
-      case "/dashboard":
-        return {
-          heading: `Welcome back, ${session?.user.username.split(" ")[0]}!`,
-          subtitle: "Manage and Track Your Projects Now",
-        };
-      case "/goals":
-        return {
-          heading: "Goals",
-          subtitle: "Create and manage your projects",
-        };
-      
-      default:
-        return { heading: "Default Title", subtitle: "Default Subtitle" };
+    if (pathname === "/project") {
+      return { heading: "Projects", subtitle: "Overview of Your Projects" };
+    } else if (pathname === "/dashboard") {
+      return {
+        heading: `Welcome back, ${session?.user.username.split(" ")[0]}!`,
+        subtitle: "Manage and Track Your Projects Now",
+      };
+    } else if (pathname === "/goals") {
+      return {
+        heading: "Goals",
+        subtitle: "Create and manage your projects",
+      };
+    } else if (/^\/goals\/[^/]+$/.test(pathname)) {
+      return {
+        heading: "Goal Detail",
+        subtitle: "View and manage your goal",
+      };
+    } else {
+      return { heading: "Default Title", subtitle: "Default Subtitle" };
     }
   };
 
