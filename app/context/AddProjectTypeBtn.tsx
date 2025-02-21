@@ -28,43 +28,51 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
     showModal: boolean;
     setShowModal: (value: boolean) => void;
   } => {
-    switch (pathName) {
-      case "/dashboard":
-        return {
-          btnText: "Add new Project",
-          onClick: () => {
-            setShowModal(true);
-          },
-          showModal,
-          setShowModal,
-        };
-
-      case "/project":
-        return {
-          btnText: "Add new",
-          onClick: () => {
-            setShowModal(true);
-          },
-          showModal,
-          setShowModal,
-        };
-      case "/goals":
-        return {
-          btnText: "Add new goals",
-          onClick: () => {
-            setShowModal(true);
-          },
-          showModal,
-          setShowModal,
-        };
-
-      default:
-        return {
-          btnText: "",
-          onClick: () => {},
-          showModal,
-          setShowModal,
-        };
+    if (pathName === "/dashboard") {
+      return {
+        btnText: "Add new Project",
+        onClick: () => {
+          setShowModal(true);
+        },
+        showModal,
+        setShowModal,
+      };
+    } else if (pathName === "/project") {
+      return {
+        btnText: "Add new",
+        onClick: () => {
+          setShowModal(true);
+        },
+        showModal,
+        setShowModal,
+      };
+    } else if (/^\/goals\/[^/]+$/.test(pathName)) {
+      return {
+        btnText: "Add new goal",
+        onClick: () => {
+          setShowModal(true);
+        },
+        showModal,
+        setShowModal,
+      };
+    } else if (pathName === "/goals") {
+      return {
+        btnText: "Add new goal",
+        onClick: () => {
+          setShowModal(true);
+        },
+        showModal,
+        setShowModal,
+      };
+    } else {
+      return {
+        btnText: "",
+        onClick: () => {
+          setShowModal(true);
+        },
+        showModal,
+        setShowModal,
+      };
     }
   };
 

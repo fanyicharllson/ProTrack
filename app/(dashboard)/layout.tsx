@@ -70,7 +70,8 @@ function DashboardLayout({ children }: DashboardProps) {
           {/* Main Links */}
           <div className="md:mt-9">
             {SideBarLinks.map((link, index) => {
-                const isActive = pathname === link.href || pathname.startsWith(link.href);
+              const isActive =
+                pathname === link.href || pathname.startsWith(link.href);
               return (
                 <Link
                   href={link.href}
@@ -205,28 +206,32 @@ function DashboardLayout({ children }: DashboardProps) {
       {/* Bottom Scrollable Bar (Visible on Mobile) */}
       <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40 ">
         <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
-          {SideBarLinks.map((link, index) => (
-            <Link
-              href={link.href}
-              key={index}
-              className="flex flex-col items-center justify-center p-2 min-w-[60px] text-center"
-            >
-              <div
-                className={`p-2 ${
-                  pathname === link.href ? "bg-purple-600 rounded-full" : ""
-                }`}
+          {SideBarLinks.map((link, index) => {
+             const isActive =
+             pathname === link.href || pathname.startsWith(link.href);
+            return (
+              <Link
+                href={link.href}
+                key={index}
+                className="flex flex-col items-center justify-center p-2 min-w-[60px] text-center"
               >
-                <Image
-                  src={link.icon}
-                  alt={link.title}
-                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
-                    pathname === link.href ? "filter brightness-0 invert" : ""
+                <div
+                  className={`p-2 ${
+                    isActive ? "bg-purple-600 rounded-full" : ""
                   }`}
-                />
-              </div>
-              <span className="text-xs mt-1">{link.title}</span>
-            </Link>
-          ))}
+                >
+                  <Image
+                    src={link.icon}
+                    alt={link.title}
+                    className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
+                      isActive ? "filter brightness-0 invert" : ""
+                    }`}
+                  />
+                </div>
+                <span className="text-xs mt-1">{link.title}</span>
+              </Link>
+            );
+          })}
           {SideBarButtonLinks.map((link, index) => (
             <Link
               href={link.href}
