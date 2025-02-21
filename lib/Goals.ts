@@ -1,12 +1,190 @@
 type Goal = {
-    name: string;
-    startData: string;
-    endDate: string;
-    progress: number;
-  };
-  
+  name: string;
+  startData: string;
+  endDate: string;
+  progress: number;
+};
+
 export const savingGoals: Goal[] = [
-    { name: "Shopping App", startData: "Feb 2025",endDate: "Jan 2026", progress: 25 },
-    { name: "Dating App", startData: "Feb 2025",endDate: "Jan 2026", progress: 42 },
-    { name: "Learn Django", startData: "Feb 2025", endDate: "Jan 2026",progress: 20 },
-  ];
+  {
+    name: "Shopping App",
+    startData: "Feb 2025",
+    endDate: "Jan 2026",
+    progress: 25,
+  },
+  {
+    name: "Dating App",
+    startData: "Feb 2025",
+    endDate: "Jan 2026",
+    progress: 42,
+  },
+  {
+    name: "Learn Django",
+    startData: "Feb 2025",
+    endDate: "Jan 2026",
+    progress: 20,
+  },
+];
+
+export const goals = [
+  {
+    goalName: "Build Personal Portfolio",
+    category: "Web Development",
+    status: "In Progress",
+    progress: "60%",
+    dueDate: "2025-04-15",
+    priority: "High",
+  },
+  {
+    goalName: "Learn Next.js",
+    category: "Web Development",
+    status: "In Progress",
+    progress: "0%",
+    dueDate: "2025-03-10",
+    priority: "Medium",
+  },
+  {
+    goalName: "Read 'Clean Code'",
+    category: "Personal Development",
+    status: "In Progress",
+    progress: "50%",
+    dueDate: "2025-02-28",
+    priority: "High",
+  },
+  {
+    goalName: "Launch Side Project",
+    category: "Startup",
+    status: "In Progress",
+    progress: "30%",
+    dueDate: "2025-06-01",
+    priority: "High",
+  },
+  {
+    goalName: "Master TypeScript",
+    category: "Programming",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-05-20",
+    priority: "Medium",
+  },
+  {
+    goalName: "Get Certified in AWS",
+    category: "Cloud Computing",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-08-15",
+    priority: "Low",
+  },
+  {
+    goalName: "Contribute to Open Source",
+    category: "Community",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-07-30",
+    priority: "Medium",
+  },
+  {
+    goalName: "Run a Marathon",
+    category: "Health",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-09-10",
+    priority: "High",
+  },
+  {
+    goalName: "Start a Tech Blog",
+    category: "Content Creation",
+    status: "In Progress",
+    progress: "50%",
+    dueDate: "2025-05-05",
+    priority: "Medium",
+  },
+  {
+    goalName: "Build a Mobile App",
+    category: "Mobile Development",
+    status: "In Progress",
+    progress: "50%",
+    dueDate: "2025-11-01",
+    priority: "Low",
+  },
+  {
+    goalName: "Create a YouTube Channel",
+    category: "Content Creation",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-07-01",
+    priority: "Medium",
+  },
+  {
+    goalName: "Optimize Portfolio for SEO",
+    category: "Web Development",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-04-01",
+    priority: "High",
+  },
+  {
+    goalName: "Learn Docker & Kubernetes",
+    category: "DevOps",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-10-01",
+    priority: "Low",
+  },
+  {
+    goalName: "Save $5000 for a New Laptop",
+    category: "Finance",
+    status: "In Progress",
+    progress: "20%",
+    dueDate: "2025-12-01",
+    priority: "Medium",
+  },
+  {
+    goalName: "Learn GraphQL",
+    category: "Backend Development",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-08-01",
+    priority: "Medium",
+  },
+  {
+    goalName: "Read 10 Books",
+    category: "Personal Development",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-12-31",
+    priority: "Low",
+  },
+  {
+    goalName: "Get a Remote Job",
+    category: "Career",
+    status: "In Progress",
+    progress: "50%",
+    dueDate: "2025-06-01",
+    priority: "High",
+  },
+  {
+    goalName: "Build a SaaS Product",
+    category: "Entrepreneurship",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-09-15",
+    priority: "Low",
+  },
+  {
+    goalName: "Learn Three.js for 3D Websites",
+    category: "Web Development",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-11-15",
+    priority: "Low",
+  },
+  {
+    goalName: "Speak at a Tech Conference",
+    category: "Public Speaking",
+    status: "Not Started",
+    progress: "0%",
+    dueDate: "2025-07-20",
+    priority: "Medium",
+  },
+];

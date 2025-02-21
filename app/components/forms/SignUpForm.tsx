@@ -61,7 +61,7 @@ export default function SignUpPage() {
     });
 
     if (response.ok) {
-      setSuccessMessage("Account created successfully! Redirecting...");
+      setSuccessMessage("Account created successfully! Redirecting to dashboard...");
       router.replace("/sign-in");
       form.reset();
     } else if (response.status === 409) {

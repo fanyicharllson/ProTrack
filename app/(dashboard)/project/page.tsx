@@ -6,6 +6,7 @@ import pencil from "@/public/images/icons/pencil.svg";
 import Image from "next/image";
 import FilterBtn from "@/app/components/FilterBtn";
 import { useState, useEffect } from "react";
+import { getStatusClassNames } from "@/app/components/statusPriorityColor/color";
 
 // Get the total number of project
 const totalProject: number = DetailProjects.length;
@@ -56,23 +57,6 @@ export default function ProjectPage() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-  const getStatusClassNames = (status: string) => {
-    switch (status) {
-      case "Cancelled":
-        return "bg-red-100 dark:bg-gray-800 text-red-600";
-      case "Ongoing":
-        return "bg-yellow-100 dark:bg-gray-800 text-yellow-600";
-      case "Pending":
-        return "bg-blue-100 dark:bg-gray-800 text-blue-600";
-      case "Completed":
-        return "bg-green-100 dark:bg-gray-800 text-green-600";
-      case "On Hold":
-        return "bg-purple-100 dark:bg-gray-800 text-purple-600";
-      default:
-        return "bg-gray-100 dark:bg-gray-800 text-gray-600";
-    }
-  };
 
   return (
     <>
