@@ -1,4 +1,7 @@
+"use client";
+
 // import Nogoals from '@/app/components/Nogoals'
+
 import React from "react";
 import { goals } from "@/lib/Goals";
 import {
@@ -7,10 +10,13 @@ import {
 } from "@/app/components/statusPriorityColor/color";
 import trash from "@/public/images/icons/trash.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const goalsNumber: number = goals.length;
 
 function GoalsPage() {
+  const router = useRouter();
+
   return (
     <>
       <div className="text-gray-400 mt-4 px-4 dark:text-gray-500">
@@ -30,8 +36,12 @@ function GoalsPage() {
             </tr>
           </thead>
           <tbody>
-            {goals.map((txn, index) => (
-              <tr key={index} className="border-t text-sm">
+            {goals.map((txn) => (
+              <tr
+                key={txn.goalName}
+                className="border-t text-sm cursor-pointer hover:bg-purple-100 dark:hover:bg-gray-900"
+                onClick={() => router.push(`/goals/${txn.goalName}`)}
+              >
                 <td className="py-3 px-4 font-medium text-sm">
                   {txn.goalName}
                 </td>

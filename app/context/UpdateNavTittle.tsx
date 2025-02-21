@@ -31,6 +31,7 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
           heading: "Goals",
           subtitle: "Create and manage your projects",
         };
+      
       default:
         return { heading: "Default Title", subtitle: "Default Subtitle" };
     }

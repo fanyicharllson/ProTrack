@@ -69,32 +69,35 @@ function DashboardLayout({ children }: DashboardProps) {
         <div className="flex flex-col flex-1 px-2 overflow-y-auto">
           {/* Main Links */}
           <div className="md:mt-9">
-            {SideBarLinks.map((link, index) => (
-              <Link
-                href={link.href}
-                key={index}
-                className={`flex items-center gap-2 md:gap-3 p-3 transition-colors rounded-full duration-300 cursor-pointer ${
-                  pathname === link.href
-                    ? "bg-purple-600 text-white dark:text-white"
-                    : "hover:bg-purple-300 dark:hover:bg-gray-800"
-                }`}
-              >
-                <Image
-                  src={link.icon}
-                  alt={link.title}
-                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
-                    pathname === link.href ? "filter brightness-0 invert" : ""
-                  }`}
-                />
-                <span
-                  className={`text-sm dark:text-white ${
-                    isSidebarOpen ? "block" : "hidden md:block"
+            {SideBarLinks.map((link, index) => {
+                const isActive = pathname === link.href || pathname.startsWith(link.href);
+              return (
+                <Link
+                  href={link.href}
+                  key={index}
+                  className={`flex items-center gap-2 md:gap-3 p-3 transition-colors rounded-full duration-300 cursor-pointer ${
+                    isActive
+                      ? "bg-purple-600 text-white dark:text-white"
+                      : "hover:bg-purple-300 dark:hover:bg-gray-800"
                   }`}
                 >
-                  {link.title}
-                </span>
-              </Link>
-            ))}
+                  <Image
+                    src={link.icon}
+                    alt={link.title}
+                    className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
+                      isActive ? "filter brightness-0 invert" : ""
+                    }`}
+                  />
+                  <span
+                    className={`text-sm dark:text-white ${
+                      isSidebarOpen ? "block" : "hidden md:block"
+                    }`}
+                  >
+                    {link.title}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Bottom Links (Help and Sign Out) */}
@@ -142,7 +145,7 @@ function DashboardLayout({ children }: DashboardProps) {
 
       {/* Right side bar */}
       <div
-      id="rightSideBar"
+        id="rightSideBar"
         className={`transition-all duration-300 overflow-x-auto ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
