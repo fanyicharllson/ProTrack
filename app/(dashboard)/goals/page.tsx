@@ -9,6 +9,7 @@ import {
   getpriorityClassNames,
 } from "@/app/components/statusPriorityColor/color";
 import trash from "@/public/images/icons/trash.svg";
+import toprightArrow from "@/public/images/icons/rightarrow2.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -37,11 +38,7 @@ function GoalsPage() {
           </thead>
           <tbody>
             {goals.map((txn) => (
-              <tr
-                key={txn.goalName}
-                className="border-t text-sm cursor-pointer hover:bg-purple-100 dark:hover:bg-gray-900"
-                onClick={() => router.push(`/goals/${txn.goalName}`)}
-              >
+              <tr key={txn.goalName} className="border-t text-sm">
                 <td className="py-3 px-4 font-medium text-sm">
                   {txn.goalName}
                 </td>
@@ -66,7 +63,20 @@ function GoalsPage() {
                     {txn.priority}
                   </div>
                 </td>
-                <td className="py-3 px-4 text-sm">
+                <td className="py-3 px-4 text-sm flex items-center gap-2">
+                  <div
+                    className="border border-gray-600 dark:border-gray-600 rounded-full p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200"
+                    onClick={() => router.push(`/goals/${txn.goalName}`)}
+                  >
+                    <div className="">
+                      <Image
+                        src={toprightArrow}
+                        alt="Right-arrow"
+                        className="w-6 h-6 dark:filter dark:brightness-0 dark:invert"
+                        priority
+                      />
+                    </div>
+                  </div>
                   <div className="cursor-pointer bg-red-100 rounded-full w-10 h-10 dark:bg-gray-800 p-2 flex items-center">
                     <Image
                       src={trash}

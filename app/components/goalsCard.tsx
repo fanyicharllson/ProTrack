@@ -1,12 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import pencil from "@/public/images/icons/pencil.svg";
+import {
+  getStatusClassNames,
+  getpriorityClassNames,
+} from "./statusPriorityColor/color";
 
 type goalsCardProps = {
   title: string;
   onClick: () => void;
   dueDate: string;
   progress: number;
+  status: string;
+  priority: string;
 };
 
 export default function GoalsCard({
@@ -14,10 +20,12 @@ export default function GoalsCard({
   onClick,
   dueDate,
   progress,
+  status,
+  priority,
 }: goalsCardProps) {
   return (
     <div className="relative dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4 shadow-lg border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
-      <div className="pl-2 pt-1">
+      <div className="pl-2 pt-1 w-[95%]">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
           {title}
         </h2>
@@ -37,13 +45,30 @@ export default function GoalsCard({
         </div>
         <div className="pt-6">
           {/* Progress Bar */}
-          <div className="relative max-w-md max-sm-500:max-w-sm w-[90%] h-5 bg-purple-100 dark:bg-gray-900 rounded-full">
+          <div className="relative max-w-md max-sm-500:max-w-sm h-7 bg-purple-100 dark:bg-gray-900 rounded-full">
             <div
               className="absolute top-0 left-0 h-full bg-purple-500 rounded-full text-[13px] flex items-center justify-center text-white font-medium"
               style={{ width: `${progress}%` }}
             >
               {progress}%
             </div>
+          </div>
+        </div>
+        <div className="pt-3 flex items-center gap-4">
+          <div
+            className={`rounded-full py-1 px-3 text-sm ${getStatusClassNames(
+              status
+            )}`}
+          >
+            {status}
+          </div>
+
+          <div
+            className={`rounded-full py-1 px-3 text-sm ${getpriorityClassNames(
+              priority
+            )}`}
+          >
+            {priority}
           </div>
         </div>
       </div>

@@ -25,6 +25,8 @@ function GoalDetailPage() {
             onClick={() => console.log("Hello world")}
             dueDate="Feb 2025"
             progress={30}
+            status="In Progress"
+            priority="High"
           />
         </div>
       </div>
