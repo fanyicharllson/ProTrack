@@ -26,14 +26,14 @@ import {
 import { MainStackDropdown } from "./MainStackDropdown";
 import { DatePicker } from "./DateDropdown";
 
-type formValues = z.infer<typeof projectSchema>;
+type ProjectFormValues = z.infer<typeof projectSchema>;
 
 function AddprojectForm({
   setShowModal,
 }: {
   setShowModal: (value: boolean) => void;
 }) {
-  const form = useForm<formValues>({
+  const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
       type: undefined,
@@ -45,7 +45,7 @@ function AddprojectForm({
     },
   });
 
-  const onSubmit = (values: formValues) => {
+  const onSubmit = (values: ProjectFormValues) => {
     console.log(values);
   };
 
@@ -185,7 +185,7 @@ function AddprojectForm({
                         <div>
                           <FormLabel htmlFor="date">Select date</FormLabel>
                         </div>
-                        <DatePicker field={field} />
+                        <DatePicker<ProjectFormValues> field={field} />
                         <FormMessage />
                       </FormItem>
                     )}

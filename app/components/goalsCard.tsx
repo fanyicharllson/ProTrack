@@ -13,6 +13,7 @@ type goalsCardProps = {
   progress: number;
   status: string;
   priority: string;
+  catergory: string;
 };
 
 export default function GoalsCard({
@@ -22,6 +23,7 @@ export default function GoalsCard({
   progress,
   status,
   priority,
+  catergory
 }: goalsCardProps) {
   return (
     <div className="relative dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4 shadow-lg border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
@@ -44,6 +46,9 @@ export default function GoalsCard({
           </div>
         </div>
         <div className="pt-6">
+          <div className="flex justify-end items-center pb-2">
+          <span className="text-sm text-gray-400">{ catergory }</span>
+          </div>
           {/* Progress Bar */}
           <div className="relative max-w-md max-sm-500:max-w-sm h-7 bg-purple-100 dark:bg-gray-900 rounded-full">
             <div

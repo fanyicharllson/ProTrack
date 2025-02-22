@@ -7,22 +7,19 @@ import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { ControllerRenderProps } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { projectSchema } from "../../Schema/AddProjectFormSchema";
-import { z } from "zod";
 
-type formValues = z.infer<typeof projectSchema>;
 
-interface DatePickerProps {
-  field: ControllerRenderProps<formValues, "date">;
+interface DatePickerProps<T extends FieldValues> {
+  field: ControllerRenderProps<T, Path<T>>;
 }
 
-export function DatePicker({ field }: DatePickerProps) {
+export function DatePicker<T extends FieldValues>({ field }: DatePickerProps<T>) {
 //   const [date, setDate] = React.useState<Date>();
 
   return (

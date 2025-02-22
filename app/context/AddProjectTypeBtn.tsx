@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 // import { useRouter } from "next/navigation";
 import AddprojectForm from "../components/forms/AddprojectForm";
+import AddGoalForm from "../components/forms/AddgoalForm";
 
 interface AddProjectTypeBtnProps {
   btnText: string;
@@ -95,6 +96,19 @@ const useAddProjectBtn = () => {
 
 const AddProjectBtn = () => {
   const { btnText, onClick, showModal, setShowModal } = useAddProjectBtn();
+  const pathName = usePathname();
+
+  const renderModal = () => {
+    if (!showModal) return null;
+
+    if (pathName === "/goals") {
+      return <AddGoalForm setShowModal={setShowModal} />;
+    } else if (/^\/goals\/[^/]+$/.test(pathName)) {
+      return <AddGoalForm setShowModal={setShowModal} />;
+    } else {
+      return <AddprojectForm setShowModal={setShowModal} />;
+    }
+  };
 
   return (
     <div>
@@ -106,7 +120,7 @@ const AddProjectBtn = () => {
         {btnText}
       </button>
 
-      {showModal && <AddprojectForm setShowModal={setShowModal} />}
+      {renderModal()}
     </div>
   );
 };
