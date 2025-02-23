@@ -95,3 +95,14 @@ body {
     @apply w-full bg-purple-500 hover:bg-purple-600 disabled:bg-purple-400 disabled:text-gray-200 disabled:cursor-not-allowed transition-colors duration-300;
   }
 }
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

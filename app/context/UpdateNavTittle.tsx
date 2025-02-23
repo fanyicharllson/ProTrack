@@ -42,8 +42,18 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       };
     }  else if (pathname === "/settings") {
       return {
-        heading: "Setting",
+        heading: "Settings",
         subtitle: "View and Manage your settings",
+      };
+    } else if (pathname === "/help") {
+      return {
+        heading: "Help Center",
+        subtitle: "Share your worries with us",
+      };
+    } else if (pathname === "/feedback") {
+      return {
+        heading: "Feedback",
+        subtitle: "We value your feedback",
       };
     } else {
       return { heading: "Default Title", subtitle: "Default Subtitle" };

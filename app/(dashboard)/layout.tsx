@@ -147,7 +147,7 @@ function DashboardLayout({ children }: DashboardProps) {
       {/* Right side bar */}
       <div
         id="rightSideBar"
-        className={`transition-all duration-300 overflow-x-auto ${
+        className={`transition-all duration-300 h-screen overflow-y-auto ${
           isSidebarOpen
             ? "w-[calc(100%-200px)]"
             : "w-[calc(100%-60px)] md:w-[80%] max-sm-500:w-full"
@@ -207,8 +207,8 @@ function DashboardLayout({ children }: DashboardProps) {
       <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40 ">
         <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
           {SideBarLinks.map((link, index) => {
-             const isActive =
-             pathname === link.href || pathname.startsWith(link.href);
+            const isActive =
+              pathname === link.href || pathname.startsWith(link.href);
             return (
               <Link
                 href={link.href}

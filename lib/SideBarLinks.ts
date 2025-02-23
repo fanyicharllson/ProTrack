@@ -5,6 +5,7 @@ import goalsIcon from "@/public/images/icons/goalsIcon.svg";
 import settingIcon from "@/public/images/icons/settingIcon.svg";
 import signoutIcon from "@/public/images/icons/signoutIcon.svg";
 import helpIcon from "@/public/images/icons/helpIcon.svg";
+import feedBack from "@/public/images/icons/feedback.svg";
 
 export const SideBarLinks = [
   {
@@ -36,6 +37,11 @@ export const SideBarLinks = [
 ];
 
 export const SideBarButtonLinks = [
+  {
+    href: "/feedback",
+    icon: feedBack,
+    title: "FeedBack",
+  },
   {
     href: "/help",
     icon: helpIcon,

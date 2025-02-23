@@ -56,6 +56,10 @@ const BtnDateText = () => {
       return "hidden";
     } else if (pathName === "/settings") {
       return "hidden";
+    } else if (pathName === "/help") {
+      return "hidden";
+    } else if (pathName === "/feedback") {
+      return "hidden";
     } else {
       return "";
     }
