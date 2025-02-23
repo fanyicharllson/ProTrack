@@ -1,13 +1,26 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -16,13 +29,16 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  subject: z.string({
-    required_error: "Please select a subject.",
-  }),
+  subject: z.enum(
+    ["general", "bug", "feature", "account"],
+    {
+      required_error: "Please select a subject.",
+    }
+  ),
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
-})
+});
 
 export function HelpForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -30,14 +46,14 @@ export function HelpForm() {
     defaultValues: {
       username: "",
       email: "",
-      subject: "",
+      subject: undefined,
       message: "",
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // You can handle form submission here
-    console.log(values)
+    console.log(values);
   }
 
   return (
@@ -68,7 +84,11 @@ export function HelpForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="Enter your email" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,7 +100,10 @@ export function HelpForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Subject</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a subject" />
@@ -104,18 +127,24 @@ export function HelpForm() {
               <FormItem>
                 <FormLabel>Message</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Describe your issue or question" className="resize-none" {...field} />
+                  <Textarea
+                    placeholder="Describe your issue or question"
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
+          <Button
+            type="submit"
+            className="w-full bg-purple-600 hover:bg-purple-700"
+          >
             Submit
           </Button>
         </form>
       </Form>
     </div>
-  )
+  );
 }
-

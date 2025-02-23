@@ -40,7 +40,7 @@ export const SideBarButtonLinks = [
   {
     href: "/feedback",
     icon: feedBack,
-    title: "FeedBack",
+    title: "Feedback",
   },
   {
     href: "/help",
