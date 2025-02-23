@@ -32,8 +32,18 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       };
     } else if (/^\/goals\/[^/]+$/.test(pathname)) {   //For dynamic routes(displaying its title)
       return {
-        heading: "Goal Detail",
-        subtitle: "View and manage your goal",
+        heading: "Your Goal's Detail",
+        subtitle: "View, Edit and Manage your goal's now",
+      };
+    } else if (pathname === "/analitics") {   
+      return {
+        heading: "Your Analitics",
+        subtitle: "Detail overview of your Projects",
+      };
+    }  else if (pathname === "/settings") {
+      return {
+        heading: "Setting",
+        subtitle: "View and Manage your settings",
       };
     } else {
       return { heading: "Default Title", subtitle: "Default Subtitle" };

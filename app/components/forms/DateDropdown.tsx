@@ -20,7 +20,6 @@ interface DatePickerProps<T extends FieldValues> {
 }
 
 export function DatePicker<T extends FieldValues>({ field }: DatePickerProps<T>) {
-//   const [date, setDate] = React.useState<Date>();
 
   return (
     <Popover>

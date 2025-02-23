@@ -25,14 +25,14 @@ import {
 } from "@/components/ui/select";
 import { DatePicker } from "./DateDropdown";
 
-type formValues = z.infer<typeof goalSchema>;
+type GoalFormValues = z.infer<typeof goalSchema>;
 
 function AddGoalForm({
   setShowModal,
 }: {
   setShowModal: (value: boolean) => void;
 }) {
-  const form = useForm<formValues>({
+  const form = useForm<GoalFormValues>({
     resolver: zodResolver(goalSchema),
     defaultValues: {
       goalName: "",
@@ -43,7 +43,7 @@ function AddGoalForm({
     },
   });
 
-  const onSubmit = (values: formValues) => {
+  const onSubmit = (values: GoalFormValues) => {
     console.log(values);
   };
 
@@ -68,11 +68,11 @@ function AddGoalForm({
           />
         </div>
         <div className="flex items-center flex-col justify-center">
-          <p className="dark:text-gray-400 font-semibold text-lg">
-            Adding a new goals
+          <p className="dark:text-gray-400 font-semibold text-lg md:text-2xl">
+            Adding a new Goal
           </p>
           <span className="text-gray-300 text-sm">
-            Please fill in the form below
+            Please fill in the form below to add your new goal
           </span>
         </div>
 
@@ -191,7 +191,7 @@ function AddGoalForm({
                       <div>
                         <FormLabel htmlFor="date">Select date</FormLabel>
                       </div>
-                      <DatePicker<formValues> field={field} />
+                      <DatePicker<GoalFormValues> field={field} />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -201,7 +201,7 @@ function AddGoalForm({
                     <button onClick={() => setShowModal(false)}>Cancel</button>
                   </div>
                   <div className="cursor-pointer bg-purple-600 px-4 py-2 rounded-lg text-white">
-                    <button type="submit">Save</button>
+                    <button type="submit">Add Goal</button>
                   </div>
                 </div>
               </div>
