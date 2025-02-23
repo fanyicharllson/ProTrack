@@ -110,10 +110,20 @@ const AddProjectBtn = () => {
     }
   };
 
+  const returnClassName = () => {
+    if (pathName === "/analitics") {
+      return "hidden";
+    } else if (pathName === "/settings") {
+      return "hidden";
+    } else {
+      return "";
+    }
+  };
+
   return (
     <div>
       <button
-        className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 items-center text-white text-sm hover:bg-purple-500 transition-colors duration-300"
+        className={`bg-purple-600 px-4 py-2 rounded-full flex gap-2 items-center text-white text-sm hover:bg-purple-500 transition-colors duration-300 ${returnClassName()}`}
         onClick={onClick}
       >
         <Plus className="h-6 w-6" />

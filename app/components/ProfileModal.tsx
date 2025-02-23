@@ -57,8 +57,9 @@ export default function ProfileModal({ toggleDropdown }: ProfileImageProps) {
       </div>
       <div className="p-2 flex flex-col gap-4">
         <Link
-          href="/update-profile"
+          href="/settings"
           className="px-4 py-2 flex gap-4 items-center text-sm text-white hover:bg-purple-600 bg-purple-500 rounded-lg transition duration-300"
+          onClick={toggleDropdown}
         >
           <Image
             src={profileIcon}

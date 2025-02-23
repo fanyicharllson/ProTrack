@@ -40,6 +40,7 @@ const DateBtnContextProvider: React.FC<{ children: ReactNode }> = ({
 
 const useBtnDateText = () => {
   const context = useContext(DateBtnTextContext);
+
   if (!context) {
     throw new Error("useBtnDateText must be used within <CalenderBtnContext>");
   }
@@ -48,8 +49,19 @@ const useBtnDateText = () => {
 
 const BtnDateText = () => {
   const { btnText } = useBtnDateText();
+  const pathName = usePathname();
 
-  return <CalenderBtn text={btnText} />;
+  const returnClass = () => {
+    if (pathName === "/analitics") {
+      return "hidden";
+    } else if (pathName === "/settings") {
+      return "hidden";
+    } else {
+      return "";
+    }
+  };
+
+  return <CalenderBtn text={btnText} returnClassName={returnClass} />;
 };
 
 export { DateBtnContextProvider, BtnDateText };
