@@ -82,7 +82,7 @@ const FeedbackForm = () => {
   }
 
   return (
-    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md max-sm-500:w-[92%]">
       <div className="text-center mb-6">
         <h2 className="text-lg md:text-2xl font-bold text-purple-700">
           ProTrack Feedback

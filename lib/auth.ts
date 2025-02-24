@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { db } from "@/lib/db";
+import { db } from "@/lib/prismaClient";
 import { compare } from "bcrypt";
 import GoogleProvider from "next-auth/providers/google";
 
