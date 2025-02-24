@@ -1,0 +1,27 @@
+// npx prisma migrate dev --name init
+// "use client";
+
+// import { useEffect } from 'react';
+// import { useProjectStore } from '@/app/store/useProjectStore';
+// import { format } from 'date-fns';
+
+// function ProjectList() {
+//   const { projects, fetchProjects } = useProjectStore();
+
+//   useEffect(() => {
+//     fetchProjects();
+//   }, [fetchProjects]);
+
+//   return (
+//     <div>
+//       {projects.map((project) => (
+//         <div key={project.id}>
+//           <h3>{project.projectName}</h3>
+//           <p>{format(new Date(project.date), 'dd MMM HH:mm')}</p>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default ProjectList;
