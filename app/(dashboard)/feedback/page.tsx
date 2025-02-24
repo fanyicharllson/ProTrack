@@ -1,11 +1,10 @@
-import { FeedbackForm } from "@/app/components/forms/FeedbackForm";
-import { HelpForm } from "@/app/components/forms/Helpform";
 import React from "react";
+import FeedbackForm from "@/app/components/forms/FeedbackForm";
 
-export default function page() {
+export default function FeedbackPage() {
   return (
-    <>
-      <HelpForm/>
-    </>
+    <div>
+      <FeedbackForm />
+    </div>
   );
 }

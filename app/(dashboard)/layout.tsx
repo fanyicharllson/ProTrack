@@ -199,8 +199,10 @@ function DashboardLayout({ children }: DashboardProps) {
             <AddProjectBtn />
           </AddProjectTypeBtnProvider>
         </div>
-        {/* Children */}
+
+        {/* Children=========================================================================================== */}
         <div className="pb-[80px]">{children}</div>
+        {/* Children=========================================================================================== */}
       </div>
 
       {/* Bottom Scrollable Bar (Visible on Mobile) */}

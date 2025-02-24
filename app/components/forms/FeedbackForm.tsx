@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,21 +22,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { Star } from "lucide-react";
+import { memo } from "react";
 
 const formSchema = z.object({
   overallRating: z.number().min(1).max(5),
-  easeOfUse: z.number().min(1).max(5),
-  features: z.number().min(1).max(5),
-  design: z.number().min(1).max(5),
-  likeMost: z.string({
-    required_error: "Please select what you like most about ProTrack.",
-  }),
-  improvements: z
-    .array(z.string())
-    .min(1, "Please select at least one area for improvement."),
+  likeMost: z.enum(
+    ["userInterface", "features", "easeOfUse", "performance", "support"],
+    {
+      required_error: "Please select what you like most about ProTrack.",
+    }
+  ),
   generalFeedback: z.string().min(10, "Please provide more detailed feedback."),
   wouldRecommend: z.enum(["yes", "no"], {
     required_error: "Please indicate if you would recommend ProTrack.",
@@ -64,18 +62,14 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, onRatingChange }) => {
   );
 };
 
-export function FeedbackForm() {
+const FeedbackForm = () => {
   const [overallRating, setOverallRating] = useState(0);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       overallRating: 0,
-      easeOfUse: 0,
-      features: 0,
-      design: 0,
-      likeMost: "",
-      improvements: [],
+      likeMost: undefined,
       generalFeedback: "",
       wouldRecommend: undefined,
     },
@@ -84,10 +78,11 @@ export function FeedbackForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Handle form submission here
     console.log(values);
+    form.reset();
   }
 
   return (
-    <div className="max-w-lg md:max-w-2xl mx-auto p-6 border rounded-lg shadow-md w-full">
+    <div className="max-w-lg md:max-w-2xl mx-auto p-6 border rounded-lg shadow-md">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-purple-700">
           ProTrack Feedback
@@ -115,31 +110,6 @@ export function FeedbackForm() {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {["easeOfUse", "features", "design"].map((aspect) => (
-              <FormField
-                key={aspect}
-                control={form.control}
-                name={aspect as "easeOfUse" | "features" | "design"}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      {aspect
-                        .replace(/([A-Z])/g, " $1")
-                        .replace(/^./, (str) => str.toUpperCase())}
-                    </FormLabel>
-                    <FormControl>
-                      <StarRating
-                        rating={field.value}
-                        onRatingChange={(rating) => field.onChange(rating)}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
-          </div>
           <FormField
             control={form.control}
             name="likeMost"
@@ -165,62 +135,6 @@ export function FeedbackForm() {
                     <SelectItem value="support">Customer Support</SelectItem>
                   </SelectContent>
                 </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="improvements"
-            render={() => (
-              <FormItem>
-                <div className="mb-4">
-                  <FormLabel className="text-base">
-                    Areas for improvement
-                  </FormLabel>
-                  <FormDescription>Select all that apply.</FormDescription>
-                </div>
-                {[
-                  "userInterface",
-                  "features",
-                  "easeOfUse",
-                  "performance",
-                  "support",
-                ].map((item) => (
-                  <FormField
-                    key={item}
-                    control={form.control}
-                    name="improvements"
-                    render={({ field }) => {
-                      return (
-                        <FormItem
-                          key={item}
-                          className="flex flex-row items-start space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(item)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([...field.value, item])
-                                  : field.onChange(
-                                      field.value?.filter(
-                                        (value) => value !== item
-                                      )
-                                    );
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {item
-                              .replace(/([A-Z])/g, " $1")
-                              .replace(/^./, (str) => str.toUpperCase())}
-                          </FormLabel>
-                        </FormItem>
-                      );
-                    }}
-                  />
-                ))}
                 <FormMessage />
               </FormItem>
             )}
@@ -282,4 +196,6 @@ export function FeedbackForm() {
       </Form>
     </div>
   );
-}
+};
+
+export default memo(FeedbackForm);
