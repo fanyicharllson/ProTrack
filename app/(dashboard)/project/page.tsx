@@ -60,6 +60,7 @@ export default function ProjectPage() {
 
   return (
     <>
+    {/* Filter btns */}
       <div className="px-4 pt-3 flex gap-2 flex-wrap items-center">
         <FilterBtn
           text="Type"
