@@ -1,13 +1,15 @@
 import React from "react";
 import ProjectCard from "./Card";
+import { useRouter } from "next/navigation";
 
 export default function DashboardCard() {
+  const router = useRouter();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 px-4 pt-4">
       <ProjectCard
         title="Total Projects"
         count={20}
-        onClick={() => console.log("View All Projects Clicked")}
+        onClick={() => router.push('/project')}
         date="last month"
         percentage={"60.5% total projects"}
         bgColor="bg-green-100"
@@ -16,7 +18,7 @@ export default function DashboardCard() {
       <ProjectCard
         title="Completed Projects"
         count={12}
-        onClick={() => console.log("View Completed Clicked")}
+        onClick={() => router.push('/project')}
         date="two days ago"
         percentage={"75.06% completed"}
         bgColor="bg-red-100"
@@ -26,7 +28,7 @@ export default function DashboardCard() {
       <ProjectCard
         title="Ongoing Projects"
         count={5}
-        onClick={() => console.log("View Ongoing Clicked")}
+        onClick={() => router.push('/project')}
         date="last year"
         percentage={"20.1% ongoing"}
         bgColor="bg-purple-100"
@@ -35,7 +37,7 @@ export default function DashboardCard() {
       <ProjectCard
         title="Upcoming Deadlines"
         count={3}
-        onClick={() => console.log("View Deadlines Clicked")}
+        onClick={() => router.push('/project')}
         date="last month"
         percentage="20.9% deadlines"
          bgColor="bg-green-100"

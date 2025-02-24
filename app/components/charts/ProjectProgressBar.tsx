@@ -5,7 +5,7 @@ import { savingGoals } from "@/lib/Goals";
 
 export default function ProjectProgressBar() {
   return (
-    <div className='relative bg-white dark:bg-gray-950 p-4 rounded-2xl border border-gray-300 shadow-lg flex flex-col items-center w-full"'>
+    <div className='relative bg-white dark:bg-gray-950 p-4 rounded-2xl border border-gray-300 shadow-lg flex flex-col items-center w-full'>
       <div>
         <h2 className="text-sm font-semibold text-black dark:text-gray-200 mb-2">
           Saving Goals

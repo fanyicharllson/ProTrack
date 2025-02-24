@@ -33,23 +33,22 @@ export const SideBarLinks = [
     icon: settingIcon,
     href: "/settings",
   },
- 
 ];
 
 export const SideBarButtonLinks = [
-  {
-    href: "/feedback",
-    icon: feedBack,
-    title: "Feedback",
-  },
   {
     href: "/help",
     icon: helpIcon,
     title: "Help",
   },
   {
+    href: "/feedback",
+    icon: feedBack,
+    title: "Feedback",
+  },
+  {
     href: "/signout",
     icon: signoutIcon,
     title: "Log Out",
-  }
+  },
 ];

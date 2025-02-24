@@ -59,8 +59,8 @@ export function HelpForm() {
   return (
     <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md w-full">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-purple-700">ProTrack</h2>
-        <p className="text-gray-600">Need help? We&apos;re here for you.</p>
+        <h2 className="text-lg md:text-2xl font-bold text-purple-700">ProTrack</h2>
+        <p className="text-gray-600 text-sm">Need help? We&apos;re here for you.</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

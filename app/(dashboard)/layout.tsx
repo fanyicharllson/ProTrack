@@ -32,7 +32,7 @@ function DashboardLayout({ children }: DashboardProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <main className="flex w-full h-screen dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[105px]">
+    <main className="flex w-full h-screen dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[130px]">
       {/* Left side bar */}
       <div
         className={`h-screen sm-500:flex flex-col dark:bg-gray-950 dark:border-r dark:border-r-gray-500 bg-purple-50 transition-all duration-300 hidden ${
@@ -101,7 +101,7 @@ function DashboardLayout({ children }: DashboardProps) {
             })}
           </div>
 
-          {/* Bottom Links (Help and Sign Out) */}
+          {/* Bottom Links */}
           <div className="mt-auto flex flex-col mb-4">
             {SideBarButtonLinks.map((link, index) => (
               <Link
@@ -118,7 +118,7 @@ function DashboardLayout({ children }: DashboardProps) {
                       }
                     : undefined
                 }
-                className={`flex items-center transition-colors py-2 rounded-full duration-300 cursor-pointer ${
+                className={`flex items-center gap-2 md:gap-3 transition-colors p-3 rounded-full duration-300 cursor-pointer ${
                   pathname === link.href
                     ? "bg-purple-600 text-white"
                     : "hover:bg-purple-300 dark:hover:bg-gray-800"
@@ -127,7 +127,7 @@ function DashboardLayout({ children }: DashboardProps) {
                 <Image
                   src={link.icon}
                   alt={link.title}
-                  className={`h-6 w-6dark:filter dark:brightness-0 dark:invert ${
+                  className={`h-6 w-6 dark:filter dark:brightness-0 dark:invert ${
                     pathname === link.href ? "filter brightness-0 invert" : ""
                   }`}
                 />
@@ -201,7 +201,7 @@ function DashboardLayout({ children }: DashboardProps) {
         </div>
 
         {/* Children=========================================================================================== */}
-        <div className="pb-[80px]">{children}</div>
+        <div className="pb-[100px]">{children}</div>
         {/* Children=========================================================================================== */}
       </div>
 

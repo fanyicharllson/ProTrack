@@ -26,7 +26,7 @@ const HelpPage = () => {
   };
 
   return (
-    <div className="p-6 w-full">
+    <div className="px-4 pb-6 w-full">
       {/* Navigation Tabs */}
       <div className="flex border-b overflow-x-auto whitespace-nowrap scrollbar-hide">
         {SettingLinks.map((link) => (
@@ -46,7 +46,7 @@ const HelpPage = () => {
       </div>
 
       {/* Render Active Section Content */}
-      <div className="mt-6">{renderContent()}</div>
+      <div className="mt-4">{renderContent()}</div>
     </div>
   );
 };

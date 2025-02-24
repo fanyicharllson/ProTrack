@@ -29,7 +29,7 @@ function Dashboard() {
         </div>
       </div>
       {/* Table and progess barchart */}
-      <div className="px-4">
+      <div className="px-4 max-sm-500:pb-72">
         <div className="h-60 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
           <ProjectTable />
           <ProjectProgressBar/>

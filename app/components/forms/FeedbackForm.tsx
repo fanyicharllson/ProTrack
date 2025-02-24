@@ -82,12 +82,12 @@ const FeedbackForm = () => {
   }
 
   return (
-    <div className="max-w-lg md:max-w-2xl mx-auto p-6 border rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-purple-700">
+        <h2 className="text-lg md:text-2xl font-bold text-purple-700">
           ProTrack Feedback
         </h2>
-        <p className="text-gray-600">Help us improve your experience</p>
+        <p className="text-gray-600 text-sm">Help us improve your experience</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -148,7 +148,7 @@ const FeedbackForm = () => {
                 <FormControl>
                   <Textarea
                     placeholder="Please share any additional thoughts or suggestions..."
-                    className="resize-none"
+                    className="resize-none text-sm"
                     {...field}
                   />
                 </FormControl>
