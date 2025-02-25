@@ -53,6 +53,7 @@ function AddprojectForm({
       status: undefined,
       date: "",
       mainStack: [],
+      projectUrl: "",
       budget: "",
       description: "",
     },
@@ -67,6 +68,7 @@ function AddprojectForm({
       status: values.status,
       date: values.date,
       mainStack: values.mainStack,
+      projectUrl: values.projectUrl,
       budget: values.budget,
       description: values.description,
     });
@@ -223,6 +225,30 @@ function AddprojectForm({
                         </FormItem>
                       )}
                     />
+                    <FormField
+                      control={form.control}
+                      name="projectUrl"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div>
+                            <FormLabel htmlFor="projectUrl">
+                              Project URL{" "}
+                            </FormLabel>
+                            <span className="text-gray-400 text-sm">
+                              Optional
+                            </span>
+                          </div>
+                          <FormControl>
+                            <Input
+                              id="projectUrl"
+                              placeholder="Enter your project url"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <FormField
                         control={form.control}
@@ -281,7 +307,12 @@ function AddprojectForm({
                       name="description"
                       render={({ field }) => (
                         <FormItem className="w-full">
-                          <FormLabel>Description</FormLabel>
+                          <div>
+                            <FormLabel htmlFor="budget">Description </FormLabel>
+                            <span className="text-gray-400 text-sm">
+                              Optional
+                            </span>
+                          </div>
                           <FormControl>
                             <Textarea
                               placeholder="Describe your project"
@@ -294,6 +325,7 @@ function AddprojectForm({
                       )}
                     />
                     {errorMsg && <ErrorMessage errorMessage={errorMsg} />}
+
                     <div className="flex gap-4 items-center justify-center pt-8 flex-wrap">
                       <div className="cursor-pointer border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-lg">
                         <button onClick={() => setShowModal(false)}>
@@ -349,7 +381,7 @@ function AddprojectForm({
           text="project"
           successMsg="Project added successfully!"
           onClose={() => {
-            setModalState("form"); 
+            setModalState("form");
             setShowModal(false);
           }}
         />

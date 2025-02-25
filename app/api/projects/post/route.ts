@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const body = await req.json();
     const projectData = projectSchema.parse(body);
-    const { projectName, type, status, date, mainStack, budget, description } =
+    const { projectName, type, status, date, mainStack, projectUrl, budget, description } =
       projectData;
     const userId = session.user.id;
 
@@ -35,6 +35,7 @@ export async function POST(req: Request) {
         status,
         date,
         mainStack,
+        projectUrl,
         budget,
         description,
         user: {
@@ -50,10 +51,10 @@ export async function POST(req: Request) {
       { project: newProject, message: "Project created successfully" },
       { status: 201 }
     );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
+    console.log(error instanceof Error ? error.message : error);
     return NextResponse.json(
-      { message: "Internal server error" },
+      { message: "An error occured! Please try again later" },
       { status: 500 }
     );
   }

@@ -30,4 +30,5 @@ export const projectSchema = z.object({
     .max(100, "Description cannot exceed 100 characters")
     .optional()
     .or(z.literal("")),
+  projectUrl: z.string().url("Invalid URL format").optional().or(z.literal("")),
 });

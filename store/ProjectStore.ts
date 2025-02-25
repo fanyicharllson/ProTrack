@@ -6,6 +6,7 @@ interface Project {
   status: string;
   date: string;
   mainStack: string[];
+  projectUrl?: string;
   budget?: string;
   description?: string;
 }
