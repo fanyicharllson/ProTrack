@@ -42,7 +42,6 @@ function AddprojectForm({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  // const [showSuccessModal, setShowSuccessModal] = useState(false);
   const addProject = useProjectStore((state) => state.addProject);
   const [modalState, setModalState] = useState<"form" | "success">("form");
 
