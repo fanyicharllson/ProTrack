@@ -17,11 +17,17 @@ export const projectSchema = z.object({
     .max(3, "You can only select up to 3 stacks"),
   budget: z
     .union([
-      z.string().min(1, "Budget must be at least $1"), 
+      z.string().min(1, "Budget must be at least $1"),
       z.literal(""), // Allow empty string
     ])
     .optional(),
   date: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Select a date",
   }),
+  description: z
+    .string()
+    .min(10, "Description must be at least 10 characters")
+    .max(100, "Description cannot exceed 100 characters")
+    .optional()
+    .or(z.literal("")),
 });

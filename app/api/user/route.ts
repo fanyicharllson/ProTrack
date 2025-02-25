@@ -19,6 +19,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { email, username, password } = UserSchema.parse(body);
+    
 
     // Check if email or username already exists
     const [existingUserByEmail, existingUserByUsername] = await Promise.all([

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import cancelIcon2 from "@/public/images/icons/cancelIcon2.svg";
@@ -25,6 +26,9 @@ import {
 } from "@/components/ui/select";
 import { MainStackDropdown } from "./MainStackDropdown";
 import { DatePicker } from "./DateDropdown";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import ErrorMessage from "@/info/ErrorMsg";
 
 type ProjectFormValues = z.infer<typeof projectSchema>;
 
@@ -33,6 +37,9 @@ function AddprojectForm({
 }: {
   setShowModal: (value: boolean) => void;
 }) {
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
   const form = useForm<ProjectFormValues>({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -42,11 +49,39 @@ function AddprojectForm({
       date: "",
       mainStack: [],
       budget: "",
+      description: "",
     },
   });
 
-  const onSubmit = (values: ProjectFormValues) => {
+  const onSubmit = async (values: ProjectFormValues) => {
     console.log(values);
+    const response = await fetch("/api/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        projectName: values.projectName,
+        type: values.type,
+        status: values.status,
+        date: values.date,
+        mainStack: values.mainStack,
+        budget: values.budget,
+        description: values.description,
+      }),
+    });
+    console.log(response);
+
+    if (response.ok) {
+      const data = await response.json();
+      setSuccessMsg(data.message);
+      console.log(data.message);
+      form.reset();
+    } else if (!response.ok) {
+      const data = await response.json();
+      setErrorMsg(data.message);
+      console.log(data.message);
+    }
   };
 
   return (
@@ -77,6 +112,9 @@ function AddprojectForm({
             Please fill in the form below to add your new project
           </span>
         </div>
+
+        {/* Success and Error messages */}
+        {errorMsg && <ErrorMessage errorMessage={`${errorMsg}`} />}
 
         <div className="pt-4">
           <Form {...form}>
@@ -201,7 +239,10 @@ function AddprojectForm({
                           defaultValue={field.value}
                         >
                           <SelectTrigger id="status" className="w-full">
-                            <SelectValue className="text-gray-400 text-sm" placeholder="Select project status" />
+                            <SelectValue
+                              className="text-gray-400 text-sm"
+                              placeholder="Select project status"
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectGroup>
@@ -222,12 +263,63 @@ function AddprojectForm({
                     )}
                   />
                 </div>
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Describe your project"
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <div className="flex gap-4 items-center justify-center pt-8">
                   <div className="cursor-pointer border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-lg">
                     <button onClick={() => setShowModal(false)}>Cancel</button>
                   </div>
-                  <div className="cursor-pointer bg-purple-600 px-4 py-2 rounded-lg text-white">
-                    <button type="submit">Add Project</button>
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={form.formState.isSubmitting}
+                      className={`bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer`}
+                    >
+                      {form.formState.isSubmitting ? (
+                        <div className="flex items-center gap-4">
+                          <div>
+                            <svg
+                              className="animate-spin h-5 w-5 mr-3 text-white"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                              ></circle>
+                              <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v8H4z"
+                              ></path>
+                            </svg>
+                          </div>
+                          <span>Adding your project...</span>
+                        </div>
+                      ) : (
+                        "Add Project"
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
