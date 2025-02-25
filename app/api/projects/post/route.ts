@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     });
     if (existingProject) {
       return NextResponse.json(
-        { project: null, message: "Project with this name already exists" },
+        { project: null, message: "Project with Project name already exists" },
         { status: 409 }
       );
     }
@@ -50,8 +50,8 @@ export async function POST(req: Request) {
       { project: newProject, message: "Project created successfully" },
       { status: 201 }
     );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    console.error("Error creating project:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

@@ -29,6 +29,7 @@ import { DatePicker } from "./DateDropdown";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import ErrorMessage from "@/info/ErrorMsg";
+import { useProjectStore } from "@/store/ProjectStore";
 
 type ProjectFormValues = z.infer<typeof projectSchema>;
 
@@ -53,34 +54,26 @@ function AddprojectForm({
     },
   });
 
-  const onSubmit = async (values: ProjectFormValues) => {
-    console.log(values);
-    const response = await fetch("/api/projects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        projectName: values.projectName,
-        type: values.type,
-        status: values.status,
-        date: values.date,
-        mainStack: values.mainStack,
-        budget: values.budget,
-        description: values.description,
-      }),
-    });
-    console.log(response);
+  const { addProject } = useProjectStore();
 
-    if (response.ok) {
-      const data = await response.json();
-      setSuccessMsg(data.message);
-      console.log(data.message);
+  const onSubmit = async (values: ProjectFormValues) => {
+    setErrorMsg("");
+    setSuccessMsg("");
+    const response = await addProject({
+      projectName: values.projectName,
+      type: values.type,
+      status: values.status,
+      date: values.date,
+      mainStack: values.mainStack,
+      budget: values.budget,
+      description: values.description,
+    });
+    if (response.success) {
+      setSuccessMsg(response.message);
       form.reset();
-    } else if (!response.ok) {
-      const data = await response.json();
-      setErrorMsg(data.message);
-      console.log(data.message);
+      setShowModal(false);
+    } else {
+      setErrorMsg(response.message);
     }
   };
 
@@ -112,9 +105,6 @@ function AddprojectForm({
             Please fill in the form below to add your new project
           </span>
         </div>
-
-        {/* Success and Error messages */}
-        {errorMsg && <ErrorMessage errorMessage={`${errorMsg}`} />}
 
         <div className="pt-4">
           <Form {...form}>
@@ -280,7 +270,8 @@ function AddprojectForm({
                     </FormItem>
                   )}
                 />
-                <div className="flex gap-4 items-center justify-center pt-8">
+                {errorMsg && <ErrorMessage errorMessage={errorMsg} />}
+                <div className="flex gap-4 items-center justify-center pt-8 flex-wrap">
                   <div className="cursor-pointer border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-lg">
                     <button onClick={() => setShowModal(false)}>Cancel</button>
                   </div>
@@ -288,7 +279,7 @@ function AddprojectForm({
                     <button
                       type="submit"
                       disabled={form.formState.isSubmitting}
-                      className={`bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer`}
+                      className={`bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer disabled:opacity-50`}
                     >
                       {form.formState.isSubmitting ? (
                         <div className="flex items-center gap-4">
