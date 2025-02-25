@@ -304,7 +304,7 @@ function AddprojectForm({
                         <button
                           type="submit"
                           disabled={form.formState.isSubmitting}
-                          className={`bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer disabled:opacity-50`}
+                          className={`bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer disabled:opacity-30`}
                         >
                           {form.formState.isSubmitting ? (
                             <div className="flex items-center gap-4">
