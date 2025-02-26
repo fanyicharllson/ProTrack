@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import trash from "@/public/images/icons/trash.svg";
 import pencil from "@/public/images/icons/pencil.svg";
@@ -85,6 +86,13 @@ export default function ProjectPage() {
       <>
         <Error error={`${error}`} />
       </>
+    );
+  }
+
+  // Ensure projects is a valid array before using map() -- in case netwok issues arrises
+  if (!Array.isArray(projects)) {
+    return (
+      <Error error="Projects data is unavailable. Please refresh the page or check your network connection." />
     );
   }
 
@@ -180,7 +188,9 @@ export default function ProjectPage() {
                     <td className="py-3 px-4 text-sm">
                       {format(new Date(txn.date), "MMM do, yyyy")}
                     </td>
-                    <td className="py-3 px-4 text-sm">${txn.budget}</td>
+                    <td className="py-3 px-4 text-sm">
+                      {txn.budget === null ? "-" : `$${txn.budget}`}
+                    </td>
                     <td className="py-3 px-4 gap-2 text-sm">
                       {txn.projectName}
                     </td>
