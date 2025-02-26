@@ -9,10 +9,11 @@ import { useState, useEffect, useRef } from "react";
 import { getStatusClassNames } from "@/app/components/statusPriorityColor/color";
 import { useProjectStore } from "@/store/ProjectStore";
 import { format } from "date-fns-tz";
-import Nogoals from "@/info/Nogoals";
+import Nogoals from "@/app/components/info/Nogoals";
 import AddprojectForm from "@/app/components/forms/AddprojectForm";
-import Loader from "@/info/loader";
-import Error from "@/info/ErrorMessage";
+import Loader from "@/app/components/info/loader";
+import Error from "@/app/components/info/ErrorMessage";
+import { DeleteProjectPrompt } from "@/app/components/info/PromptMsg";
 
 export default function ProjectPage() {
   const { projects, loading, error, fetchProjects } = useProjectStore();
@@ -21,6 +22,15 @@ export default function ProjectPage() {
   const [selectedStack, setSelectedStack] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openPrompt, setOpenPrompt] = useState<boolean>(false);
+  const [selectedProject, setSelectedProject] = useState<string | undefined>(
+    undefined
+  );
+
+  const handleDeleteClick = (projectName: string) => {
+    setSelectedProject(projectName);
+    setOpenPrompt(true);
+  };
 
   const fetchedOnce = useRef(false);
   // Fetch projects only on the first render
@@ -188,16 +198,19 @@ export default function ProjectPage() {
                     <td className="py-3 px-4 text-sm">
                       {format(new Date(txn.date), "MMM do, yyyy")}
                     </td>
-                    <td className="py-3 px-4 text-sm">
-                      {txn.budget === null ? "-" : `$${txn.budget}`}
+                    <td className="py-3 px-4 text-sm text-center">
+                      {txn.budget === "" ? "-" : `$${txn.budget}`}
                     </td>
-                    <td className="py-3 px-4 gap-2 text-sm">
+                    <td className="py-3 px-4 gap-2 text-sm capitalize">
                       {txn.projectName}
                     </td>
+
                     <td className="py-3 px-4 text-sm">
-                      {txn.mainStack.join(" , ")}
+                      {txn.mainStack.join(",")}
                     </td>
-                    <td className="py-3 px-4 text-sm">{txn.type}</td>
+                    <td className="py-3 px-4 text-sm capitalize">
+                      {txn.type} app
+                    </td>
                     <td className="py-3 px-4 text-sm">{txn.projectUrl}</td>
                     <td className="py-3 px-4 text-sm">
                       <div
@@ -219,7 +232,10 @@ export default function ProjectPage() {
                             className="dark:invert dark:brightness-0 dark:filter"
                           />
                         </div>
-                        <div className="cursor-pointer bg-red-100 rounded-full dark:bg-gray-800 p-2">
+                        <div
+                          className="cursor-pointer bg-red-100 rounded-full dark:bg-gray-800 p-2"
+                          onClick={() => handleDeleteClick(txn.projectName)}
+                        >
                           <Image
                             src={trash}
                             alt="delete"
@@ -228,6 +244,14 @@ export default function ProjectPage() {
                             className="red-filter dark:dark-red-filter"
                           />
                         </div>
+                        {openPrompt && (
+                          <DeleteProjectPrompt
+                            open={openPrompt}
+                            setOpen={setOpenPrompt}
+                            projectName={selectedProject}
+                            onDelete={() => console.log("delete")}
+                          />
+                        )}
                       </div>
                     </td>
                   </tr>

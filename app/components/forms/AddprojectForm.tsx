@@ -28,9 +28,9 @@ import { MainStackDropdown } from "./MainStackDropdown";
 import { DatePicker } from "./DateDropdown";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import ErrorMessage from "@/info/ErrorformMsg";
+import ErrorMessage from "@/app/components/info/ErrorformMsg";
 import { useProjectStore } from "@/store/ProjectStore";
-import SuccessModal from "@/info/SuccessMsg";
+import SuccessModal from "@/app/components/info/SuccessMsg";
 
 type ProjectFormValues = z.infer<typeof projectSchema>;
 
@@ -85,7 +85,7 @@ function AddprojectForm({
     <div className="fixed inset-0 flex items-center justify-center z-50 transition-all duration-300">
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-30 "
+        className="absolute inset-0 bg-black bg-opacity-30"
         onClick={() => {
           setModalState("form"); // Reset modal state to form
           setShowModal(false);

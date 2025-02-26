@@ -14,6 +14,11 @@ export default function Error({ error }: ErrorMessageProps) {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="max-w-2xl w-[90%] text-center">
+      <div className="mb-8 animate-pulse">
+          <div className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">
+            404
+          </div>
+        </div>
         <h1 className="text-2xl max-sm-500:text-lg font-bold text-gray-500 mb-4">
           Oops! Something&apos;s not right.
         </h1>
