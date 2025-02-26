@@ -10,6 +10,8 @@ import { useProjectStore } from "@/store/ProjectStore";
 import { format } from "date-fns-tz";
 import Nogoals from "@/info/Nogoals";
 import AddprojectForm from "@/app/components/forms/AddprojectForm";
+import Loader from "@/info/loader";
+import Error from "@/info/ErrorMessage";
 
 export default function ProjectPage() {
   const { projects, loading, error, fetchProjects } = useProjectStore();
@@ -19,8 +21,7 @@ export default function ProjectPage() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const fetchedOnce = useRef(false); // Ensure fetch runs only once on mount
-
+  const fetchedOnce = useRef(false);
   // Fetch projects only on the first render
   useEffect(() => {
     if (!fetchedOnce.current) {
@@ -70,13 +71,21 @@ export default function ProjectPage() {
     };
   }, []);
 
-  //
+  //showing loading
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <Loader />
+      </>
+    );
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <>
+        <Error error={`${error}`} />
+      </>
+    );
   }
 
   return (
@@ -84,6 +93,7 @@ export default function ProjectPage() {
       {/* Filter btns */}
       <div className="px-4 pt-3 flex gap-2 flex-wrap items-center">
         <FilterBtn
+          disabledState={projects.length === 0 ? true : false}
           text="Type"
           options={["Web", "Mobile", "Console", "Desktop App"]}
           selectedOption={selectedType}
@@ -95,6 +105,7 @@ export default function ProjectPage() {
           }}
         />
         <FilterBtn
+          disabledState={projects.length === 0 ? true : false}
           text="Status"
           options={["Ongoing", "Completed", "Pending"]}
           selectedOption={selectedStatus}
@@ -106,6 +117,7 @@ export default function ProjectPage() {
           }}
         />
         <FilterBtn
+          disabledState={projects.length === 0 ? true : false}
           text="Stack"
           options={["React", "Next.js", "Node.js", "Flutter"]}
           selectedOption={selectedStack}
@@ -117,7 +129,11 @@ export default function ProjectPage() {
           }}
         />
       </div>
-      <div className="text-gray-400 mt-4 px-4 dark:text-gray-500">
+      <div
+        className={`text-gray-400 mt-4 px-4 dark:text-gray-500 ${
+          projects.length === 0 ? "hidden" : ""
+        }`}
+      >
         {projects.length} items
       </div>
       {projects.length === 0 ? (

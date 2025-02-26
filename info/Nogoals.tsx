@@ -7,6 +7,7 @@ type NogoalsProps = {
   text: string;
   buttonText: string;
   onClick: () => void;
+ 
   
 };
 
@@ -18,7 +19,7 @@ function Nogoals({ text, buttonText, onClick }: NogoalsProps) {
       </div>
       <div className="flex flex-col items-center justify-center text-center">
         <p className="text-lg font-bold">
-         {` You haven't added any ${text} yet`}
+         {`Oops buddy! You haven't added any ${text} yet`}
         </p>
         <span className="text-sm text-gray-400">
           {`Start planning your future now! Create your first ${text} and start

@@ -28,7 +28,7 @@ import { MainStackDropdown } from "./MainStackDropdown";
 import { DatePicker } from "./DateDropdown";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import ErrorMessage from "@/info/ErrorMsg";
+import ErrorMessage from "@/info/ErrorformMsg";
 import { useProjectStore } from "@/store/ProjectStore";
 import SuccessModal from "@/info/SuccessMsg";
 

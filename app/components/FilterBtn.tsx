@@ -12,6 +12,7 @@ interface FilterBtnProps {
   isOpen: boolean;
   onClick: () => void;
   onSelect: (option: string) => void;
+  disabledState: boolean;
 }
 
 function FilterBtn({
@@ -21,6 +22,7 @@ function FilterBtn({
   isOpen,
   onClick,
   onSelect,
+  disabledState,
 }: FilterBtnProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -40,8 +42,11 @@ function FilterBtn({
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="rounded-full px-4 flex gap-2 items-center py-2 dark:hover:bg-gray-800 dark:bg-gray-950 dark:text-white text-gray-500 transition duration-300 border border-gray-300 bg-purple-50 hover:bg-purple-200 text-sm"
-        onClick={onClick}
+        className={`rounded-full px-4 flex gap-2 items-center py-2 dark:hover:bg-gray-800 dark:bg-gray-950 dark:text-white text-gray-500 transition duration-300 border border-gray-300 bg-purple-50 hover:bg-purple-200 text-sm ${
+          disabledState ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        onClick={!disabledState ? onClick : undefined}
+        disabled={disabledState}
       >
         {selectedOption || text}
         <Image
