@@ -8,6 +8,8 @@ import { useState, useEffect, useRef } from "react";
 import { getStatusClassNames } from "@/app/components/statusPriorityColor/color";
 import { useProjectStore } from "@/store/ProjectStore";
 import { format } from "date-fns-tz";
+import Nogoals from "@/info/Nogoals";
+import AddprojectForm from "@/app/components/forms/AddprojectForm";
 
 export default function ProjectPage() {
   const { projects, loading, error, fetchProjects } = useProjectStore();
@@ -15,6 +17,7 @@ export default function ProjectPage() {
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [selectedStack, setSelectedStack] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const fetchedOnce = useRef(false); // Ensure fetch runs only once on mount
 
@@ -118,7 +121,14 @@ export default function ProjectPage() {
         {projects.length} items
       </div>
       {projects.length === 0 ? (
-        <p>No Project found for you</p>
+        <>
+          <Nogoals
+            text="project"
+            buttonText="Add new project"
+            onClick={() => setOpenModal(true)}
+          />
+          {openModal && <AddprojectForm setShowModal={setOpenModal} />}
+        </>
       ) : (
         <div className="px-4 mt-2 overflow-x-auto scrollbar-hide">
           <table className="w-full min-w-max border-collapse">
@@ -141,7 +151,8 @@ export default function ProjectPage() {
               {[...projects]
                 .sort(
                   (a, b) =>
-                    new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+                    new Date(b.createdAt || 0).getTime() -
+                    new Date(a.createdAt || 0).getTime()
                 )
                 .map((txn, index) => (
                   <tr key={index} className="border-t text-sm">
