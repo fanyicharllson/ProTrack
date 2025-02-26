@@ -9,24 +9,40 @@ interface Project {
   projectUrl?: string;
   budget?: string;
   description?: string;
+  createdAt?: string; // Include createdAt
 }
 
 interface ProjectStore {
   projects: Project[];
+  loading: boolean;
+  error: string | null;
   fetchProjects: () => Promise<void>;
-  addProject: (project: Project) => Promise<{success: boolean, message: string}>;
+  addProject: (
+    project: Project
+  ) => Promise<{ success: boolean; message: string }>;
 }
 
 export const useProjectStore = create<ProjectStore>((set) => ({
   projects: [],
+  loading: false,
+  error: null,
   fetchProjects: async () => {
+    set((state) => {
+      if (state.projects.length > 0) {
+        return {}; // Don't set loading if projects are already available
+      }
+      return { loading: true, error: null };
+    });
     try {
       const response = await fetch("/api/projects/get");
       const data = await response.json();
-      set({ projects: data });
+      set({ projects: data, loading: false });
     } catch (err) {
       console.error(err);
-      throw new Error("Error fetching projects from ProjectStore");
+      set({
+        error: "Error fetching projects! Please try again",
+        loading: false,
+      });
     }
   },
 
@@ -41,9 +57,11 @@ export const useProjectStore = create<ProjectStore>((set) => ({
       });
       const data = await response.json();
       if (response.ok) {
-        await useProjectStore.getState().fetchProjects();
+        set((state) => ({
+          projects: [...state.projects, { ...project, createdAt: new Date().toISOString() }], 
+        }));
         return { success: true, message: data.message };
-      }  else {
+      } else {
         return { success: false, message: data.message };
       }
     } catch (err) {

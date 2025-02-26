@@ -1,14 +1,14 @@
 export const getStatusClassNames = (status: string) => {
   switch (status) {
-    case "Cancelled":
+    case "cancelled":
       return "bg-red-100 dark:bg-gray-800 text-red-600";
     case "Not Started":
       return "bg-red-100 dark:bg-gray-800 text-red-600";
-    case "Ongoing":
+    case "ongoing":
       return "bg-yellow-100 dark:bg-gray-800 text-yellow-600";
-    case "Pending":
+    case "pending":
       return "bg-blue-100 dark:bg-gray-800 text-blue-600";
-    case "Completed":
+    case "completed":
       return "bg-green-100 dark:bg-gray-800 text-green-600";
     case "On Hold":
       return "bg-purple-100 dark:bg-gray-800 text-purple-600";
