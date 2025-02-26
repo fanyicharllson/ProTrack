@@ -1,4 +1,7 @@
+"use client";
+
 import { X, Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface SuccessModalProps {
   onClose: () => void;
@@ -12,7 +15,13 @@ export default function SuccessModal({
   text,
 }: SuccessModalProps) {
   return (
-    <div className="relative bg-white dark:bg-gray-900 rounded-2xl max-w-sm w-[90%] p-6 mx-auto">
+    <motion.div
+      initial={{ scale: 0.95, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.95, opacity: 0 }}
+      transition={{ type: "spring", damping: 20, stiffness: 300 }}
+      className="relative bg-white dark:bg-gray-900 rounded-2xl max-w-sm w-[90%] p-6 mx-auto"
+    >
       {/* Close button */}
       <button
         className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
@@ -33,15 +42,20 @@ export default function SuccessModal({
 
         {/* Text */}
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">{successMsg}</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            {successMsg}
+          </h2>
           <p className="text-gray-500 text-sm">{`You can view it in the ${text} history.`}</p>
         </div>
 
         {/* Button */}
-        <button className="w-full bg-purple-500 text-white rounded-lg py-2 px-4 font-medium hover:bg-purple-600 transition-colors" onClick={onClose}>
+        <button
+          className="w-full bg-purple-500 text-white rounded-lg py-2 px-4 font-medium hover:bg-purple-600 transition-colors"
+          onClick={onClose}
+        >
           Back to dashboard
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

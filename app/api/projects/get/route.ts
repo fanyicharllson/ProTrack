@@ -20,7 +20,6 @@ export async function GET() {
     return NextResponse.json(projects, { status: 200 });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    // console.error(error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

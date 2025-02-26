@@ -15,16 +15,21 @@ interface Project {
 interface ProjectStore {
   projects: Project[];
   loading: boolean;
+  deleteLoading: boolean;  //
   error: string | null;
   fetchProjects: () => Promise<void>;
   addProject: (
     project: Project
+  ) => Promise<{ success: boolean; message: string }>;
+  deleteProject: (
+    projectName: string
   ) => Promise<{ success: boolean; message: string }>;
 }
 
 export const useProjectStore = create<ProjectStore>((set) => ({
   projects: [],
   loading: true,
+  deleteLoading: false,  //
   error: null,
   fetchProjects: async () => {
     set((state) => {
@@ -58,7 +63,10 @@ export const useProjectStore = create<ProjectStore>((set) => ({
       const data = await response.json();
       if (response.ok) {
         set((state) => ({
-          projects: [...state.projects, { ...project, createdAt: new Date().toISOString() }], 
+          projects: [
+            ...state.projects,
+            { ...project, createdAt: new Date().toISOString() },
+          ],
         }));
         return { success: true, message: data.message };
       } else {
@@ -67,6 +75,35 @@ export const useProjectStore = create<ProjectStore>((set) => ({
     } catch (err) {
       console.error(err);
       return { success: false, message: "Error adding project" };
+    }
+  },
+
+  deleteProject: async (projectName) => {
+    set({ deleteLoading: true });  
+    try {
+      const response = await fetch("/api/projects/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ projectName }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        set((state) => ({
+          projects: state.projects.filter(
+            (project) => project.projectName !== projectName
+          ),
+        }));
+        return { success: true, message: data.message };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (err) {
+      console.error(err);
+      return { success: false, message: "Error deleting project" };
+    } finally {
+      set({ deleteLoading: false });
     }
   },
 }));

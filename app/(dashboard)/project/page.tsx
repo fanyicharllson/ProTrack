@@ -14,18 +14,38 @@ import AddprojectForm from "@/app/components/forms/AddprojectForm";
 import Loader from "@/app/components/info/loader";
 import Error from "@/app/components/info/ErrorMessage";
 import { DeleteProjectPrompt } from "@/app/components/info/PromptMsg";
+import SuccessDeleteModal from "@/app/components/info/SuccessdeleteMsg";
 
 export default function ProjectPage() {
-  const { projects, loading, error, fetchProjects } = useProjectStore();
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-  const [selectedStack, setSelectedStack] = useState<string | null>(null);
+  const {
+    projects,
+    loading,
+    error,
+    fetchProjects,
+    deleteProject,
+    deleteLoading,
+  } = useProjectStore(); // Fetch projects
+  const [selectedType, setSelectedType] = useState<string | null>(null); // Filter by type
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null); // Filter by status
+  const [selectedStack, setSelectedStack] = useState<string | null>(null); // Filter by stack
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openPrompt, setOpenPrompt] = useState<boolean>(false);
-  const [selectedProject, setSelectedProject] = useState<string | undefined>(
+  const [openModal, setOpenModal] = useState<boolean>(false); // Modal to add new project
+  const [openPrompt, setOpenPrompt] = useState<boolean>(false); // Prompt to confirm delete
+  const [selectedProject, setSelectedProject] = useState<string | undefined>( // set the current selected project to be deleted
     undefined
   );
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Show success modal after deleting project
+  const [successMessage, setSuccessMessage] = useState(""); // Success message to display in modal
+
+  const handleDeleteProject = async (projectName: string) => {
+    const result = await deleteProject(projectName);
+    if (result.success) {
+      setSuccessMessage(result.message);
+      setShowSuccessModal(true);
+    } else {
+      alert("Error deleting project: " + result.message);
+    }
+  };
 
   const handleDeleteClick = (projectName: string) => {
     setSelectedProject(projectName);
@@ -82,7 +102,7 @@ export default function ProjectPage() {
     };
   }, []);
 
-  //showing loading
+  //showing loading on fetching project
   if (loading) {
     return (
       <>
@@ -246,10 +266,21 @@ export default function ProjectPage() {
                         </div>
                         {openPrompt && (
                           <DeleteProjectPrompt
+                            deleteLoading={deleteLoading}
                             open={openPrompt}
                             setOpen={setOpenPrompt}
                             projectName={selectedProject}
-                            onDelete={() => console.log("delete")}
+                            onDelete={() =>
+                              selectedProject &&
+                              handleDeleteProject(selectedProject)
+                            }
+                          />
+                        )}
+                        {showSuccessModal && (
+                          <SuccessDeleteModal
+                            text="project"
+                            successMsg={successMessage}
+                            onClose={() => setShowSuccessModal(false)}
                           />
                         )}
                       </div>

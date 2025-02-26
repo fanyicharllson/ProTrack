@@ -1,15 +1,18 @@
-"use client"
-import { AlertTriangle, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+"use client";
+import { AlertTriangle, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Loadingspin from "../loadingspin";
 
 interface DeleteProjectModalProps {
-  open?: boolean
-  setOpen: (value: boolean) => void
-  onDelete?: () => void
-  projectName?: string
+  deleteLoading: boolean;
+  open?: boolean;
+  setOpen: (value: boolean) => void;
+  onDelete?: () => void;
+  projectName?: string;
 }
 
 export function DeleteProjectPrompt({
+  deleteLoading,
   open = false,
   setOpen,
   onDelete,
@@ -24,7 +27,7 @@ export function DeleteProjectPrompt({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/5"
+            className="absolute inset-0 bg-black/20"
             onClick={() => setOpen(false)}
           />
 
@@ -51,14 +54,17 @@ export function DeleteProjectPrompt({
                 <div className="flex size-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
                   <AlertTriangle className="size-5" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Delete Project</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Delete Project
+                </h2>
               </div>
 
               {/* Content */}
               <div className="py-2">
                 <p className="text-gray-600 dark:text-gray-300">
-                  Are you sure you want to delete <span className="font-medium">{projectName}</span>? This action cannot
-                  be undone and all data will be permanently lost.
+                  Are you sure you want to delete{" "}
+                  <span className="font-medium">{projectName}</span>? This
+                  action cannot be undone and all data will be permanently lost.
                 </p>
               </div>
 
@@ -74,13 +80,23 @@ export function DeleteProjectPrompt({
                   Cancel
                 </button>
                 <button
-                  onClick={() => {
-                    if (onDelete) onDelete()
-                    setOpen(false)
+                  onClick={async () => {
+                    if (onDelete) {
+                      await onDelete();
+                      setOpen(false);
+                    }
                   }}
-                  className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-offset-gray-900"
+                  disabled={deleteLoading}
+                  className="rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-red-600 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-offset-gray-900 disabled:cursor-not-allowed disabled:opacity-30"
                 >
-                  Delete
+                  {deleteLoading ? (
+                    <div className="flex items-center gap-4">
+                      <Loadingspin />
+                      <span>Deleting...</span>
+                    </div>
+                  ) : (
+                    "Delete"
+                  )}
                 </button>
               </div>
             </div>
@@ -88,6 +104,5 @@ export function DeleteProjectPrompt({
         </div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-
