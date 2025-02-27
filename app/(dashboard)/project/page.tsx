@@ -118,7 +118,7 @@ export default function ProjectPage() {
   if (error) {
     return (
       <>
-        <Error error={`${error}`} />
+        <Error error={`${error}`} fetchProjects={fetchProjects} />
       </>
     );
   }
@@ -126,7 +126,7 @@ export default function ProjectPage() {
   // Ensure projects is a valid array before using map() -- in case netwok issues arrises
   if (!Array.isArray(projects)) {
     return (
-      <Error error="Projects data is unavailable. Please refresh the page or check your network connection." />
+      <Error error="Projects data is unavailable. Please refresh the page or check your network connection." fetchProjects={fetchProjects}/>
     );
   }
 

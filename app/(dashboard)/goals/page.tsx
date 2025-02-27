@@ -44,7 +44,7 @@ function GoalsPage() {
   if (error) {
     return (
       <>
-        <Error error={`${error}`} />
+        <Error error={`${error}`} fetchGoals={fetchGoals} />
       </>
     );
   }
@@ -52,7 +52,7 @@ function GoalsPage() {
   // Ensure projects is a valid array before using map() -- in case netwok issues arrises
   if (!Array.isArray(goals)) {
     return (
-      <Error error="Goals data is unavailable. Please refresh the page or check your network connection." />
+      <Error error="Goals data is unavailable. Please refresh the page or check your network connection." fetchGoals={fetchGoals} />
     );
   }
 

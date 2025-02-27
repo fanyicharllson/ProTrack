@@ -36,7 +36,7 @@ export const useGoalStore = create<GoalStore>((set) => ({
 
   fetchGoals: async () => {
     set((state) => {
-      if (state.goals.length > 0) {
+      if ((state.goals ?? []).length > 0) {
         return {};
       }
       return { loading: true, error: null };
