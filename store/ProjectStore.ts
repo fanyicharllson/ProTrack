@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface Project {
+  id?: string;
   projectName: string;
   type: string;
   status: string;
@@ -22,7 +23,7 @@ interface ProjectStore {
     project: Project
   ) => Promise<{ success: boolean; message: string }>;
   deleteProject: (
-    projectName: string
+    id: string
   ) => Promise<{ success: boolean; message: string }>;
 }
 
@@ -39,7 +40,10 @@ export const useProjectStore = create<ProjectStore>((set) => ({
       return { loading: true, error: null };
     });
     try {
-      const response = await fetch("/api/projects/get");
+      const response = await fetch(`/api/projects/get`, {
+        method: 'GET',
+        credentials: "include"
+      });
       const data = await response.json();
       set({ projects: data, loading: false });
     } catch (err) {
@@ -80,7 +84,7 @@ export const useProjectStore = create<ProjectStore>((set) => ({
     }
   },
 
-  deleteProject: async (projectName) => {
+  deleteProject: async (id: string) => {
     set({ deleteLoading: true });  
     try {
       const response = await fetch("/api/projects/delete", {
@@ -88,13 +92,13 @@ export const useProjectStore = create<ProjectStore>((set) => ({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ projectName }),
+        body: JSON.stringify({ id }),
       });
       const data = await response.json();
       if (response.ok) {
         set((state) => ({
           projects: state.projects.filter(
-            (project) => project.projectName !== projectName
+            (project) => project.id !== id
           ),
         }));
         return { success: true, message: data.message };

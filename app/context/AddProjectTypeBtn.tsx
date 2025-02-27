@@ -1,7 +1,6 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 // import { useRouter } from "next/navigation";
@@ -100,26 +99,14 @@ const useAddProjectBtn = () => {
 const AddProjectBtn = () => {
   const { btnText, onClick, showModal, setShowModal } = useAddProjectBtn();
   const pathName = usePathname();
-  const { data: session } = useSession();
-
 
   const renderModal = () => {
     if (!showModal) return null;
 
     if (pathName === "/goals") {
-      return (
-        <AddGoalForm
-          setShowModal={setShowModal}
-          userId={session?.user.id || ""}
-        />
-      );
+      return <AddGoalForm setShowModal={setShowModal} />;
     } else if (/^\/goals\/[^/]+$/.test(pathName)) {
-      return (
-        <AddGoalForm
-          setShowModal={setShowModal}
-          userId={session?.user.id || ""}
-        />
-      );
+      return <AddGoalForm setShowModal={setShowModal} />;
     } else {
       return <AddprojectForm setShowModal={setShowModal} />;
     }

@@ -1,24 +1,34 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { projectSchema } from "@/app/Schema/AddProjectFormSchema";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
-    const session = await auth();
-    if (!session) {
+    // Authenticate user session
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
+    const userId = session.user.id;
 
     const body = await req.json();
     const projectData = projectSchema.parse(body);
-    const { projectName, type, status, date, mainStack, projectUrl, budget, description } =
-      projectData;
-    const userId = session.user.id;
+    const {
+      projectName,
+      type,
+      status,
+      date,
+      mainStack,
+      projectUrl,
+      budget,
+      description,
+    } = projectData;
 
     // Check if projectName already exists
-    const existingProject = await db.project.findUnique({
-      where: { projectName },
+    const existingProject = await db.project.findFirst({
+      where: { projectName, userId },
     });
     if (existingProject) {
       return NextResponse.json(

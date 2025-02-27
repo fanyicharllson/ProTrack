@@ -1,19 +1,30 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 export async function DELETE(req: Request) {
   try {
-    const { projectName } = await req.json();
-    if (!projectName) {
+    const session = await getServerSession(authOptions);
+    if (!session || !session.user) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const userId = session.user.id;
+    const { id } = await req.json();
+
+    // Check if goal exists
+    const existingGoal = await db.project.findFirst({ where: { id, userId } });
+    if (!existingGoal) {
       return NextResponse.json(
-        { message: "Project name is required" },
-        { status: 400 }
+        { message: "Project not found" },
+        { status: 404 }
       );
     }
 
     await db.project.delete({
       where: {
-        projectName: projectName,
+        id,
       },
     });
 

@@ -10,7 +10,6 @@ interface Goal {
   description?: string;
   progress: number;
   createdAt?: string;
-  userId?: string; // Include userId
 }
 
 interface GoalStore {
@@ -22,7 +21,6 @@ interface GoalStore {
   fetchGoals: () => Promise<void>;
   addGoal: (
     goal: Goal,
-    userId: string
   ) => Promise<{ success: boolean; message: string }>;
   deleteGoal: (
     goalId: string,
@@ -59,13 +57,12 @@ export const useGoalStore = create<GoalStore>((set) => ({
     } 
   },
 
-  addGoal: async (goal, userId: string) => {
+  addGoal: async (goal) => {
     set({ loading: true, error: null });
     try {
       const goalWithProgress = {
         ...goal,
         progress: goal.progress ?? 0,
-        userId,
       };
       const response = await fetch("/api/goals/post", {
         method: "POST",
@@ -74,11 +71,10 @@ export const useGoalStore = create<GoalStore>((set) => ({
       });
 
       const responseText = await response.text();
-      console.log("Raw response text:", responseText);
       const data = JSON.parse(responseText);
 
       if (response.ok) {
-        set((state) => ({ goals: [...state.goals, goal] }));
+        set((state) => ({ goals: [...state.goals, data.goal] }));
         return { success: true, message: "Goal added successfully" };
       } else {
         return { success: false, message: data.message };

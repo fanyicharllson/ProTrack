@@ -36,10 +36,9 @@ type GoalFormValues = z.infer<typeof goalSchema>;
 
 interface AddGoalFormProps {
   setShowModal: (value: boolean) => void;
-  userId: string;
 }
 
-function AddGoalForm({ setShowModal, userId }: AddGoalFormProps) {
+function AddGoalForm({ setShowModal }: AddGoalFormProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -61,20 +60,17 @@ function AddGoalForm({ setShowModal, userId }: AddGoalFormProps) {
   const onSubmit = async (values: GoalFormValues) => {
     setErrorMsg("");
     setSuccessMsg("");
-    const response = await addGoal(
-      {
-        ...values,
-        progress: 0,
-      },
-      userId
-    );
+    const response = await addGoal({
+      ...values,
+      progress: 0,
+    });
     if (response.success) {
       form.reset();
       console.log("Goal added successfully");
       setModalState("success");
       setTimeout(() => setShowModal(false), 20000); // Auto close after 20 sec
     } else {
-      console.log(response.message)
+      console.log(response.message);
       setErrorMsg(response.message);
     }
   };

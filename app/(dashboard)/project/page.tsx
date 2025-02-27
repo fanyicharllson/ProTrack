@@ -32,24 +32,27 @@ export default function ProjectPage() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
   const [openModal, setOpenModal] = useState<boolean>(false); // Modal to add new project
   const [openPrompt, setOpenPrompt] = useState<boolean>(false); // Prompt to confirm delete
-  const [selectedProject, setSelectedProject] = useState<string | undefined>( // set the current selected project to be deleted
-    undefined
-  );
+  const [selectedProjectId, setSelectedProjectId] = useState<
+    string | undefined
+  >(undefined); // set the current selected projectid to be deleted
   const [showSuccessModal, setShowSuccessModal] = useState(false); // Show success modal after deleting project
   const [successMessage, setSuccessMessage] = useState(""); // Success message to display in modal
+  const [selectedProjectName, setSelectedProjectName] = useState<
+    string | undefined
+  >(undefined);
 
-  const handleDeleteProject = async (projectName: string) => {
-    const result = await deleteProject(projectName);
+  const handleDeleteProject = async (id: string) => {
+    const result = await deleteProject(id);
     if (result.success) {
       setSuccessMessage(result.message);
       setShowSuccessModal(true);
     } else {
-      <Error error={`${result.message}`} />
+      <Error error={`${result.message}`} />;
     }
   };
 
-  const handleDeleteClick = (projectName: string) => {
-    setSelectedProject(projectName);
+  const handleDeleteClick = (id: string) => {
+    setSelectedProjectId(id);
     setOpenPrompt(true);
   };
 
@@ -251,7 +254,10 @@ export default function ProjectPage() {
                         </div>
                         <div
                           className="cursor-pointer bg-red-100 rounded-full dark:bg-gray-800 p-2"
-                          onClick={() => handleDeleteClick(txn.projectName)}
+                          onClick={() => {
+                            handleDeleteClick(txn.id || "");
+                            setSelectedProjectName(txn.projectName);
+                          }}
                         >
                           <Image
                             src={trash}
@@ -266,13 +272,14 @@ export default function ProjectPage() {
                             deleteLoading={deleteLoading}
                             open={openPrompt}
                             setOpen={setOpenPrompt}
-                            projectName={selectedProject}
+                            projectName={selectedProjectName}
                             onDelete={() =>
-                              selectedProject &&
-                              handleDeleteProject(selectedProject)
+                              selectedProjectId &&
+                              handleDeleteProject(selectedProjectId)
                             }
                           />
                         )}
+
                         {showSuccessModal && (
                           <SuccessDeleteModal
                             text="project"
