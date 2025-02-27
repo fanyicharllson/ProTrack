@@ -18,4 +18,10 @@ export const goalSchema = z.object({
   date: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Select a date",
   }),
+  description: z
+    .string()
+    .min(10, "Description must be at least 10 characters")
+    .max(100, "Description cannot exceed 100 characters")
+    .optional()
+    .or(z.literal("")),
 });

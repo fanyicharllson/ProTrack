@@ -44,7 +44,7 @@ export default function ProjectPage() {
       setSuccessMessage(result.message);
       setShowSuccessModal(true);
     } else {
-      alert("Error deleting project: " + result.message);
+      <Error error={`${result.message}`} />
     }
   };
 
@@ -107,7 +107,7 @@ export default function ProjectPage() {
   if (loading) {
     return (
       <>
-        <Loader />
+        <Loader text="Projects" />
       </>
     );
   }

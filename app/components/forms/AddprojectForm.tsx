@@ -324,7 +324,7 @@ function AddprojectForm({
                         render={({ field }) => (
                           <FormItem className="w-full">
                             <div>
-                              <FormLabel htmlFor="budget">
+                              <FormLabel htmlFor="description">
                                 Description{" "}
                               </FormLabel>
                               <span className="text-gray-400 text-sm">

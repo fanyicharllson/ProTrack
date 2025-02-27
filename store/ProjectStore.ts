@@ -48,6 +48,8 @@ export const useProjectStore = create<ProjectStore>((set) => ({
         error: "Error fetching projects! Please try again",
         loading: false,
       });
+    } finally {
+      set({ loading: false });
     }
   },
 
