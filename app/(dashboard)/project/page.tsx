@@ -225,7 +225,7 @@ export default function ProjectPage() {
                       {txn.projectName}
                     </td>
 
-                    <td className="py-3 px-4 text-sm">
+                    <td className="py-3 px-4 text-sm capitalize">
                       {txn.mainStack.join(",")}
                     </td>
                     <td className="py-3 px-4 text-sm capitalize">
@@ -234,7 +234,7 @@ export default function ProjectPage() {
                     <td className="py-3 px-4 text-sm">{txn.projectUrl}</td>
                     <td className="py-3 px-4 text-sm">
                       <div
-                        className={`rounded-full py-1 px-2 flex items-center justify-center ${getStatusClassNames(
+                        className={`rounded-full py-1 px-2 flex items-center justify-center capitalize ${getStatusClassNames(
                           txn.status || ""
                         )}`}
                       >

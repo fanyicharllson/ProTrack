@@ -16,6 +16,7 @@ import Error from "@/app/components/info/ErrorMessage";
 import Loader from "@/app/components/info/loader";
 import Nogoals from "@/app/components/info/Nogoals";
 import AddprojectForm from "@/app/components/forms/AddprojectForm";
+import GoalStatusCount from "@/app/components/projectCount/goalsCount";
 
 function GoalsPage() {
   const router = useRouter();
@@ -62,7 +63,7 @@ function GoalsPage() {
       ${goals.length === 0 ? "hidden" : ""}
         `}
       >
-        {goals.length} items
+        <GoalStatusCount />
       </div>
       {goals.length === 0 ? (
         <>
@@ -88,56 +89,66 @@ function GoalsPage() {
               </tr>
             </thead>
             <tbody>
-              {goals.map((txn) => (
-                <tr key={txn.goalName} className="border-t text-sm">
-                  <td className="py-3 px-4 font-medium text-sm">
-                    {txn.goalName}
-                  </td>
-                  <td className="py-3 px-4 text-sm">{txn.catergory}</td>
-                  <td className="py-3 px-4 text-sm">
-                    <div
-                      className={`rounded-full py-1 px-2 flex items-center justify-center ${getStatusClassNames(
-                        txn.status || ""
-                      )}`}
-                    >
-                      {txn.status}
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-sm">{txn.progress}</td>
-                  <td className="py-3 px-4 text-sm">{txn.date}</td>
-                  <td className="py-3 px-4 text-sm">
-                    <div
-                      className={`rounded-full py-1 px-2 flex items-center justify-center ${getpriorityClassNames(
-                        txn.priority || ""
-                      )}`}
-                    >
-                      {txn.priority}
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-sm flex items-center gap-2">
-                    <div
-                      className="border border-gray-600 dark:border-gray-600 rounded-full p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200"
-                      onClick={() => router.push(`/goals/${txn.goalName}`)}
-                    >
-                      <div className="">
+              {[...goals]
+                .sort(
+                  (a, b) =>
+                    new Date(b.createdAt || 0).getTime() -
+                    new Date(a.createdAt || 0).getTime()
+                )
+                .map((txn) => (
+                  <tr key={txn.goalName} className="border-t text-sm">
+                    <td className="py-3 px-4 font-medium text-sm capitalize">
+                      {txn.goalName}
+                    </td>
+                    <td className="py-3 px-4 text-sm capitalize">
+                      {txn.catergory}
+                    </td>
+                    <td className="py-3 px-4 text-sm">
+                      <div
+                        className={`rounded-full py-1 px-2 flex items-center justify-center capitalize ${getStatusClassNames(
+                          txn.status || ""
+                        )}`}
+                      >
+                        {txn.status}
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-sm text-center">
+                      {txn.progress === 0 ? "-" : txn.progress}
+                    </td>
+                    <td className="py-3 px-4 text-sm">{txn.date}</td>
+                    <td className="py-3 px-4 text-sm">
+                      <div
+                        className={`rounded-full py-1 px-2 flex items-center justify-center capitalize ${getpriorityClassNames(
+                          txn.priority || ""
+                        )}`}
+                      >
+                        {txn.priority}
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-sm flex items-center gap-2">
+                      <div
+                        className="border border-gray-600 dark:border-gray-600 rounded-full p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-200"
+                        onClick={() => router.push(`/goals/${txn.goalName}`)}
+                      >
+                        <div className="">
+                          <Image
+                            src={toprightArrow}
+                            alt="Right-arrow"
+                            className="w-6 h-6 dark:filter dark:brightness-0 dark:invert"
+                            priority
+                          />
+                        </div>
+                      </div>
+                      <div className="cursor-pointer bg-red-100 rounded-full w-10 h-10 dark:bg-gray-800 p-2 flex items-center">
                         <Image
-                          src={toprightArrow}
-                          alt="Right-arrow"
-                          className="w-6 h-6 dark:filter dark:brightness-0 dark:invert"
-                          priority
+                          src={trash}
+                          alt="delete"
+                          className="red-filter dark:dark-red-filter"
                         />
                       </div>
-                    </div>
-                    <div className="cursor-pointer bg-red-100 rounded-full w-10 h-10 dark:bg-gray-800 p-2 flex items-center">
-                      <Image
-                        src={trash}
-                        alt="delete"
-                        className="red-filter dark:dark-red-filter"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
