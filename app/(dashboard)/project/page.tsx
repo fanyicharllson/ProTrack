@@ -15,6 +15,7 @@ import Loader from "@/app/components/info/loader";
 import Error from "@/app/components/info/ErrorMessage";
 import { DeleteProjectPrompt } from "@/app/components/info/PromptMsg";
 import SuccessDeleteModal from "@/app/components/info/SuccessdeleteMsg";
+import ProjectStatus from "@/app/components/projectCount/projectStatus";
 
 export default function ProjectPage() {
   const {
@@ -167,12 +168,8 @@ export default function ProjectPage() {
           }}
         />
       </div>
-      <div
-        className={`text-gray-400 mt-4 px-4 dark:text-gray-500 ${
-          projects.length === 0 ? "hidden" : ""
-        }`}
-      >
-        {projects.length} items
+      <div className={`mt-4 px-4 ${projects.length === 0 ? "hidden" : ""}`}>
+        <ProjectStatus /> {/* Display the number's project status's */}
       </div>
       {projects.length === 0 ? (
         <>

@@ -13,6 +13,7 @@ import toprightArrow from "@/public/images/icons/rightarrow2.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+
 const goalsNumber: number = goals.length;
 
 function GoalsPage() {
