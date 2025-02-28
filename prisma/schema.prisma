@@ -27,7 +27,7 @@ model User {
 
 model Project {
   id          String   @id @default(cuid())
-  projectName String   
+  projectName String
   type        String
   status      String
   mainStack   String[]
@@ -61,9 +61,17 @@ model Goal {
 }
 
 model Help {
-  id       String   @id @default(cuid())
+  id       String @id @default(cuid())
   username String
   email    String
   subject  String
   message  String
+}
+
+model FeedBack {
+  id              String @id @default(cuid())
+  overallRating   Int
+  likeMost        String
+  generalFeedback String
+  wouldRecommend  String
 }

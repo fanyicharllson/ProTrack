@@ -86,7 +86,7 @@ export default function Message({ type = "status", message }: MessageProps) {
 
   return (
     <div
-      className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-6 z-50 transition-all duration-300 ease-in-out ${
+      className={`fixed top-0 left-1/2 transform -translate-x-1/2 mt-8 z-50 transition-all duration-300 ease-in-out ${
         visible ? "translate-y-0 opacity-100" : "-translate-y-16 opacity-0"
       } max-w-xs sm:max-w-md md:max-w-lg w-full mx-auto`}
       role="alert"

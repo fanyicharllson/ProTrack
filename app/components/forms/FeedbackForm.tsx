@@ -26,20 +26,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { Star } from "lucide-react";
 import { memo } from "react";
-
-const formSchema = z.object({
-  overallRating: z.number().min(1).max(5),
-  likeMost: z.enum(
-    ["userInterface", "features", "easeOfUse", "performance", "support"],
-    {
-      required_error: "Please select what you like most about ProTrack.",
-    }
-  ),
-  generalFeedback: z.string().min(10, "Please provide more detailed feedback."),
-  wouldRecommend: z.enum(["yes", "no"], {
-    required_error: "Please indicate if you would recommend ProTrack.",
-  }),
-});
+import { feedBackSchema } from "@/app/Schema/FeedBackSchema";
+import Message from "../message";
+import Loadingspin from "../loadingspin";
 
 interface StarRatingProps {
   rating: number;
@@ -64,9 +53,11 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, onRatingChange }) => {
 
 const FeedbackForm = () => {
   const [overallRating, setOverallRating] = useState(0);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof feedBackSchema>>({
+    resolver: zodResolver(feedBackSchema),
     defaultValues: {
       overallRating: 0,
       likeMost: undefined,
@@ -75,126 +66,160 @@ const FeedbackForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Handle form submission here
-    console.log(values);
-    form.reset();
-  }
+  const onSubmit = async (values: z.infer<typeof feedBackSchema>) => {
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    const response = await fetch("api/feedback/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        overallRating: values.overallRating,
+        likeMost: values.likeMost,
+        generalFeedback: values.generalFeedback,
+        wouldRecommend: values.wouldRecommend,
+      }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setSuccessMessage(data.message);
+      form.reset();
+    } else {
+      setErrorMessage("Something went wrong. Please try again.");
+      form.reset();
+    }
+  };
 
   return (
-    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md max-sm-500:w-[92%]">
-      <div className="text-center mb-6">
-        <h2 className="text-lg md:text-2xl font-bold text-purple-700">
-          ProTrack Feedback
-        </h2>
-        <p className="text-gray-600 text-sm">Help us improve your experience</p>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="overallRating"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Overall Rating</FormLabel>
-                <FormControl>
-                  <StarRating
-                    rating={overallRating}
-                    onRatingChange={(rating) => {
-                      setOverallRating(rating);
-                      field.onChange(rating);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="likeMost"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>What do you like most about ProTrack?</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+    <>
+      {successMessage && <Message type="success" message={successMessage} />}
+      {errorMessage && <Message type="error" message={errorMessage} />}
+      <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-md max-sm-500:w-[92%]">
+        <div className="text-center mb-6">
+          <h2 className="text-lg md:text-2xl font-bold text-purple-700">
+            ProTrack Feedback
+          </h2>
+          <p className="text-gray-600 text-sm">
+            Help us improve your experience
+          </p>
+        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="overallRating"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Overall Rating</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select what you like most" />
-                    </SelectTrigger>
+                    <StarRating
+                      rating={overallRating}
+                      onRatingChange={(rating) => {
+                        setOverallRating(rating);
+                        field.onChange(rating);
+                      }}
+                    />
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="userInterface">
-                      User Interface
-                    </SelectItem>
-                    <SelectItem value="features">Features</SelectItem>
-                    <SelectItem value="easeOfUse">Ease of Use</SelectItem>
-                    <SelectItem value="performance">Performance</SelectItem>
-                    <SelectItem value="support">Customer Support</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="generalFeedback"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>General Feedback</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Please share any additional thoughts or suggestions..."
-                    className="resize-none text-sm"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="wouldRecommend"
-            render={({ field }) => (
-              <FormItem className="space-y-3">
-                <FormLabel>Would you recommend ProTrack to others?</FormLabel>
-                <FormControl>
-                  <RadioGroup
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="likeMost"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>What do you like most about ProTrack?</FormLabel>
+                  <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    className="flex flex-col space-y-1"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="yes" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Yes</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="no" />
-                      </FormControl>
-                      <FormLabel className="font-normal">No</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button
-            type="submit"
-            className="w-full bg-purple-600 dark:text-white hover:bg-purple-700"
-          >
-            Submit Feedback
-          </Button>
-        </form>
-      </Form>
-    </div>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select what you like most" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="userInterface">
+                        User Interface
+                      </SelectItem>
+                      <SelectItem value="features">Features</SelectItem>
+                      <SelectItem value="easeOfUse">Ease of Use</SelectItem>
+                      <SelectItem value="performance">Performance</SelectItem>
+                      <SelectItem value="support">Customer Support</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="generalFeedback"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>General Feedback</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Please share any additional thoughts or suggestions..."
+                      className="resize-none text-sm"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="wouldRecommend"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Would you recommend ProTrack to others?</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="yes" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Yes</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="no" />
+                        </FormControl>
+                        <FormLabel className="font-normal">No</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              className="w-full bg-purple-600 dark:text-white hover:bg-purple-700 disabled:cursor-not-allowed disabled:opacity-30"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                <div className="flex items-center gap-4">
+                 <Loadingspin/>
+                  <span>Submiting feedback...</span>
+                </div>
+              ) : (
+                "Submit Feedback"
+              )}
+            </Button>
+          </form>
+        </Form>
+      </div>
+    </>
   );
 };
 

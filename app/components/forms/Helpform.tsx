@@ -30,7 +30,7 @@ import { useSession } from "next-auth/react";
 export function HelpForm() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { data:session } = useSession()
+  const { data: session } = useSession();
 
   const form = useForm<z.infer<typeof HelpSchema>>({
     resolver: zodResolver(HelpSchema),
@@ -63,7 +63,7 @@ export function HelpForm() {
       form.reset();
     } else {
       setErrorMessage("Something went wrong. Please try again.");
-      form.reset()
+      form.reset();
     }
   };
 
