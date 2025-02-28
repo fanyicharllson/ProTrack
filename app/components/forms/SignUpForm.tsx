@@ -25,6 +25,7 @@ import Message from "../message";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Logo from "../Logo";
+import Loadingspin from "../loadingspin";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -244,28 +245,7 @@ export default function SignUpPage() {
                   >
                     {form.formState.isSubmitting ? (
                       <div className="flex items-center gap-4">
-                        <div>
-                          <svg
-                            className="animate-spin h-5 w-5 mr-3 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8v8H4z"
-                            ></path>
-                          </svg>
-                        </div>
+                        <Loadingspin />
                         <span>Signing up...</span>
                       </div>
                     ) : (

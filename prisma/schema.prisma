@@ -59,3 +59,11 @@ model Goal {
 
   @@unique([goalName, userId]) // Ensures goalName is unique per user
 }
+
+model Help {
+  id       String   @id @default(cuid())
+  username String
+  email    String
+  subject  String
+  message  String
+}

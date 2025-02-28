@@ -195,7 +195,7 @@ export default function ProjectPage() {
         <FilterBtn
           disabledState={projects.length === 0 ? true : false}
           text="Stack"
-          options={["All", "React", "Next.js", "Node.js", "Flutter"]}
+          options={["All", "React", "Next.js", "Node.js", "Flutter", "Python"]}
           selectedOption={selectedStack}
           isOpen={openDropdown === "Stack"}
           onClick={() => toggleDropdown("Stack")}
