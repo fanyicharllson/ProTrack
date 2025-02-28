@@ -26,9 +26,9 @@ export default function ProjectPage() {
     deleteProject,
     deleteLoading,
   } = useProjectStore(); // Fetch projects
-  const [selectedType, setSelectedType] = useState<string | null>(null); // Filter by type
-  const [selectedStatus, setSelectedStatus] = useState<string | null>(null); // Filter by status
-  const [selectedStack, setSelectedStack] = useState<string | null>(null); // Filter by stack
+  const [selectedType, setSelectedType] = useState("All"); // Filter by type
+  const [selectedStatus, setSelectedStatus] = useState("All"); // Filter by status
+  const [selectedStack, setSelectedStack] = useState("All"); // Filter by stack
   const [openDropdown, setOpenDropdown] = useState<string | null>(null); // Track which dropdown is open
   const [openModal, setOpenModal] = useState<boolean>(false); // Modal to add new project
   const [openPrompt, setOpenPrompt] = useState<boolean>(false); // Prompt to confirm delete
@@ -133,6 +133,37 @@ export default function ProjectPage() {
     );
   }
 
+  // Function to filter projects
+  const getFilteredProjects = () => {
+    // Apply the filter
+    const filteredProjects = projects.filter((project) => {
+      // Filter by type if selected
+      if (selectedType !== "All" && project.type !== selectedType) {
+        return false;
+      }
+
+      // Filter by status if selected
+      if (selectedStatus !== "All" && project.status !== selectedStatus) {
+        return false;
+      }
+
+      // Filter by stack if selected
+      if (
+        selectedStack !== "All" &&
+        !project.mainStack.includes(selectedStack)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+    // If no projects match the filter, return all projects instead
+    return filteredProjects.length === 0 ? projects : filteredProjects;
+  };
+
+  const filteredProjects = getFilteredProjects();
+
   return (
     <>
       {/* Filter btns */}
@@ -140,7 +171,7 @@ export default function ProjectPage() {
         <FilterBtn
           disabledState={projects.length === 0 ? true : false}
           text="Type"
-          options={["Web", "Mobile", "Console", "Desktop App"]}
+          options={["All", "Web", "Mobile", "Console", "Desktop App"]}
           selectedOption={selectedType}
           isOpen={openDropdown === "Type"}
           onClick={() => toggleDropdown("Type")}
@@ -152,7 +183,7 @@ export default function ProjectPage() {
         <FilterBtn
           disabledState={projects.length === 0 ? true : false}
           text="Status"
-          options={["Ongoing", "Completed", "Pending"]}
+          options={["All", "ongoing", "completed", "pending"]}
           selectedOption={selectedStatus}
           isOpen={openDropdown === "Status"}
           onClick={() => toggleDropdown("Status")}
@@ -164,7 +195,7 @@ export default function ProjectPage() {
         <FilterBtn
           disabledState={projects.length === 0 ? true : false}
           text="Stack"
-          options={["React", "Next.js", "Node.js", "Flutter"]}
+          options={["All", "React", "Next.js", "Node.js", "Flutter"]}
           selectedOption={selectedStack}
           isOpen={openDropdown === "Stack"}
           onClick={() => toggleDropdown("Stack")}
@@ -205,7 +236,7 @@ export default function ProjectPage() {
               </tr>
             </thead>
             <tbody>
-              {[...projects]
+              {[...filteredProjects]
                 .sort(
                   (a, b) =>
                     new Date(b.createdAt || 0).getTime() -

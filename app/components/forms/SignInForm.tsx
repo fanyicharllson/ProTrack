@@ -23,17 +23,17 @@ import ProjectImage from "@/public/images/project3.png";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Message from "../message";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Logo from "../Logo";
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [providerMsg, setProviderMsg] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  
-  const router = useRouter();
 
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof SignInSchema>>({
     resolver: zodResolver(SignInSchema),
@@ -61,7 +61,6 @@ export default function SignUpPage() {
       setSuccessMessage("Signed in successfully, Redirecting...");
 
       router.replace("/dashboard");
-
     }
     setIsLoading(false);
   };
@@ -70,7 +69,7 @@ export default function SignUpPage() {
     <div className="min-h-screen w-full bg-white dark:bg-gray-950 p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
-         <Logo />
+          <Logo />
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-semibold">Sign in</h1>
@@ -219,7 +218,11 @@ export default function SignUpPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="w-full" onClick={() => <Message message="Signed in with google not avaliable at the moment"/>}>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => setProviderMsg(!providerMsg)}
+                >
                   <Image
                     src={GoogleLogo}
                     width={16}
@@ -228,7 +231,14 @@ export default function SignUpPage() {
                   />
                   Google
                 </Button>
-                <Button variant="outline" className="w-full">
+                {providerMsg && (
+                  <Message message="Temporarily unavailable! Please sign in with your credentials" />
+                )}
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => setProviderMsg(!providerMsg)}
+                >
                   <Apple className="mr-2 h-4 w-4" />
                   Apple
                 </Button>

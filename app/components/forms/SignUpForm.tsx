@@ -31,6 +31,12 @@ export default function SignUpPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [providerMsg, setProviderMsg] = useState(false);
+
+  const toggleProviderMsg = () => {
+    setProviderMsg((prev) => !prev);
+  };
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,7 +50,6 @@ export default function SignUpPage() {
     },
   });
 
-  
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setErrorMessage("");
     setSuccessMessage("");
@@ -61,7 +66,9 @@ export default function SignUpPage() {
     });
 
     if (response.ok) {
-      setSuccessMessage("Account created successfully! Redirecting to dashboard...");
+      setSuccessMessage(
+        "Account created successfully! Redirecting to dashboard..."
+      );
       router.replace("/sign-in");
       form.reset();
     } else if (response.status === 409) {
@@ -76,10 +83,12 @@ export default function SignUpPage() {
     <div className="min-h-screen w-full bg-white dark:bg-gray-950 p-4 md:p-6 lg:p-8">
       <div className="mx-auto max-w-6xl grid gap-8 lg:grid-cols-2 items-center">
         <div className="space-y-6">
-          <Logo/>
+          <Logo />
           <div className="space-y-6">
             <div>
-              <h1 className="text-2xl font-semibold">Welcome to ProTrack for Developers!</h1>
+              <h1 className="text-2xl font-semibold">
+                Welcome to ProTrack for Developers!
+              </h1>
               <p className="text-muted-foreground">
                 Sign up and start managing your projects now
               </p>
@@ -280,7 +289,11 @@ export default function SignUpPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={toggleProviderMsg}
+                >
                   <Image
                     src={GoogleLogo}
                     width={16}
@@ -289,7 +302,14 @@ export default function SignUpPage() {
                   />
                   Google
                 </Button>
-                <Button variant="outline" className="w-full">
+                {providerMsg && (
+                  <Message message="Temporarily unavailable! Please sign up with your credentials" />
+                )}
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={toggleProviderMsg}
+                >
                   <Apple className="mr-2 h-4 w-4" />
                   Apple
                 </Button>
