@@ -22,7 +22,7 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       return { heading: "Projects", subtitle: "Overview of Your Projects" };
     } else if (pathname === "/dashboard") {
       return {
-        heading: `Welcome back, ${session?.user.username.split(" ")[0]}!`,
+        heading: `Welcome back, ${session?.user.username.split(" ")[0] || ""}!`,
         subtitle: "Manage and Track Your Projects Now",
       };
     } else if (pathname === "/goals") {
