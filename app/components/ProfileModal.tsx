@@ -6,6 +6,7 @@ import defaultProfile from "@/public/images/defaultProfile.jpeg";
 import signoutIcon from "@/public/images/icons/signoutIcon.svg";
 import cancelIcon from "@/public/images/icons/cancelIcon2.svg";
 import profileIcon from "@/public/images/icons/profileIcon.svg";
+import { motion } from "framer-motion";
 
 type ProfileImageProps = {
   toggleDropdown: () => void;
@@ -21,7 +22,13 @@ export default function ProfileModal({ toggleDropdown }: ProfileImageProps) {
     });
   };
   return (
-    <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-lg shadow-xl z-50">
+    <motion.div
+      initial={{ scale: 0.95, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.95, opacity: 0 }}
+      transition={{ type: "spring", damping: 20, stiffness: 300 }}
+      className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-900 rounded-lg shadow-xl z-50"
+    >
       <div
         className="absolute right-2 top-2 p-2 hover:bg-purple-100 rounded-full bg-purple-100 dark:bg-gray-500 transition duration-300"
         onClick={toggleDropdown}
@@ -80,6 +87,6 @@ export default function ProfileModal({ toggleDropdown }: ProfileImageProps) {
           Log Out
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -6,6 +6,7 @@ import Image from "next/image";
 import defaultProfile from "@/public/images/defaultProfile.jpeg";
 import ProfileModal from "@/app/components/ProfileModal";
 import { memo } from "react";
+import { motion } from "framer-motion";
 
 function UserProfile() {
   const { data: session } = useSession();
@@ -43,10 +44,13 @@ function UserProfile() {
         {isDropdownOpen && (
           <>
             {/* Overlay */}
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black bg-opacity-30 z-50"
               onClick={toggleDropdown}
-            ></div>
+            />
 
             {/* Dropdown Menu */}
             <ProfileModal toggleDropdown={toggleDropdown} />
@@ -70,10 +74,13 @@ function UserProfile() {
         {isDropdownOpen && (
           <>
             {/* Overlay */}
-            <div
-              className="fixed inset-0 bg-black bg-opacity-30 z-40 max-sm-500:hidden"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black bg-opacity-30 z-40"
               onClick={toggleDropdown}
-            ></div>
+            />
 
             {/* Dropdown Menu */}
             <ProfileModal toggleDropdown={toggleDropdown} />

@@ -206,7 +206,7 @@ function DashboardLayout({ children }: DashboardProps) {
       </div>
 
       {/* Bottom Scrollable Bar (Visible on Mobile) */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-40 ">
+      <div className="fixed bottom-0 left-0 right-0 border-t bg-gray-100 border-gray-200 dark:bg-gray-900 shadow-lg sm-500:hidden z-30">
         <div className="flex overflow-x-auto p-2 space-x-4 scrollbar-hide">
           {SideBarLinks.map((link, index) => {
             const isActive =
