@@ -8,15 +8,17 @@ interface DeleteProjectModalProps {
   open?: boolean;
   setOpen: (value: boolean) => void;
   onDelete?: () => void;
-  projectName?: string;
+  name?: string;
+  type?: string;
 }
 
-export function DeleteProjectPrompt({
+export function DeletePrompt({
   deleteLoading,
   open = false,
   setOpen,
   onDelete,
-  projectName = "this project",
+  name = "this project",
+  type,
 }: DeleteProjectModalProps) {
   return (
     <AnimatePresence>
@@ -54,8 +56,8 @@ export function DeleteProjectPrompt({
                 <div className="flex size-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
                   <AlertTriangle className="size-5" />
                 </div>
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Delete Project
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white capitalize">
+                  Delete {type}
                 </h2>
               </div>
 
@@ -63,8 +65,8 @@ export function DeleteProjectPrompt({
               <div className="py-2">
                 <p className="text-gray-600 dark:text-gray-300">
                   Are you sure you want to delete{" "}
-                  <span className="font-medium">{projectName}</span>? This
-                  action cannot be undone and all data will be permanently lost.
+                  <span className="font-medium">{name}</span>? This action
+                  cannot be undone and all data will be permanently lost.
                 </p>
               </div>
 

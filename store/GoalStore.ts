@@ -19,12 +19,9 @@ interface GoalStore {
   error: string | null;
 
   fetchGoals: () => Promise<void>;
-  addGoal: (
-    goal: Goal,
-  ) => Promise<{ success: boolean; message: string }>;
+  addGoal: (goal: Goal) => Promise<{ success: boolean; message: string }>;
   deleteGoal: (
-    goalId: string,
-    userId: string
+    id: string,
   ) => Promise<{ success: boolean; message: string }>;
 }
 
@@ -54,11 +51,11 @@ export const useGoalStore = create<GoalStore>((set) => ({
         error: "Error fetching goals! Please try again",
         loading: false,
       });
-    } 
+    }
   },
 
   addGoal: async (goal) => {
-    set({ loading: true, error: null });
+    // set({ loading: true, error: null });
     try {
       const goalWithProgress = {
         ...goal,
@@ -80,33 +77,34 @@ export const useGoalStore = create<GoalStore>((set) => ({
         return { success: false, message: data.message };
       }
     } catch (error) {
-       console.log(`Error in goal store ${error}`) 
+      console.log(`Error in goal store ${error}`);
       return { success: false, message: "Error adding goal" };
     } finally {
       set({ loading: false });
     }
   },
 
-  // ✅ Delete a goal (Only for the current user)
-  deleteGoal: async (goalId: string, userId: string) => {
-    set({ deleteLoading: true, error: null });
+  deleteGoal: async (id: string) => {
+    set({ deleteLoading: true });
     try {
-      const response = await fetch(`/api/goals/${goalId}`, {
+      const response = await fetch(`/api/goals/delete`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }), // Send userId to ensure only their goal gets deleted
+        body: JSON.stringify({ id }),
       });
 
       const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
-
-      set((state) => ({
-        goals: state.goals.filter((goal) => goal.id !== goalId),
-      }));
-
-      return { success: true, message: "Goal deleted successfully" };
-    } catch (error: any) {
-      return { success: false, message: error.message };
+      if (response.ok) {
+        set((state) => ({
+          goals: state.goals.filter((goal) => goal.id !== id),
+        }));
+        return { success: true, message: "Goal deleted successfully" };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (error) {
+      console.error(error);
+      return { success: false, message: "Error deleting project" };
     } finally {
       set({ deleteLoading: false });
     }

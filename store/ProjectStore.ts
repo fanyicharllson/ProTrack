@@ -16,21 +16,19 @@ interface Project {
 interface ProjectStore {
   projects: Project[];
   loading: boolean;
-  deleteLoading: boolean;  //
+  deleteLoading: boolean; //
   error: string | null;
   fetchProjects: () => Promise<void>;
   addProject: (
     project: Project
   ) => Promise<{ success: boolean; message: string }>;
-  deleteProject: (
-    id: string
-  ) => Promise<{ success: boolean; message: string }>;
+  deleteProject: (id: string) => Promise<{ success: boolean; message: string }>;
 }
 
 export const useProjectStore = create<ProjectStore>((set) => ({
   projects: [],
   loading: true,
-  deleteLoading: false,  //
+  deleteLoading: false, //
   error: null,
   fetchProjects: async () => {
     set((state) => {
@@ -41,8 +39,8 @@ export const useProjectStore = create<ProjectStore>((set) => ({
     });
     try {
       const response = await fetch(`/api/projects/get`, {
-        method: 'GET',
-        credentials: "include"
+        method: "GET",
+        credentials: "include",
       });
       const data = await response.json();
       set({ projects: data, loading: false });
@@ -85,7 +83,7 @@ export const useProjectStore = create<ProjectStore>((set) => ({
   },
 
   deleteProject: async (id: string) => {
-    set({ deleteLoading: true });  
+    set({ deleteLoading: true });
     try {
       const response = await fetch("/api/projects/delete", {
         method: "DELETE",
@@ -97,9 +95,7 @@ export const useProjectStore = create<ProjectStore>((set) => ({
       const data = await response.json();
       if (response.ok) {
         set((state) => ({
-          projects: state.projects.filter(
-            (project) => project.id !== id
-          ),
+          projects: state.projects.filter((project) => project.id !== id),
         }));
         return { success: true, message: data.message };
       } else {

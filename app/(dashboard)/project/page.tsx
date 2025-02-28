@@ -13,7 +13,7 @@ import Nogoals from "@/app/components/info/Nogoals";
 import AddprojectForm from "@/app/components/forms/AddprojectForm";
 import Loader from "@/app/components/info/loader";
 import Error from "@/app/components/info/ErrorMessage";
-import { DeleteProjectPrompt } from "@/app/components/info/PromptMsg";
+import { DeletePrompt } from "@/app/components/info/PromptMsg";
 import SuccessDeleteModal from "@/app/components/info/SuccessdeleteMsg";
 import ProjectStatus from "@/app/components/projectCount/projectStatus";
 
@@ -126,7 +126,10 @@ export default function ProjectPage() {
   // Ensure projects is a valid array before using map() -- in case netwok issues arrises
   if (!Array.isArray(projects)) {
     return (
-      <Error error="Projects data is unavailable. Please refresh the page or check your network connection." fetchProjects={fetchProjects}/>
+      <Error
+        error="Projects data is unavailable. Please refresh the page or check your network connection."
+        fetchProjects={fetchProjects}
+      />
     );
   }
 
@@ -268,11 +271,12 @@ export default function ProjectPage() {
                           />
                         </div>
                         {openPrompt && (
-                          <DeleteProjectPrompt
+                          <DeletePrompt
+                            type="Project"
                             deleteLoading={deleteLoading}
                             open={openPrompt}
                             setOpen={setOpenPrompt}
-                            projectName={selectedProjectName}
+                            name={selectedProjectName}
                             onDelete={() =>
                               selectedProjectId &&
                               handleDeleteProject(selectedProjectId)
