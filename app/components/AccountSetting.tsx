@@ -58,11 +58,9 @@ function AccountSetting() {
         username: data.user.username,
         email: data.user.email,
       });
-      setSuccessMessage(data.message);
+      // setSuccessMessage(data.message);
       form.reset();
-      setTimeout(() => {
-        setShowModal(true);
-      }, 6000);
+      setShowModal(true);
     } else {
       setErrorMessage(data.message);
       form.reset();
@@ -132,13 +130,20 @@ function AccountSetting() {
           </div>
           <div className="flex flex-col sm-500:flex-row items-center gap-4">
             <button
-              className="bg-purple-600 hover:bg-purple-800 text-white rounded-md px-8 py-2 text-sm transition-colors duration-300"
+              className="bg-purple-600 disabled:cursor-not-allowed disabled:opacity-30 hover:bg-purple-500 text-white rounded-md px-8 py-2 text-sm transition-colors duration-300"
               onClick={() => {
                 fileInputRef.current?.click();
               }}
               disabled={isUpLoading}
             >
-              {isUpLoading ? "Uploading..." : "Upload Image"}
+              {isUpLoading ? (
+                <div className="flex items-center gap-4">
+                  <Loadingspin />
+                  <span>Uploading profile...</span>
+                </div>
+              ) : (
+                "Upload New Profile"
+              )}
             </button>
             <button className="bg-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-900 text-black rounded-md px-4 py-2 text-sm transition-colors duration-300">
               Remove Profile Picture
@@ -199,10 +204,10 @@ function AccountSetting() {
                   {form.formState.isSubmitting ? (
                     <div className="flex items-center gap-4">
                       <Loadingspin />
-                      <span>Uploading Profile...</span>
+                      <span>Updating Profile...</span>
                     </div>
                   ) : (
-                    "Upload New Profile"
+                    "Update Profile"
                   )}
                 </button>
               </div>
