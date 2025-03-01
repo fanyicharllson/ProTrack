@@ -64,7 +64,10 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account, profile, trigger, session }) {
+      if (trigger === "update") {
+        return { ...token, ...session.user };
+      }
       if (account?.provider === "google" && user) {
         return {
           ...token,

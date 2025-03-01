@@ -2,6 +2,7 @@
 import { useGoalStore } from "@/store/GoalStore";
 import React, { useState, useEffect } from "react";
 
+
 function GoalStatusCount() {
   const [completedCount, setCompletedCount] = useState(0);
   const [inProgressCount, setInProgressCount] = useState(0);
@@ -27,7 +28,7 @@ function GoalStatusCount() {
 
   return (
     <div className="px-4 mt-2 text-sm flex text-gray-500 gap-2 items-center flex-wrap">
-      {goals.length} Projects
+      {goals.length} Goals
       {completedCount > 0 && <div>Completed: {completedCount}</div>}
       {inProgressCount > 0 && <div>In Progress: {inProgressCount}</div>}
       {notStartedCount > 0 && <div>Not Started: {notStartedCount}</div>}
