@@ -52,7 +52,7 @@ export default function ProfileModal({ toggleDropdown }: ProfileImageProps) {
             width={60}
             height={60}
             priority
-            className="rounded-full object-cover cursor-pointer"
+            className="rounded-full object-cover cursor-pointer h-20 w-20"
           />
           <p className="font-bold text-lg capitalize">
             Hi,{" "}

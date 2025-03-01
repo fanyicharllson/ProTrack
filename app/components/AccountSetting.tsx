@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import defaultProfile from "@/public/images/defaultProfile.jpeg";
@@ -30,6 +30,8 @@ function AccountSetting() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isUpLoading, setisUpLoading] = useState(false);
   // const router = useRouter();
 
   const form = useForm<AccountAuth>({
@@ -88,19 +90,55 @@ function AccountSetting() {
       <div>
         <span className="text-gray-500 text-sm">Your Profile Picture</span>
         <div className="flex gap-4 items-center pt-3 max-sm-500:justify-center max-sm-500:flex-col">
+          <input
+            disabled={isUpLoading}
+            type="file"
+            className="absolute right-[9999px]"
+            ref={fileInputRef}
+            onChange={async (e) => {
+              const file = e.target.files?.[0] as File;
+
+              setisUpLoading(true);
+
+              const data = new FormData();
+              data.set("file", file);
+
+              const response = await fetch("api/user/upload", {
+                method: "POST",
+                body: data,
+              });
+              const userData = await response.json();
+              if (!response.ok) {
+                setErrorMessage(userData.message || "Upload failed");
+              }
+
+              // Update session with new image
+              await update({ image: userData.imageUrl });
+              // setSuccessMessage("Profile picture updated");
+              setisUpLoading(false);
+
+              setShowModal(true);
+            }}
+          />
           <div className="flex items-center">
             <Image
               src={session?.user.image || defaultProfile}
-              alt="profile picture"
+              alt="picture"
               width={50}
               height={50}
               priority
-              className="rounded-full object-cover cursor-pointer"
+              className="rounded-full object-cover cursor-pointer h-20 w-20"
             />
           </div>
           <div className="flex flex-col sm-500:flex-row items-center gap-4">
-            <button className="bg-purple-600 hover:bg-purple-800 text-white rounded-md px-8 py-2 text-sm transition-colors duration-300">
-              Upload New
+            <button
+              className="bg-purple-600 hover:bg-purple-800 text-white rounded-md px-8 py-2 text-sm transition-colors duration-300"
+              onClick={() => {
+                fileInputRef.current?.click();
+              }}
+              disabled={isUpLoading}
+            >
+              {isUpLoading ? "Uploading..." : "Upload Image"}
             </button>
             <button className="bg-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-900 text-black rounded-md px-4 py-2 text-sm transition-colors duration-300">
               Remove Profile Picture
@@ -161,10 +199,10 @@ function AccountSetting() {
                   {form.formState.isSubmitting ? (
                     <div className="flex items-center gap-4">
                       <Loadingspin />
-                      <span>Updating Profile...</span>
+                      <span>Uploading Profile...</span>
                     </div>
                   ) : (
-                    "Update Profile"
+                    "Upload New Profile"
                   )}
                 </button>
               </div>

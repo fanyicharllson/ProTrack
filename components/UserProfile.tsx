@@ -21,7 +21,7 @@ function UserProfile() {
       {/* Desktop Dropdown */}
       <div className="relative hidden sm:block">
         <div
-          className="border rounded-full py-1 pr-4 pl-1 border-gray-400 gap-4 flex items-center justify-between transition duration-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 w-fit"
+          className="border rounded-full py-1 pr-4 pl-1 border-gray-400 gap-2 flex items-center justify-between transition duration-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 w-fit"
           onClick={toggleDropdown}
         >
           <Image
@@ -30,7 +30,7 @@ function UserProfile() {
             width={40}
             height={40}
             priority
-            className="rounded-full object-cover"
+            className="rounded-full object-cover h-10 w-10"
           />
           <div>
             <p className="text-sm font-semibold capitalize">
@@ -66,7 +66,7 @@ function UserProfile() {
           width={40}
           height={40}
           priority
-          className="rounded-full object-cover cursor-pointer"
+          className="rounded-full object-cover cursor-pointer h-10 w-10"
           onClick={toggleDropdown}
         />
 

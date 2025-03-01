@@ -64,9 +64,9 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account, profile, trigger, session }) {
+    async jwt({ token, user, account, profile, trigger }) {
       if (trigger === "update") {
-        return { ...token, ...session.user };
+        return { ...token, image: user?.image || token.image };
       }
       if (account?.provider === "google" && user) {
         return {
@@ -82,7 +82,8 @@ export const authOptions: NextAuthOptions = {
           ...token,
           id: user.id,
           username: user.username,
-          image: user.image,
+          email: user.email,
+          image: user.image || token.image,
         };
       }
       return token;
