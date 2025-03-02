@@ -115,6 +115,8 @@ const AddProjectBtn = () => {
   const returnClassName = () => {
     if (pathName === "/analitics") {
       return "hidden";
+    } else if (/^\/project\/[^/]+$/.test(pathName)) {
+      return "hidden";
     } else if (pathName === "/settings") {
       return "hidden";
     } else if (pathName === "/help") {

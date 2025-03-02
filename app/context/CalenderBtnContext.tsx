@@ -54,6 +54,8 @@ const BtnDateText = () => {
   const returnClass = () => {
     if (pathName === "/analitics") {
       return "hidden";
+    } else if (/^\/project\/[^/]+$/.test(pathName)) {
+      return "hidden";
     } else if (pathName === "/settings") {
       return "hidden";
     } else if (pathName === "/help") {

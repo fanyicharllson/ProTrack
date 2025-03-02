@@ -23,6 +23,10 @@ interface ProjectStore {
     project: Project
   ) => Promise<{ success: boolean; message: string }>;
   deleteProject: (id: string) => Promise<{ success: boolean; message: string }>;
+  updateProject: (
+    project: Project,
+    projectId: string
+  ) => Promise<{ success: boolean; message: string }>;
 }
 
 export const useProjectStore = create<ProjectStore>((set) => ({
@@ -106,6 +110,35 @@ export const useProjectStore = create<ProjectStore>((set) => ({
       return { success: false, message: "Error deleting project" };
     } finally {
       set({ deleteLoading: false });
+    }
+  },
+
+  updateProject: async (project: Project, projectId: string) => {
+    try {
+      set({ loading: true });
+      const response = await fetch(`/api/projects/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...project, id: projectId }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        set((state) => ({
+          projects: state.projects.map((p) =>
+            p.id === project.id ? { ...p, ...project } : p
+          ),
+        }));
+        return { success: true, message: data.message };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: "Error updating project" };
+    } finally {
+      set({ loading: false });
     }
   },
 }));

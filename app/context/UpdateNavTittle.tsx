@@ -20,6 +20,12 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const getTitle = (): NavTitleContextProps => {
     if (pathname === "/project") {
       return { heading: "Projects", subtitle: "Overview of Your Projects" };
+    } else if (/^\/project\/[^/]+$/.test(pathname)) {
+      //For dynamic routes(displaying its title)
+      return {
+        heading: "Edit Project",
+        subtitle: "View and Edit your project now",
+      };
     } else if (pathname === "/dashboard") {
       return {
         heading: `Welcome back, ${session?.user.username.split(" ")[0] || ""}!`,
@@ -30,17 +36,18 @@ const NavTitleProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         heading: "Goals",
         subtitle: "Create and manage your projects",
       };
-    } else if (/^\/goals\/[^/]+$/.test(pathname)) {   //For dynamic routes(displaying its title)
+    } else if (/^\/goals\/[^/]+$/.test(pathname)) {
+      //For dynamic routes(displaying its title)
       return {
         heading: "Your Goal's Detail",
         subtitle: "View, Edit and Manage your goal's now",
       };
-    } else if (pathname === "/analitics") {   
+    } else if (pathname === "/analitics") {
       return {
         heading: "Your Analitics",
         subtitle: "Detail overview of your Projects",
       };
-    }  else if (pathname === "/settings") {
+    } else if (pathname === "/settings") {
       return {
         heading: "Settings",
         subtitle: "View and Manage your settings",

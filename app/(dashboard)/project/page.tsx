@@ -16,6 +16,7 @@ import Error from "@/app/components/info/ErrorMessage";
 import { DeletePrompt } from "@/app/components/info/PromptMsg";
 import SuccessDeleteModal from "@/app/components/info/SuccessdeleteMsg";
 import ProjectStatus from "@/app/components/projectCount/projectStatus";
+import { useRouter } from "next/navigation";
 
 export default function ProjectPage() {
   const {
@@ -40,6 +41,7 @@ export default function ProjectPage() {
   const [selectedProjectName, setSelectedProjectName] = useState<
     string | undefined
   >(undefined);
+  const router = useRouter();
 
   const handleDeleteProject = async (id: string) => {
     const result = await deleteProject(id);
@@ -265,7 +267,10 @@ export default function ProjectPage() {
                     <td className="py-3 px-4 text-sm capitalize">
                       {txn.type} app
                     </td>
-                    <td className="py-3 px-4 text-sm">{txn.projectUrl}</td>
+                    <td className="py-3 px-4 text-sm text-center">
+                      {" "}
+                      {txn.projectUrl === "" ? "-" : `${txn.projectUrl}`}
+                    </td>
                     <td className="py-3 px-4 text-sm">
                       <div
                         className={`rounded-full py-1 px-2 flex items-center justify-center capitalize ${getStatusClassNames(
@@ -277,7 +282,9 @@ export default function ProjectPage() {
                     </td>
                     <td className="py-3 px-4 text-sm">
                       <div className="flex gap-2 items-center">
-                        <div className="cursor-pointer bg-purple-100 dark:bg-gray-800 rounded-full p-2">
+                        <div className="cursor-pointer bg-purple-100 dark:bg-gray-800 rounded-full p-2"
+                         onClick={() => router.push(`/project/${txn.id}`)}
+                        >
                           <Image
                             src={pencil}
                             alt="edit"
