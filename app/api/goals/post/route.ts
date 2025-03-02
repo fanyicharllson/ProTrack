@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { goalSchema } from "@/app/Schema/AddgoalSchema";
+// import { goalSchema } from "@/app/Schema/AddgoalSchema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
@@ -12,12 +12,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
     const userId = session.user.id;
-    // Parse and validate request body
     const body = await req.json();
-    const goalData = goalSchema.parse(body);
-    const { goalName, catergory, status, priority, date, description } =
-      goalData;
+    // const go?alData = goalSchema.parse(body);
+    const {
+      goalName,
+      catergory,
+      status,
+      priority,
+      date,
+      description,
+      progress,
+    } = body;
 
+   
     // Check if goal already exists for this user
     const existingGoal = await db.goal.findFirst({
       where: {
@@ -42,8 +49,8 @@ export async function POST(req: Request) {
         priority,
         date: new Date(date),
         description,
-        progress: 0, // Default progress to 0
         userId,
+        progress: progress || 0,
       },
     });
 

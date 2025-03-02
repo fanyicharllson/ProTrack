@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import pencil from "@/public/images/icons/pencil.svg";
@@ -23,7 +25,7 @@ export default function GoalsCard({
   progress,
   status,
   priority,
-  catergory
+  catergory,
 }: goalsCardProps) {
   return (
     <div className="relative dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4 shadow-lg border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
@@ -46,8 +48,8 @@ export default function GoalsCard({
           </div>
         </div>
         <div className="pt-6">
-          <div className="flex justify-end items-center pb-2">
-          <span className="text-sm text-gray-400">{ catergory }</span>
+          <div className="flex justify-end items-center pb-2  max-w-md max-sm-500:max-w-sm ">
+            <span className="text-sm text-gray-400">{catergory}</span>
           </div>
           {/* Progress Bar */}
           <div className="relative max-w-md max-sm-500:max-w-sm h-7 bg-purple-100 dark:bg-gray-900 rounded-full">
@@ -55,13 +57,13 @@ export default function GoalsCard({
               className="absolute top-0 left-0 h-full bg-purple-500 rounded-full text-[13px] flex items-center justify-center text-white font-medium"
               style={{ width: `${progress}%` }}
             >
-              {progress}%
+              {progress === 0 ? "" : `${progress}%`}
             </div>
           </div>
         </div>
         <div className="pt-3 flex items-center gap-4">
           <div
-            className={`rounded-full py-1 px-3 text-sm ${getStatusClassNames(
+            className={`rounded-full py-1 px-3 text-sm capitalize ${getStatusClassNames(
               status
             )}`}
           >
@@ -69,7 +71,7 @@ export default function GoalsCard({
           </div>
 
           <div
-            className={`rounded-full py-1 px-3 text-sm ${getpriorityClassNames(
+            className={`rounded-full py-1 px-3 text-sm capitalize ${getpriorityClassNames(
               priority
             )}`}
           >

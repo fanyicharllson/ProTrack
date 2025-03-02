@@ -143,7 +143,7 @@ function GoalsPage() {
                       </div>
                     </td>
                     <td className="py-3 px-4 text-sm text-center">
-                      {txn.progress === 0 ? "-" : txn.progress}
+                      {txn.progress === 0 ? "-" : `${txn.progress}%`}
                     </td>
                     <td className="py-3 px-4 text-sm">
                       {format(new Date(txn.date), "MMM do, yyyy")}

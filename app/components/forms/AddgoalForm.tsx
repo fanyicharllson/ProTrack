@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import SuccessModal from "../info/SuccessMsg";
 import Loadingspin from "../loadingspin";
 import ErrorMessage from "../info/ErrorformMsg";
+import { calculateProgress } from "@/utils/progress";
 
 type GoalFormValues = z.infer<typeof goalSchema>;
 
@@ -60,10 +61,13 @@ function AddGoalForm({ setShowModal }: AddGoalFormProps) {
   const onSubmit = async (values: GoalFormValues) => {
     setErrorMsg("");
     setSuccessMsg("");
-    const response = await addGoal({
-      ...values,
-      progress: 0,
-    });
+
+    // Calculate progress based on selected status
+    const progressValue = calculateProgress(values.status);
+
+    //Add goal with progress
+    const response = await addGoal(values, progressValue);
+
     if (response.success) {
       form.reset();
       console.log("Goal added successfully");
