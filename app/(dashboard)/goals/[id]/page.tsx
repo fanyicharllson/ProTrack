@@ -1,17 +1,19 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import GoalsCard from "@/app/components/goalsCard";
 import { ArrowLeft } from "lucide-react";
 import GoalProgressChart from "@/app/components/charts/Line";
 import { useGoalStore } from "@/store/GoalStore";
 import { format } from "date-fns";
+import UpdateGoalForm from "@/app/components/forms/UpdateGoalForm";
 
 function GoalDetailPage() {
   const { id } = useParams();
   const router = useRouter();
   const goals = useGoalStore((state) => state.goals);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   const goal = goals.find((goal) => goal.id === id);
 
@@ -21,8 +23,13 @@ function GoalDetailPage() {
     }
   }, [goal, router]);
 
+  const handleUpdateClick = () => {
+    setShowUpdateModal(true);
+  };
+
   return (
     <>
+      {showUpdateModal && <UpdateGoalForm setShowModal={setShowUpdateModal} />}
       <div className="px-4 mt-4 mb-3">
         <button
           className="bg-purple-600 px-4 py-2 rounded-full flex gap-2 items-center text-white text-sm hover:bg-purple-500 transition-colors duration-300"
@@ -36,7 +43,7 @@ function GoalDetailPage() {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <GoalsCard
             title={`${goal?.goalName || ""}`}
-            onClick={() => console.log("Hello world")}
+            onClick={() => handleUpdateClick()}
             dueDate={`${
               goal?.date
                 ? format(new Date(goal?.date || ""), "MMM do, yyyy")

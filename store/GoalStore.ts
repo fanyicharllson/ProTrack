@@ -24,9 +24,14 @@ interface GoalStore {
     progressNumber: number
   ) => Promise<{ success: boolean; message: string }>;
   deleteGoal: (id: string) => Promise<{ success: boolean; message: string }>;
+  updateGoal: (
+    goal: Goal,
+    progressNumber: number,
+    goalId: string,
+  ) => Promise<{ success: boolean; message: string }>;
 }
 
-export const useGoalStore = create<GoalStore>((set) => ({
+export const useGoalStore = create<GoalStore>((set, get) => ({
   goals: [],
   loading: true,
   deleteLoading: false,
@@ -107,4 +112,33 @@ export const useGoalStore = create<GoalStore>((set) => ({
       set({ deleteLoading: false });
     }
   },
+
+  updateGoal: async (goal: Goal, progressNumber: number, goalId: string) => {
+    try {
+      set({ loading: true });
+      const bodyData = {...goal, progress: progressNumber || 0, id: goalId }; 
+      const response = await fetch(`/api/goals/update`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bodyData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        const updatedGoals = get().goals.map((g) =>
+          g.id === goalId? {...g,...goal } : g
+        );
+        set({ goals: updatedGoals });
+        return { success: true, message: "Goal updated successfully" };
+      } else {
+        return { success: false, message: data.message };
+      }
+    } catch (err) {
+      console.log(err);
+      return { success: false, message: "Error Updating goal"}
+    } finally {
+      set({ loading: false });
+    }
+  },
+
 }));
+
