@@ -85,10 +85,10 @@ export default function ProjectEditPage() {
 
     if (response.success) {
       form.reset();
-      setSuccessMsg(response.message);
       setTimeout(() => {
         router.push("/project");
-      }, 2000);
+      }, 1000);
+      setSuccessMsg(response.message);
     } else {
       setErrorMsg(response.message);
     }
