@@ -19,6 +19,7 @@ export async function GET() {
       orderBy: {
         date: "desc",
       },
+      cacheStrategy: { swr: 60, ttl: 60 },
     });
     return NextResponse.json(projects, { status: 200 });
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

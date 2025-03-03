@@ -33,9 +33,9 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
   } => {
     if (pathName === "/dashboard") {
       return {
-        btnText: "Add new Project",
+        btnText: "Add new Widget",
         onClick: () => {
-          setShowModal(true);
+          setShowModal(false); //Do nothing(temoporary)
         },
         showModal,
         setShowModal,

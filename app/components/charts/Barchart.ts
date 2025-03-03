@@ -11,11 +11,11 @@ import {
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const Barchartdata = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  labels: ["January", "February", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
   datasets: [
     {
-      label: "Dataset 1",
-      data: [65, 59, 80, 81, 56, 55, 40],
+      label: "Project",
+      data: [50, 100],
       backgroundColor: "#A498FF",
       borderColor: "#BFB7FF",
       borderWidth: 2,

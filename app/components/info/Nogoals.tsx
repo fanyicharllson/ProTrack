@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 type NogoalsProps = {
   text: string;
   buttonText: string;
-  onClick: () => void;
+  onClick?: () => void;
  
   
 };
