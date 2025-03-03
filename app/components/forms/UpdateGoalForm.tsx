@@ -132,10 +132,10 @@ function UpdateGoalForm({ setShowModal }: UpdateGoalFormProps) {
                 />
               </div>
               <div className="flex items-center flex-col justify-center">
-                <p className="dark:text-gray-400 font-semibold text-lg md:text-2xl">
+                <p className="dark:text-gray-200 text-black font-semibold text-lg md:text-2xl">
                   Update your Goal
                 </p>
-                <span className="text-gray-300 text-sm">
+                <span className="text-gray-400 dark:text-gray-500 text-sm text-center">
                   View and Modify Your Goals
                 </span>
               </div>
@@ -294,7 +294,7 @@ function UpdateGoalForm({ setShowModal }: UpdateGoalFormProps) {
                       />
                       {errorMsg && <ErrorMessage errorMessage={errorMsg} />}
 
-                      <div className="flex gap-4 items-center justify-center pt-8">
+                      <div className="flex gap-4 items-center justify-center pt-8 flex-wrap">
                         <div className="cursor-pointer border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-lg">
                           <button onClick={() => setShowModal(false)}>
                             Cancel
@@ -307,7 +307,7 @@ function UpdateGoalForm({ setShowModal }: UpdateGoalFormProps) {
                               !form.formState.isDirty ||
                               form.formState.isSubmitting
                             }
-                            className={`disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg text-white cursor-pointer 
+                            className={`disabled:cursor-not-allowed transition-colors duration-300 px-4 py-2 disabled:text-sm rounded-lg  cursor-pointer 
                                  ${
                                    form.formState.isDirty
                                      ? "bg-purple-600 text-white hover:bg-purple-700 disabled:opacity-30"

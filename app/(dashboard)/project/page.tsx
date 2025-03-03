@@ -227,7 +227,7 @@ export default function ProjectPage() {
                 <th className="py-2 px-4 text-left rounded-l-2xl">
                   Created At
                 </th>
-                <th className="py-2 px-4 text-left rounded-l-2xl">DATE</th>
+                <th className="py-2 px-4 text-left">DATE</th>
                 <th className="py-2 px-4 text-left">BUDGET</th>
                 <th className="py-2 px-4 text-left">PROJECT NAME</th>
                 <th className="py-2 px-4 text-left">MAIN STACK</th>
