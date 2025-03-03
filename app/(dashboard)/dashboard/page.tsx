@@ -27,7 +27,7 @@ function Dashboard() {
   if (loading) {
     return (
       <>
-        <Loader text="Projects" />
+        <Loader text="Dashboard" />
       </>
     );
   }
@@ -44,7 +44,7 @@ function Dashboard() {
   if (!Array.isArray(projects)) {
     return (
       <Error
-        error="Error getting your projects. Please refresh the page or check your network connection."
+        error="Error syncing your dashboard. Please refresh the page or check your network connection."
         fetchProjects={fetchProjects}
       />
     );
@@ -80,7 +80,15 @@ function Dashboard() {
           {/* Table and progess barchart */}
           <div className="px-4 max-sm-500:pb-72">
             <div className="h-60 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
-              <ProjectTable />
+              <ProjectTable projects={projects.map(project => ({ 
+                ...project, 
+                budget: project.budget || "", 
+                mainStack: project.mainStack.join(", "),
+                projectName: project.projectName,
+                type: project.type,
+                status: project.status,
+                date: project.date
+              }))} />
               <ProjectProgressBar />
             </div>
           </div>

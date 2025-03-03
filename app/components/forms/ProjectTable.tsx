@@ -1,10 +1,27 @@
 import React from "react";
-import { projects } from "@/lib/ProjectTableData";
+// import { projects } from "@/lib/ProjectTableData";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 
-function ProjectTable() {
+interface ProjectProps {
+  projects: {
+    id?: string;
+    projectName: string;
+    type: string;
+    status?: string;
+    date: string;
+    mainStack: string; // Should be string, since you join it later
+    projectUrl?: string;
+    budget?: string;
+    description?: string;
+    createdAt?: string;
+  }[];
+}
+
+
+function ProjectTable({ projects }: ProjectProps) {
   const router = useRouter();
   return (
     <div className="lg:col-span-2 border border-gray-300 p-4 rounded-2xl">
@@ -37,19 +54,19 @@ function ProjectTable() {
             </tr>
           </thead>
           <tbody>
-            {projects.map((txn, index) => (
+            {projects.slice(0, 3).map((txn, index) => (
               <tr
                 key={index}
                 className="border-t text-sm hover:bg-purple-50 dark:hover:bg-gray-800"
               >
-                <td className="py-3 px-4 font-medium">{txn.date}</td>
-                <td className="py-3 px-4">{txn.budget}</td>
+                <td className="py-3 px-4 font-medium">{format(new Date(txn.date), "MMM do, yyyy")}</td>
+                <td className="py-3 px-4 text-sm text-center">{txn.budget === "" ? "-" : `$${txn.budget}`}</td>
                 <td className="py-3 px-4 flex items-center gap-2">
                   {/* <Image src={txn.projectIcon} alt={txn.projectName} width={20} height={20} /> */}
                   {txn.projectName}
                 </td>
-                <td className="py-3 px-4">{txn.prolanguage}</td>
-                <td className="py-3 px-4">{txn.type}</td>
+                <td className="py-3 px-4">{txn.mainStack}</td>
+                <td className="py-3 px-4 capitalize">{txn.type} app</td>
               </tr>
             ))}
           </tbody>

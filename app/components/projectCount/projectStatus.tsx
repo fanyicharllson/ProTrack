@@ -15,10 +15,10 @@ function ProjectStatus() {
       projects.filter((project) => project.status === "completed").length
     );
     setOngoingCount(
-      projects.filter((project) => project.status === "ongoing").length
+      projects.filter((project) => project.status === "in progress").length
     );
     setPendingCount(
-      projects.filter((project) => project.status === "pending").length
+      projects.filter((project) => project.status === "not started").length
     );
     setCanceledCount(
       projects.filter((project) => project.status === "cancelled").length
@@ -29,8 +29,8 @@ function ProjectStatus() {
     <div className="px-4 mt-2 text-sm flex text-gray-500 gap-2 items-center flex-wrap">
       {projects.length} Projects
       {completedCount > 0 && <div>Completed: {completedCount}</div>}
-      {ongoingCount > 0 && <div>Ongoing: {ongoingCount}</div>}
-      {pendingCount > 0 && <div>Pending: {pendingCount}</div>}
+      {ongoingCount > 0 && <div>In Progress: {ongoingCount}</div>}
+      {pendingCount > 0 && <div>Not Started: {pendingCount}</div>}
       {canceledCount > 0 && <div>Canceled: {canceledCount}</div>}
     </div>
   );

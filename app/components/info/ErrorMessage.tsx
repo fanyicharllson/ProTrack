@@ -21,6 +21,8 @@ export default function Error({
       return <RetryBtn fetchType={fetchProjects} />;
     } else if (pathName === "/goals" && fetchGoals) {
       return <RetryBtn fetchType={fetchGoals} />;
+    } else if (pathName === "/dashboard" && fetchProjects) {
+      return <RetryBtn fetchType={fetchProjects} />;
     }
     return null;
   };
@@ -33,7 +35,7 @@ export default function Error({
             404
           </div>
         </div>
-        <h1 className="text-2xl max-sm-500:text-lg font-bold text-gray-500 mb-4">
+        <h1 className="text-2xl max-sm-500:text-lg font-bold text-gray-500 mb-4 animate-pulse">
           Oops! Something&apos;s not right.
         </h1>
         <p className="text-sm text-center md:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">

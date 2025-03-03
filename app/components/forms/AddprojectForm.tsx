@@ -304,11 +304,11 @@ function AddprojectForm({
                                     <SelectItem value="cancelled">
                                       Cancelled
                                     </SelectItem>
-                                    <SelectItem value="ongoing">
-                                      Ongoing
+                                    <SelectItem value="in progress">
+                                      In Progress
                                     </SelectItem>
-                                    <SelectItem value="pending">
-                                      Pending
+                                    <SelectItem value="not started">
+                                      Not Started
                                     </SelectItem>
                                   </SelectGroup>
                                 </SelectContent>

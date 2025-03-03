@@ -1,6 +1,6 @@
 interface GoalProps {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   status: "completed" | "in progress" | "not started" | "cancelled";
 }
 
@@ -15,13 +15,23 @@ export const calculateProgress = (status: "completed" | "in progress" | "not sta
 };
 
 
-export const calculateOverallProgress = (projects: GoalProps[]): number => {
-  const totalWeight = projects.length * 100;
-  const totalProgress = projects.reduce((acc, project) => {
-    if (project.status === "completed") return acc + 100;
-    if (project.status === "in progress") return acc + 50;
-    return acc; // "not started" or "cancelled" = 0
-  }, 0);
+export const calculateOverallProgress = (projects: GoalProps[]): {
+  completedPercentage: number;
+  ongoingPercentage: number;
+  totalPercentage: number;
+} => {
+  const totalProjects = projects.length;
+  if (totalProjects === 0) return { completedPercentage: 0, ongoingPercentage: 0, totalPercentage: 0 };
 
-  return Math.round((totalProgress / totalWeight) * 100);
+  const completedCount = projects.filter((project) => project.status === "completed").length;
+  const ongoingCount = projects.filter((project) => project.status === "in progress").length;
+
+  const completedPercentage = Math.round((completedCount / totalProjects) * 100);
+  const ongoingPercentage = Math.round((ongoingCount / totalProjects) * 100);
+
+  return {
+    completedPercentage,
+    ongoingPercentage,
+    totalPercentage: 100, // Since all projects together are 100%
+  };
 };

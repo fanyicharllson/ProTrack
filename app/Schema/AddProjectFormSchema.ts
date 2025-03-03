@@ -8,7 +8,7 @@ export const projectSchema = z.object({
   type: z.enum(["web", "mobile", "console", "desktop"], {
     required_error: "Select a valid project type",
   }),
-  status: z.enum(["completed", "cancelled", "ongoing", "pending"], {
+  status: z.enum(["completed", "cancelled", "in progress", "not started"], {
     required_error: "Select a valid status",
   }),
   mainStack: z
