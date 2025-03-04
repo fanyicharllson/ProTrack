@@ -14,7 +14,7 @@ export async function GET() {
 
     const goals = await db.goal.findMany({
       where: { userId },
-      cacheStrategy: { swr: 60, ttl: 60 },
+      cacheStrategy: { swr: 60, ttl: 20 },
       orderBy: { createdAt: "desc" },
     });
 
