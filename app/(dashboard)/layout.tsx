@@ -57,16 +57,16 @@ function DashboardLayout({ children }: DashboardProps) {
           </div>
         </div>
 
-        {/* Hamburger Menu for Mobile */}
+        {/* Hamburger Menu for Mobile(Hidded for responsive reasons) */}
         <button
-          className="md:hidden p-3 text-purple-700 hover:text-purple-900 focus:outline-none"
+          className="hidden p-3 text-purple-700 hover:text-purple-900 focus:outline-none"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           <Image src={menuIcon} alt="menu" className="w-10 h-10" />
         </button>
 
         {/* Links */}
-        <div className="flex flex-col flex-1 px-2 overflow-y-auto">
+        <div className="flex flex-col flex-1 px-2 pt-3 overflow-y-auto">
           {/* Main Links */}
           <div className="md:mt-9">
             {SideBarLinks.map((link, index) => {

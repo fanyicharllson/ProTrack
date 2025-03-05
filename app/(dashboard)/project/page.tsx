@@ -185,7 +185,7 @@ export default function ProjectPage() {
         <FilterBtn
           disabledState={projects.length === 0 ? true : false}
           text="Status"
-          options={["All", "in progess", "completed", "not started"]}
+          options={["All", "in progress", "completed", "not started"]}
           selectedOption={selectedStatus}
           isOpen={openDropdown === "Status"}
           onClick={() => toggleDropdown("Status")}

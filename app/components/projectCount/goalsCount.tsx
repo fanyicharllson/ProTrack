@@ -27,7 +27,7 @@ function GoalStatusCount() {
   }, [goals]);
 
   return (
-    <div className="px-4 mt-2 text-sm flex text-gray-500 gap-2 items-center flex-wrap">
+    <div className="text-[13px] md:text-sm flex text-gray-500 gap-2 items-center flex-wrap">
       {goals.length} Goals
       {completedCount > 0 && <div>Completed: {completedCount}</div>}
       {inProgressCount > 0 && <div>In Progress: {inProgressCount}</div>}

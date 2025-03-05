@@ -1,4 +1,4 @@
-"usec client";
+"use client";
 
 import { usePathname } from "next/navigation";
 import RetryBtn from "../RetryBtn";
@@ -38,7 +38,7 @@ export default function Error({
         <h1 className="text-2xl max-sm-500:text-lg font-bold text-gray-500 mb-4 animate-pulse">
           Oops! Something&apos;s not right.
         </h1>
-        <p className="text-sm text-center md:text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+        <p className="text-[15px] text-center text-gray-700 dark:text-gray-400 mb-8 max-w-md mx-auto">
           {error}
         </p>
         <div className="flex justify-center mt-4">{handleRenderBtn()}</div>

@@ -38,7 +38,7 @@ export default function DashboardCard() {
         count={`${projects.length || "-"}`}
         onClick={() => router.push("/project")}
         date="last month"
-        percentage={"100% total projects"}
+        percentage={"80% total projects"}
         bgColor="bg-green-100"
         textColor="text-green-700"
       />

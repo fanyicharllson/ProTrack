@@ -50,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onSignIn }) => {
       onClick={onClose}
     >
       <motion.div
-        className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-md mx-4"
+        className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl w-[90%] max-w-md mx-4"
         variants={modalVariants}
       >
         <div className="text-center">
@@ -76,13 +76,13 @@ const Modal: React.FC<ModalProps> = ({ onClose, onSignIn }) => {
                 />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2">
               Session Update Required
             </h3>
           </motion.div>
 
           <motion.p
-            className="text-gray-600 dark:text-gray-300 mb-8"
+            className="text-gray-600 dark:text-gray-300 mb-8 text-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -94,7 +94,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onSignIn }) => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <motion.button
               onClick={onSignIn}
-              className="bg-purple-600 hover:bg-purple-500 text-white font-medium px-6 py-3 rounded-lg shadow-md shadow-purple-500/20"
+              className="bg-purple-600 hover:bg-purple-500 text-white font-medium px-6 py-3 rounded-lg shadow-md shadow-purple-500/20 text-sm"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"
@@ -105,7 +105,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onSignIn }) => {
 
             <motion.button
               onClick={onClose}
-              className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium px-6 py-3 rounded-lg"
+              className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium px-6 py-3 rounded-lg text-sm"
               variants={buttonVariants}
               whileHover="hover"
               whileTap="tap"

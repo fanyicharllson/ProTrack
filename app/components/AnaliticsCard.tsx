@@ -38,7 +38,7 @@ const AnaliticsCard: React.FC<ProjectCardProps> = ({
   console.log(`Selected Value: ${selectedValue}`);
 
   return (
-    <div className="dark:bg-gray-950 bg-white rounded-2xl py-2 px-2 shadow-lg border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
+    <div className="dark:bg-gray-950 bg-white rounded-2xl py-2 px-2 border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">

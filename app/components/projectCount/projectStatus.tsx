@@ -26,7 +26,7 @@ function ProjectStatus() {
   }, [projects]);
 
   return (
-    <div className="px-4 mt-2 text-sm flex text-gray-500 gap-2 items-center flex-wrap">
+    <div className="text-[12px] md:text-sm flex text-gray-500 gap-2 items-center flex-wrap">
       {projects.length} Projects
       {completedCount > 0 && <div>Completed: {completedCount}</div>}
       {ongoingCount > 0 && <div>In Progress: {ongoingCount}</div>}

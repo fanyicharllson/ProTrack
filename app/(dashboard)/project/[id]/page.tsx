@@ -59,8 +59,8 @@ export default function ProjectEditPage() {
           status: project.status as
             | "completed"
             | "cancelled"
-            | "ongoing"
-            | "pending",
+            | "in progress"
+            | "not started",
         }
       : {},
   });
@@ -265,8 +265,8 @@ export default function ProjectEditPage() {
                               <SelectItem value="cancelled">
                                 Cancelled
                               </SelectItem>
-                              <SelectItem value="ongoing">Ongoing</SelectItem>
-                              <SelectItem value="pending">Pending</SelectItem>
+                              <SelectItem value="in progress">In Progress</SelectItem>
+                              <SelectItem value="not started">Not Started</SelectItem>
                             </SelectGroup>
                           </SelectContent>
                         </Select>

@@ -53,6 +53,16 @@ function Dashboard() {
       December: 0,
     };
 
+    // Ensure projects is a valid array before using map() -- in case netwok issues arrises
+    if (!Array.isArray(projects)) {
+      return (
+        <Error
+          error="Error syncing your dashboard. Please refresh the page or check your network connection."
+          fetchProjects={fetchProjects}
+        />
+      );
+    }
+
     projects.forEach((project) => {
       const month = format(parseISO(project.date), "MMMM"); // Extract month name
       if (counts[month] !== undefined) {
@@ -61,7 +71,7 @@ function Dashboard() {
     });
 
     return counts;
-  }, [projects]);
+  }, [projects, fetchProjects]);
 
   // Define chart data dynamically
   const data = useMemo(

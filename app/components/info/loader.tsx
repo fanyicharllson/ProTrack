@@ -24,7 +24,7 @@ export default function Loader({ text }: LoaderProps) {
             {`${text}`}
           </span>
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-md mx-auto animate-pulse">
+        <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300 max-w-md mx-auto animate-pulse">
           Preparing your workspace, Please wait 
           <span className={`inline-flex ${mounted ? "animate-pulse" : ""}`}>
             <span className="mx-0.5 font-bold">.</span>
