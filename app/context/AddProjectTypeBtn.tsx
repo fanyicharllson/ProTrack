@@ -1,11 +1,12 @@
 "use client";
 
-import { Plus } from "lucide-react";
+import { Plus, Rocket } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React, { createContext, ReactNode, useContext, useState } from "react";
 // import { useRouter } from "next/navigation";
 import AddprojectForm from "../components/forms/AddprojectForm";
 import AddGoalForm from "../components/forms/AddgoalForm";
+import { Popup } from "../components/info/popup";
 
 interface AddProjectTypeBtnProps {
   btnText: string;
@@ -35,14 +36,14 @@ const AddProjectTypeBtnProvider: React.FC<{ children: ReactNode }> = ({
       return {
         btnText: "Add new Widget",
         onClick: () => {
-          setShowModal(false); //Do nothing(temoporary)
+          setShowModal(true);
         },
         showModal,
         setShowModal,
       };
     } else if (pathName === "/project") {
       return {
-        btnText: "Add new",
+        btnText: "Add new project",
         onClick: () => {
           setShowModal(true);
         },
@@ -107,6 +108,26 @@ const AddProjectBtn = () => {
       return <AddGoalForm setShowModal={setShowModal} />;
     } else if (/^\/goals\/[^/]+$/.test(pathName)) {
       return <AddGoalForm setShowModal={setShowModal} />;
+    } else if (pathName === "/project") {
+      return <AddprojectForm setShowModal={setShowModal} />;
+    } else if (pathName === "/dashboard") {
+      return (
+        <Popup
+          setShowModal={setShowModal}
+          message={
+            <div className="flex flex-col items-center">
+              <span className="font-bold max-sm-500:text-sm text-center">
+                Coming Soon!
+              </span>
+              <span className="text-[12px] md:text-sm opacity-90">
+                We&apos;re working on something special
+              </span>
+            </div>
+          }
+          variant="blue"
+          icon={<Rocket className="h-5 w-5 text-blue-600 dark:text-blue-300" />}
+        />
+      );
     } else {
       return <AddprojectForm setShowModal={setShowModal} />;
     }

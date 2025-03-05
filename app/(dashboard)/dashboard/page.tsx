@@ -17,10 +17,11 @@ import ProjectProgressBar from "@/app/components/charts/ProjectProgressBar";
 import { useProjectStore } from "@/store/ProjectStore";
 import Nogoals from "@/app/components/info/Nogoals";
 import Error from "@/app/components/info/ErrorMessage";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Loader from "@/app/components/info/loader";
 import { format, parseISO } from "date-fns";
 import { useTheme } from "next-themes";
+import AddprojectForm from "@/app/components/forms/AddprojectForm";
 
 ChartJS.register(
   CategoryScale,
@@ -35,6 +36,7 @@ function Dashboard() {
   const { projects, fetchProjects, loading, error } = useProjectStore();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
+  const [openModal, setOpenModal] = useState(false);
 
   // Compute project count per month
   const projectCountsByMonth = useMemo(() => {
@@ -168,8 +170,9 @@ function Dashboard() {
           <Nogoals
             text="project"
             buttonText="Add new project"
-            // onClick={() => setOpenModal(true)}
+            onClick={() => setOpenModal(true)}
           />
+          {openModal && <AddprojectForm setShowModal={setOpenModal} />}
         </>
       ) : (
         <div className="flex flex-col gap-4">
