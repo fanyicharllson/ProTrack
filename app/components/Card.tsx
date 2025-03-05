@@ -22,7 +22,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   textColor,
 }) => {
   return (
-    <div className="dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4 shadow-lg border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
+    <div className="dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4  shadow-lg border border-gray-300 dark:border-gray-700 transition duration-200 hover:shadow-xl flex flex-col h-50">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-semibold text-purple-600 dark:text-gray-200">

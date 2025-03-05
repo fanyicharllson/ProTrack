@@ -144,7 +144,7 @@ const GoalsChart = () => {
   }, [theme, monthlyGoalCounts]);
 
   return (
-    <div className="w-full h-80 md:h-80 lg:h-[30rem] p-4 rounded-2xl border border-gray-300">
+    <div className="w-full h-80 md:h-80 lg:h-[30rem] p-4 rounded-2xl border border-gray-300 dark:border-gray-700">
       <canvas ref={chartRef}></canvas>
     </div>
   );

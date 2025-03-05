@@ -178,7 +178,7 @@ function Dashboard() {
           {/* Barcharts and donuts graph */}
           <div className="px-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4 w-full">
-              <div className="relative min-h-[300px] md:min-h-[350px] flex justify-center items-center border border-gray-300 p-4 rounded-2xl lg:col-span-2">
+              <div className="relative min-h-[300px] md:min-h-[350px] flex justify-center items-center border dark:border-gray-700 border-gray-300 p-4 rounded-2xl lg:col-span-2">
                 <Bar data={data} options={options} />
               </div>
               <DonutChart />

@@ -67,7 +67,7 @@ const DonutChart = () => {
   );
 
   return (
-    <div className="relative bg-white dark:bg-gray-950 p-4 rounded-2xl border border-gray-300 flex flex-col items-center w-full px-4">
+    <div className="relative bg-white dark:bg-gray-950 p-4 rounded-2xl border dark:border-gray-700 border-gray-300 flex flex-col items-center w-full px-4">
       <div>
         <h2 className="text-sm font-semibold text-black dark:text-gray-200 mb-2">
           Project Distribution

@@ -24,7 +24,7 @@ interface ProjectProps {
 function ProjectTable({ projects }: ProjectProps) {
   const router = useRouter();
   return (
-    <div className="lg:col-span-2 border border-gray-300 p-4 rounded-2xl">
+    <div className="lg:col-span-2 border border-gray-300 dark:border-gray-700 p-4 rounded-2xl">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-sm font-semibold">Recent Projects</h2>
         <div>
