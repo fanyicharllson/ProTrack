@@ -32,6 +32,7 @@ function AccountSetting() {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isUpLoading, setisUpLoading] = useState(false);
+  const [isRemoving, setisRemoving] = useState(false);
   // const router = useRouter();
 
   const form = useForm<AccountAuth>({
@@ -145,8 +146,41 @@ function AccountSetting() {
                 "Upload New Profile"
               )}
             </button>
-            <button className="bg-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-900 text-black rounded-md px-4 py-2 text-sm transition-colors duration-300">
-              Remove Profile Picture
+
+            {/* Deleting profile */}
+            <button
+              className="bg-gray-300 dark:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50  dark:text-gray-300 dark:hover:bg-gray-900 text-black rounded-md px-4 py-2 text-sm transition-colors duration-300"
+              onClick={async () => {
+                setisRemoving(true);
+
+                const response = await fetch("/api/user/remove", {
+                  method: "DELETE",
+                });
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                  setShowModal(false);
+                  setErrorMessage(
+                    result.message || "Failed to remove profile picture"
+                  );
+                } else {
+                  await update({ image: null }); // Update session
+                }
+
+                setisRemoving(false);
+                setShowModal(true);
+              }}
+              disabled={isRemoving || !session?.user?.image}
+            >
+              {isRemoving ? (
+                <div className="flex items-center gap-4">
+                  <Loadingspin />
+                  <span>Removing profile...</span>
+                </div>
+              ) : (
+                "Remove Profile Picture"
+              )}
             </button>
           </div>
         </div>

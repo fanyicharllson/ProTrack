@@ -87,7 +87,7 @@ const Modal: React.FC<ModalProps> = ({ onClose, onSignIn }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            You&apos;ve updated your profile. To see the changes, please sign in
+            Changes made to your profile. To see the changes, please sign in
             again.
           </motion.p>
 

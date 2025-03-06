@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -21,44 +21,38 @@ interface ProjectCardProps {
     value: string;
     selectedItem: string;
   }>;
+  onSelectChange?: (value: string) => void;
 }
 
 const AnaliticsCard: React.FC<ProjectCardProps> = ({
   title,
   count,
-  bgColor,
-  textColor,
   selectLabel,
   selectItems,
+  onSelectChange,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(
-    undefined
-  );
-
-  console.log(`Selected Value: ${selectedValue}`);
-
   return (
-    <div className="dark:bg-gray-950 bg-white rounded-2xl py-2 px-2 border border-gray-300 dark:border-gray-300 transition duration-200 hover:shadow-xl flex flex-col h-50">
+    <div className="dark:bg-gray-950 bg-white rounded-2xl py-2 px-2 border border-gray-300 dark:border-gray-700 transition duration-200 hover:shadow-xl flex flex-col h-50">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+        <h2 className="text-sm md:text-lg font-semibold text-gray-800 dark:text-gray-200">
           {title}
         </h2>
         <div>
-          <Select onValueChange={(value) => setSelectedValue(value)}>
-            <SelectTrigger className="w-[120px]">
-              <SelectValue placeholder={`${selectLabel}`}/>
+          <Select onValueChange={(value) => onSelectChange?.(value)}>
+            <SelectTrigger className="w-[130px]">
+              <SelectValue placeholder={`${selectLabel}`} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel className="text-purple-600">{selectLabel}</SelectLabel>
+                <SelectLabel className="text-purple-600">
+                  {selectLabel}
+                </SelectLabel>
                 {selectItems.map(({ value, selectedItem }) => (
                   <SelectItem
                     key={value}
                     value={value}
-                    className={`text-gray-800 dark:text-gray-200 ${
-                      selectedValue === value ? "text-purple-600" : ""
-                    }`}
+                    className={`text-gray-800 dark:text-gray-200`}
                   >
                     {selectedItem}
                   </SelectItem>
@@ -70,9 +64,7 @@ const AnaliticsCard: React.FC<ProjectCardProps> = ({
       </div>
 
       {/* Project Count */}
-      <p className="mt-1 text-3xl font-bold text-purple-600">
-        {count}
-      </p>
+      <p className="mt-1 text-3xl font-bold text-purple-600">{count}</p>
 
       {/* Push the percentage to bottom */}
       <div className="flex-grow"></div>
