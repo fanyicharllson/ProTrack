@@ -56,6 +56,7 @@ function AnaliticsPage() {
           selectLabel="Project Status"
           selectItems={Items}
           onSelectChange={setSelectedProjectStatus}
+          totalGoalandProject={`Total Project: ${projects.length}`}
         />
         <AnaliticsCard
           title={`Goals (${getLabelForStatus(selectGoalStatus)})`}
@@ -63,6 +64,7 @@ function AnaliticsPage() {
           selectLabel="Goal Status"
           selectItems={Items}
           onSelectChange={setSelectGoalStatus}
+          totalGoalandProject={`Total Goal: ${goals.length}`}
         />
       </div>
       <AnaliticCharts />
