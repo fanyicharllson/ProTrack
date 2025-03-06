@@ -22,6 +22,8 @@ import {
   BtnDateText,
   DateBtnContextProvider,
 } from "../context/CalenderBtnContext";
+import { Popup } from "../components/info/popup";
+import { Rocket } from "lucide-react";
 
 interface DashboardProps {
   children: React.ReactNode;
@@ -30,6 +32,11 @@ interface DashboardProps {
 function DashboardLayout({ children }: DashboardProps) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const handleClickPopup = () => {
+    setShowPopUp(!showPopUp);
+  };
 
   return (
     <main className="flex w-full h-screen dark:bg-gray-950 dark:text-white transition-colors duration-300 max-sm-500:pb-[130px]">
@@ -178,7 +185,29 @@ function DashboardLayout({ children }: DashboardProps) {
                 className="w-6 h-6 dark:filter dark:brightness-0 dark:invert "
               />
             </div>
-            <div className="cursor-pointer border border-gray-300 dark:border-gray-800 dark:hover:bg-gray-800 rounded-full p-2">
+            {showPopUp && (
+              <Popup
+                setShowModal={setShowPopUp}
+                message={
+                  <div className="flex flex-col items-center">
+                    <span className="font-bold max-sm-500:text-sm text-center">
+                      Coming Soon!
+                    </span>
+                    <span className="text-[12px] md:text-sm opacity-90">
+                      We&apos;re working on something special
+                    </span>
+                  </div>
+                }
+                variant="blue"
+                icon={
+                  <Rocket className="h-5 w-5 text-blue-600 dark:text-blue-300" />
+                }
+              />
+            )}
+            <div
+              className="cursor-pointer border border-gray-300 dark:border-gray-800 dark:hover:bg-gray-800 rounded-full p-2"
+              onClick={handleClickPopup}
+            >
               <Image
                 src={notificationIcon}
                 alt="search"

@@ -17,6 +17,7 @@ import { DeletePrompt } from "@/app/components/info/PromptMsg";
 import SuccessDeleteModal from "@/app/components/info/SuccessdeleteMsg";
 import ProjectStatus from "@/app/components/projectCount/projectStatus";
 import { useRouter } from "next/navigation";
+import { Check, ClipboardCopy } from "lucide-react";
 
 export default function ProjectPage() {
   const {
@@ -166,6 +167,43 @@ export default function ProjectPage() {
 
   const filteredProjects = getFilteredProjects();
 
+  //truncateURl
+  const truncateUrl = (url: string, maxLength = 10) => {
+    if (url.length <= maxLength) return url;
+    return `${url.slice(0, 5)}...${url.slice(-5)}`;
+  };
+
+  // Copying url to clipboard
+  const CopyButton = ({ url }: { url: string }) => {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+      navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    };
+
+    return (
+      <div className="relative flex items-center space-x-2">
+        {/* Copy Button */}
+        <button
+          onClick={handleCopy}
+          className="rounded-md text-green-600  hover:text-green-500 transition"
+        >
+          <ClipboardCopy size={20} />
+        </button>
+
+        {/* Message Component (only visible when copied) */}
+        {copied && (
+          <div className="absolute flex items-center gap-1 top-[-30px] left-0 bg-green-100 dark:bg-gray-800 text-green-500 text-xs rounded-md px-2 py-1 shadow-md min-w-max">
+            <Check size={16}/>
+            URL Copied!
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       {/* Filter btns */}
@@ -267,9 +305,15 @@ export default function ProjectPage() {
                     <td className="py-3 px-4 text-sm capitalize">
                       {txn.type} app
                     </td>
-                    <td className="py-3 px-4 text-sm text-center">
-                      {" "}
-                      {txn.projectUrl === "" ? "-" : `${txn.projectUrl}`}
+                    <td className="py-3 px-4 text-center flex items-center gap-2 pt-5">
+                      {txn.projectUrl ? (
+                        <>
+                          <span>{truncateUrl(txn.projectUrl)}</span>
+                          <CopyButton url={txn.projectUrl} />
+                        </>
+                      ) : (
+                        "-"
+                      )}
                     </td>
                     <td className="py-3 px-4 text-sm">
                       <div
@@ -282,8 +326,9 @@ export default function ProjectPage() {
                     </td>
                     <td className="py-3 px-4 text-sm">
                       <div className="flex gap-2 items-center">
-                        <div className="cursor-pointer bg-purple-100 dark:bg-gray-800 rounded-full p-2"
-                         onClick={() => router.push(`/project/${txn.id}`)}
+                        <div
+                          className="cursor-pointer bg-purple-100 dark:bg-gray-800 rounded-full p-2"
+                          onClick={() => router.push(`/project/${txn.id}`)}
                         >
                           <Image
                             src={pencil}

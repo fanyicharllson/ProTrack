@@ -22,6 +22,7 @@ import Loader from "@/app/components/info/loader";
 import { format, parseISO } from "date-fns";
 import { useTheme } from "next-themes";
 import AddprojectForm from "@/app/components/forms/AddprojectForm";
+import WelcomeModal from "@/app/components/info/welcomeMesssage";
 
 ChartJS.register(
   CategoryScale,
@@ -165,6 +166,10 @@ function Dashboard() {
 
   return (
     <>
+    {/* Show welcome modal */}
+    <WelcomeModal/>
+
+    
       {projects.length === 0 ? (
         <>
           <Nogoals

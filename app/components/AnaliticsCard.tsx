@@ -31,7 +31,7 @@ const AnaliticsCard: React.FC<ProjectCardProps> = ({
   selectLabel,
   selectItems,
   onSelectChange,
-  totalGoalandProject
+  totalGoalandProject,
 }) => {
   return (
     <div className="dark:bg-gray-950 bg-white rounded-2xl py-2 px-2 border border-gray-300 dark:border-gray-700 transition duration-200 hover:shadow-xl flex flex-col h-50">
@@ -71,7 +71,9 @@ const AnaliticsCard: React.FC<ProjectCardProps> = ({
       {/* Push the percentage to bottom */}
       <div className="flex-grow"></div>
 
-      <div className="text-gray-400 text-sm pb-2 pt-3 text-right pr-4">{totalGoalandProject}</div>
+      <div className="text-gray-400 text-sm pb-2 pt-3 text-right pr-4">
+        {totalGoalandProject}
+      </div>
     </div>
   );
 };
