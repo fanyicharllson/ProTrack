@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
 import z from "zod";
 
-export const UserSchema = z.object({
+const UserSchema = z.object({
   username: z
     .string()
     .min(1, "Username is required")
