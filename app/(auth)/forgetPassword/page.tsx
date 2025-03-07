@@ -3,15 +3,7 @@
 import type React from "react";
 
 import { useState } from "react";
-import {
-  Eye,
-  EyeOff,
-  ArrowRight,
-  CheckCircle,
-  Mail,
-  Lock,
-  ArrowLeft,
-} from "lucide-react";
+import { Eye, EyeOff, CheckCircle, Mail, Lock, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,14 +20,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Message from "@/app/components/message";
 import Loadingspin from "@/app/components/loadingspin";
 
-//Email Schema
-const emailSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-});
-
-//password Schema
-const passwordSchema = z
+const updatePasswordSchema = z
   .object({
+    email: z.string().min(1, "Email is required").email("Invalid email"),
     password: z.string().min(8, "Password must have more than 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
   })
@@ -45,68 +32,56 @@ const passwordSchema = z
   });
 
 //Infer Typescript configuration
-type EmailData = z.infer<typeof emailSchema>;
-type PasswordData = z.infer<typeof passwordSchema>;
+type UpdatePasswordData = z.infer<typeof updatePasswordSchema>;
 
 export default function PasswordUpdate() {
   const router = useRouter();
-  const [step, setStep] = useState<"email" | "password" | "success">("email");
+  const [step, setStep] = useState<"password" | "success">("password");
   const [showPassword, setShowPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  //Email  useform state
+  // Password useform state
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
     reset,
-  } = useForm<EmailData>({
-    resolver: zodResolver(emailSchema),
+  } = useForm<UpdatePasswordData>({
+    resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
       email: "",
-    },
-  });
-
-  // Password useform state
-  const passwordForm = useForm<PasswordData>({
-    resolver: zodResolver(passwordSchema),
-    defaultValues: {
       password: "",
       confirmPassword: "",
     },
   });
 
-  const handleEmailSubmit = async (data: EmailData) => {
-    console.log("Email data: ", data.email);
+  const handlePasswordEmailSubmit = async (data: UpdatePasswordData) => {
+    setErrorMessage("");
     setSuccessMessage("");
 
-    const response = await fetch("/api/send", {
+    const response = await fetch("/api/user/update-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: data.email }),
+      body: JSON.stringify(data),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      setSuccessMessage(data.message);
+    if (!response.ok) {
+      const errorData = await response.json();
+      setErrorMessage(errorData.message);
+      console.log("Error: ", errorData.message);
       setStep("password");
     } else {
       const data = await response.json();
-      setErrorMessage(data.message);
+      setSuccessMessage(data.message);
       reset();
-    }
-  };
 
-  const handlePasswordSubmit = (data: PasswordData) => {
-    console.log("Password data: ", data);
-    reset();
-    // Simulate API call
-    setTimeout(() => {
-      setStep("success");
-    }, 1500);
+      setTimeout(() => {
+        setStep("success");
+      }, 1500);
+    }
   };
 
   return (
@@ -132,56 +107,6 @@ export default function PasswordUpdate() {
               <h1 className="text-2xl font-bold text-purple-800">ProTrack</h1>
             </div>
 
-            {step === "email" && (
-              <Card className="dark:bg-gray-900">
-                <CardHeader className="space-y-1">
-                  <CardTitle className="text-2xl font-bold text-center dark:text-white">
-                    Reset Password
-                  </CardTitle>
-                  <CardDescription className="text-center">
-                    Enter your email to confirm your identity
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form
-                    onSubmit={handleSubmit(handleEmailSubmit)}
-                    className="space-y-4"
-                  >
-                    <div className="space-y-2">
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                        <input
-                          {...register("email")}
-                          placeholder="Enter your email"
-                          className="input"
-                        />
-                        {errors.email && (
-                          <p className="text-red-500 text-sm">
-                            {errors.email.message}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <Button
-                      type="submit"
-                      className="w-full bg-purple-600 hover:bg-purple-700 disabled:cursor-not-allowed dark:text-white"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center gap-1">
-                          <Loadingspin />
-                          <span>Verifying...</span>
-                        </div>
-                      ) : (
-                        "Continue"
-                      )}
-                      {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            )}
-
             {step === "password" && (
               <Card className="dark:bg-gray-900">
                 <CardHeader className="space-y-1">
@@ -194,22 +119,38 @@ export default function PasswordUpdate() {
                 </CardHeader>
                 <CardContent>
                   <form
-                    onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)}
+                    onSubmit={handleSubmit(handlePasswordEmailSubmit)}
                     className="space-y-4"
                   >
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <div className="relative">
+                          <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                          <input
+                            {...register("email")}
+                            placeholder="Previous email"
+                            className="input"
+                          />
+                          {errors.email && (
+                            <p className="text-red-500 text-sm">
+                              {errors.email.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="relative">
                           <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <input
-                            {...passwordForm.register("password")}
+                            {...register("password")}
                             type={showPassword ? "text" : "password"}
                             placeholder="New password"
                             className="input pr-10"
                           />
-                          {passwordForm.formState.errors.password && (
+                          {errors.password && (
                             <p className="text-red-500 text-sm">
-                              {passwordForm.formState.errors.password.message}
+                              {errors.password.message}
                             </p>
                           )}
                           <Button
@@ -234,17 +175,14 @@ export default function PasswordUpdate() {
                         <div className="relative">
                           <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                           <input
-                            {...passwordForm.register("confirmPassword")}
+                            {...register("confirmPassword")}
                             type={showPassword ? "text" : "password"}
                             placeholder="Confirm new password"
                             className="input"
                           />
-                          {passwordForm.formState.errors.confirmPassword && (
+                          {errors.confirmPassword && (
                             <p className="text-red-500 text-sm">
-                              {
-                                passwordForm.formState.errors.confirmPassword
-                                  .message
-                              }
+                              {errors.confirmPassword.message}
                             </p>
                           )}
                         </div>
@@ -252,12 +190,17 @@ export default function PasswordUpdate() {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-purple-600 hover:bg-purple-700 dark:text-white"
-                      disabled={passwordForm.formState.isSubmitting}
+                      className="w-full bg-purple-600 hover:bg-purple-700 dark:text-white disabled:cursor-not-allowed"
+                      disabled={isSubmitting}
                     >
-                      {passwordForm.formState.isSubmitting
-                        ? "Updating..."
-                        : "Update Password"}
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <Loadingspin />
+                          <span>Updating password...</span>
+                        </div>
+                      ) : (
+                        "Update Password"
+                      )}
                     </Button>
                   </form>
                 </CardContent>

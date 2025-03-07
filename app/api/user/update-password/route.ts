@@ -1,11 +1,12 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { hash } from "bcrypt"; 
+import { hash } from "bcrypt";
 import { z } from "zod";
 
-//password Schema
+// Password Schema
 const passwordSchema = z
   .object({
+    email: z.string().email("Invalid email address"), // new email to be updated
     password: z.string().min(8, "Password must have more than 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
   })
@@ -16,7 +17,6 @@ const passwordSchema = z
 
 export async function POST(req: Request) {
   try {
-    // Parse the request body
     const bodyText = await req.text();
     if (!bodyText) {
       return NextResponse.json(
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     }
 
     const body = JSON.parse(bodyText);
-    const { email, password } = passwordSchema.parse(body);
+    const { email, password, confirmPassword } = passwordSchema.parse(body);
 
     // Find user by email
     const user = await db.user.findUnique({
@@ -35,8 +35,24 @@ export async function POST(req: Request) {
 
     if (!user) {
       return NextResponse.json(
-        { message: "User not found" },
+        { message: "User with the email not found" },
         { status: 404 }
+      );
+    }
+
+    // Ensure the old email matches the email stored in the database
+    if (user.email !== email) {
+      return NextResponse.json(
+        { message: "Old email does not match the current email" },
+        { status: 400 }
+      );
+    }
+
+    //verify if password match
+    if (password !== confirmPassword) {
+      return NextResponse.json(
+        { message: "Passwords do Match! Please try again" },
+        { status: 400 }
       );
     }
 
@@ -54,6 +70,7 @@ export async function POST(req: Request) {
       { status: 200 }
     );
   } catch (error) {
+    console.log(error);
     if (error instanceof SyntaxError) {
       return NextResponse.json(
         { message: "Invalid JSON format" },
