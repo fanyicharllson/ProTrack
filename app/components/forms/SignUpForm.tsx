@@ -23,7 +23,6 @@ import ProjectImage from "@/public/images/project3.png";
 import { useState } from "react";
 import Message from "../message";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import Logo from "../Logo";
 import Loadingspin from "../loadingspin";
 
