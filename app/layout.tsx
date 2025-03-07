@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "./components/Provider";
 import { ThemeProvider } from "./components/theme-provider";
 import { NavTitleProvider } from "./context/UpdateNavTittle";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,10 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <NavTitleProvider>{children}</NavTitleProvider>
+            <NavTitleProvider>
+              {children}
+              <SpeedInsights />
+            </NavTitleProvider>
           </ThemeProvider>
         </body>
       </Provider>
