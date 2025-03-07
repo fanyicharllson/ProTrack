@@ -158,7 +158,7 @@ export default function SignUpPage() {
                           </FormItem>
                           <div>
                             <Link
-                              href="#"
+                              href="/forgetPassword"
                               className="text-purple-700 hover:underline text-sm"
                             >
                               Forgot password?

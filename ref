@@ -26,3 +26,37 @@
 
 // export default ProjectList;
 
+
+//Email verifacion code=============================================
+
+// const verificationCode = Math.floor(
+//     100000 + Math.random() * 900000
+//   ).toString();
+//   const expiry = new Date(Date.now() + 10 * 60 * 1000);
+
+//   await db.verificationCode.upsert({
+//     where: { userId: user.id },
+//     update: { code: verificationCode, expiresAt: expiry },
+//     create: { userId: user.id, code: verificationCode, expiresAt: expiry },
+//   });
+
+//   // Render the email template as a string
+//   const emailHtml = `
+//     <div>
+//       <h2>Verify Your Email</h2>
+//       <p>Hello ${user.username || "User"}, use this code: ${verificationCode}</p>
+//     </div>
+//   `;
+
+//   // Send the email
+//   const { data, error } = await resend.emails.send({
+//     from: "ProTrack <no-reply@protrack.com>",
+//     to: email,
+//     subject: "Your ProTrack Verification Code",
+//     html: emailHtml,
+//   });
+
+//   if (error) {
+//     console.log(error)
+//     return NextResponse.json({ message: "Failed to send email", error });
+//   }

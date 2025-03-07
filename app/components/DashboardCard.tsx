@@ -3,6 +3,7 @@ import ProjectCard from "./Card";
 import { useRouter } from "next/navigation";
 import { useProjectStore } from "@/store/ProjectStore";
 import { calculateOverallProgress } from "@/utils/progress";
+import { formatDistanceToNow } from "date-fns";
 
 // Ensure projects match the expected type
 export default function DashboardCard() {
@@ -18,7 +19,14 @@ export default function DashboardCard() {
       | "in progress"
       | "not started"
       | "cancelled",
+    createdAt: project.createdAt ? new Date(project.createdAt) : null,
   }));
+
+  // Function to get the relative time
+  const getRelativeTime = (date: Date | null) => {
+    if (!date) return "N/A";
+    return formatDistanceToNow(date, { addSuffix: true });
+  };
 
   // State to store calculated percentages
   const [completedPercentage, setCompletedPercentage] = useState(0);
@@ -37,7 +45,12 @@ export default function DashboardCard() {
         title="Total Projects"
         count={`${projects.length || "-"}`}
         onClick={() => router.push("/project")}
-        date="last month"
+        date={getRelativeTime(
+          formattedProjects.sort(
+            (a, b) =>
+              (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
+          )[0]?.createdAt || null
+        )}
         percentage={"80% total projects"}
         bgColor="bg-green-100"
         textColor="text-green-700"
@@ -48,7 +61,14 @@ export default function DashboardCard() {
           projects.filter((p) => p.status === "completed").length || "-"
         }`}
         onClick={() => router.push("/project")}
-        date="two days ago"
+        date={getRelativeTime(
+          formattedProjects
+            .filter((p) => p.status === "completed")
+            .sort(
+              (a, b) =>
+                (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
+            )[0]?.createdAt || null
+        )}
         percentage={`${completedPercentage}% completed`}
         bgColor="bg-red-100"
         textColor="text-red-700"
@@ -59,7 +79,14 @@ export default function DashboardCard() {
           projects.filter((p) => p.status === "in progress").length || "-"
         }`}
         onClick={() => router.push("/project")}
-        date="last year"
+        date={getRelativeTime(
+          formattedProjects
+            .filter((p) => p.status === "in progress")
+            .sort(
+              (a, b) =>
+                (b.createdAt?.getTime() || 0) - (a.createdAt?.getTime() || 0)
+            )[0]?.createdAt || null
+        )}
         percentage={`${ongoingPercentage}% in progress`}
         bgColor="bg-purple-100"
         textColor="text-purple-700"
@@ -68,7 +95,7 @@ export default function DashboardCard() {
         title="Upcoming Deadlines"
         count={"-"}
         onClick={() => router.push("/project")}
-        date="last month"
+        date={getRelativeTime(formattedProjects[0]?.createdAt)}
         percentage="20.9% deadlines"
         bgColor="bg-green-100"
         textColor="text-green-700"

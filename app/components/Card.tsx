@@ -22,7 +22,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   textColor,
 }) => {
   return (
-    <div className="dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-4  shadow-lg border border-gray-300 dark:border-gray-700 transition duration-200 hover:shadow-xl flex flex-col h-50">
+    <div className="dark:bg-gray-950 bg-white rounded-2xl pl-2 pb-2  shadow-lg border border-gray-300 dark:border-gray-700 transition duration-200 hover:shadow-xl flex flex-col h-50">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-sm font-semibold text-purple-600 dark:text-gray-200">
@@ -51,15 +51,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {/* Percentage Completion - Always aligned at the bottom */}
       {percentage && (
-        <div className="mt-auto pt-5 flex gap-2 items-center">
+        <div className="mt-auto pt-5">
           <span
             className={`px-3 py-1 text-xs font-semibold ${bgColor} ${textColor}  rounded-full`}
           >
             {percentage}
           </span>
-          <p className="text-gray-400 text-sm">{date}</p>
         </div>
       )}
+      <div className="text-right pr-4 pt-3">
+        <p className="text-gray-400 text-[13px]">{date}</p>
+      </div>
     </div>
   );
 };

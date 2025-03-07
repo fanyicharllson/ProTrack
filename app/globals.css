@@ -100,6 +100,12 @@ body {
   }
 }
 
+@layer utilities {
+  .input {
+    @apply w-full px-3 py-2 border rounded-md dark:bg-gray-800 dark:text-white bg-gray-100 text-gray-600 outline-none focus:border-purple-500 focus:ring-purple-500 focus:ring-1 transition-all duration-300 pl-10;
+  }
+}
+
 
 
 @layer base {

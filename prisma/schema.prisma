@@ -14,15 +14,16 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  username  String?   @unique
-  password  String
-  image     String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  projects  Project[]
-  goals     Goal[]
+  id                String             @id @default(cuid())
+  email             String             @unique
+  username          String?            @unique
+  password          String
+  image             String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  verificationCodes VerificationCode[]
+  projects          Project[]
+  goals             Goal[]
 }
 
 model Project {
@@ -74,4 +75,14 @@ model FeedBack {
   likeMost        String
   generalFeedback String
   wouldRecommend  String
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  code      String
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
 }
