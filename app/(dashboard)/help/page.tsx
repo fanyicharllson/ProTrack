@@ -4,9 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils"; // Utility function for conditional classNames
 import { HelpForm } from "@/app/components/forms/Helpform";
 
-export const SettingLinks = [
-  { id: "H001", title: "Help" },
-];
+const SettingLinks = [{ id: "H001", title: "Help" }];
 
 const HelpPage = () => {
   const [activeTab, setActiveTab] = useState("H001");
