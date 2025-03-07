@@ -4,7 +4,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import AccountSetting from "@/app/components/AccountSetting";
 
-export const SettingLinks = [
+const SettingLinks = [
   { id: "S001", title: "Account Settings", enabled: true },
   { id: "S002", title: "Notification Settings", enabled: false },
   { id: "S003", title: "Login & Security", enabled: false },
